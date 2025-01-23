@@ -2,7 +2,9 @@ from skyfield.api import EarthSatellite, load, utc
 from typing import List, Tuple
 import datetime
 import csv
+import os
 from datetime import timedelta, timezone
+from pathlib import Path
 
 class TLEParser:
     def __init__(self, filename: str):
@@ -57,59 +59,53 @@ class TLEParser:
             
         return self.satellites
 
-    def get_position_snapshots(self, start_timestamp: float, num_snapshots: int, time_step_seconds: int):
+    def get_and_save_position_snapshot(self, timestamp: float, output_dir: Path):
         """
-        Get multiple snapshots of satellite positions over time.
+        Get and save a single snapshot of satellite positions.
         
         Args:
-            start_timestamp (float): Unix timestamp for start time
-            num_snapshots (int): Number of snapshots to take
-            time_step_seconds (int): Seconds between snapshots
-            
-        Returns:
-            List of position data dictionaries
+            timestamp (float): Unix timestamp for the snapshot
+            output_dir (Path): Directory to save the snapshot
         """
+        # Convert Unix timestamp to skyfield time
+        t = self.ts.from_datetime(datetime.datetime.fromtimestamp(timestamp, tz=timezone.utc))
+        
+        # Create list to store positions for this timestamp
         position_data = []
         
-        for i in range(num_snapshots):
-            # Calculate time for this snapshot
-            current_timestamp = start_timestamp + (i * time_step_seconds)
-            # Convert Unix timestamp to skyfield time
-            t = self.ts.from_datetime(datetime.datetime.fromtimestamp(current_timestamp, tz=timezone.utc))
+        # Get position for each satellite
+        for sat in self.satellites:
+            geocentric = sat.at(t)
+            subpoint = geocentric.subpoint()
+            id = sat.name.split("-")[1].split(" ")[1]
             
-            # Get position for each satellite at this time
-            for sat in self.satellites:
-                geocentric = sat.at(t)
-                subpoint = geocentric.subpoint()
-                
-                position_data.append({ 
-                    'timestamp': current_timestamp,
-                    'satellite': sat.name,
-                    'latitude': round(subpoint.latitude.degrees, 4),
-                    'longitude': round(subpoint.longitude.degrees, 4),
-                    'height_km': round(subpoint.elevation.km, 2)
-                })
-                
-        return position_data
-    
-    def save_positions_to_csv(self, positions, output_file: str):
-        """
-        Save position data to CSV file.
+            position_data.append({
+                'timestamp': timestamp,
+                'satellite': sat.name,
+                'id': id,
+                'latitude': round(subpoint.latitude.degrees, 4),
+                'longitude': round(subpoint.longitude.degrees, 4),
+                'height_km': round(subpoint.elevation.km, 2)
+            })
         
-        Args:
-            positions: List of position dictionaries
-            output_file (str): Path to output CSV file
-        """
-        fieldnames = ['timestamp', 'satellite', 'latitude', 'longitude', 'height_km']
+        # Create filename with timestamp
+        filename = output_dir / f"{int(timestamp)}.csv"
         
-        with open(output_file, 'w', newline='') as csvfile:
+        # Save to CSV
+        fieldnames = ['timestamp', 'satellite', 'id', 'latitude', 'longitude', 'height_km']
+        with open(filename, 'w', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(positions)
+            writer.writerows(position_data)
+        
+        return len(position_data)
 
 def main():
-    tle_file = "../constellations/starlink_550/tles.txt"  # Replace with your TLE file path
-    output_file = "../positions/starlink_550.csv"
+    tle_file = "../constellations/starlink_550/tles.txt"
+    base_output_dir = Path("../positions/starlink_550")
+    
+    # Create output directory if it doesn't exist
+    base_output_dir.mkdir(parents=True, exist_ok=True)
     
     parser = TLEParser(tle_file)
     
@@ -118,17 +114,23 @@ def main():
         satellites = parser.create_satellites()
         
         # Configuration for snapshots
-        start_timestamp = datetime.datetime.now(timezone.utc).timestamp()  # Current time as Unix timestamp
-        num_snapshots = 1  # Take 60 snapshots
-        time_step_seconds = 1  # Every 60 seconds
+        start_timestamp = datetime.datetime.now(timezone.utc).timestamp()
+        num_snapshots = 10
+        time_step_seconds = 60
         
-        # Get position snapshots
-        positions = parser.get_position_snapshots(start_timestamp, num_snapshots, time_step_seconds)
+        total_positions = 0
         
-        # Save to CSV
-        parser.save_positions_to_csv(positions, output_file)
+        # Process each snapshot
+        for i in range(num_snapshots):
+            current_timestamp = start_timestamp + (i * time_step_seconds)
+            positions_count = parser.get_and_save_position_snapshot(current_timestamp, base_output_dir)
+            total_positions += positions_count
+            
+            # Print progress
+            if (i + 1) % 10 == 0:
+                print(f"Processed {i + 1}/{num_snapshots} snapshots...")
         
-        print(f"Saved {len(positions)} position records to {output_file}")
+        print(f"Saved {total_positions} position records to {base_output_dir}")
         print(f"Time span: {time_step_seconds * (num_snapshots-1)} seconds")
         print(f"Number of satellites tracked: {len(satellites)}")
         print(f"Start timestamp: {start_timestamp}")
@@ -139,5 +141,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

@@ -1,15 +1,20 @@
 import {
   Viewer,
   Cartesian3,
-  Math,
   Terrain,
   createOsmBuildingsAsync,
   Color,
-  OpenStreetMapImageryProvider
+  OpenStreetMapImageryProvider,
+  ArcType,
+  HorizontalOrigin,
+  VerticalOrigin,
+  LabelStyle,
+  Cartesian2,
+  DistanceDisplayCondition
 } from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./css/main.css";
-import { loadSatellites } from "./satellites-parser";
+import { loadSatellites, loadISLs, loadCities } from "./satellites-parser";
 
 
 // CesiumJS has a default access token built in but it's not meant for active use.
@@ -83,42 +88,88 @@ const addSatellite = (longitude, latitude, height = 550000) => {
   return entity;
 };
 
+const addCity = (viewer, city) => {
+  const DOT_SIZE = 50; // Base size in pixels
+  const scaleFactor = city.population / 100000;
+  
+  return viewer.entities.add({
+      name: city.name,
+      position: Cartesian3.fromDegrees(city.longitude, city.latitude),
+      point: {
+          pixelSize: DOT_SIZE * Math.sqrt(scaleFactor), // Using square root for more reasonable scaling
+          color: Color.YELLOW.withAlpha(0.8),
+          outlineColor: Color.BLACK,
+          outlineWidth: 1,
+          // Add a scale-based minimum size to ensure all cities are visible
+          pixelSize: Math.max(3, DOT_SIZE * Math.sqrt(scaleFactor))
+      },
+      label: {
+          text: city.name,
+          font: '12px sans-serif',
+          horizontalOrigin: HorizontalOrigin.LEFT,
+          verticalOrigin: VerticalOrigin.BOTTOM,
+          pixelOffset: new Cartesian2(5, 5),
+          fillColor: Color.WHITE,
+          outlineColor: Color.BLACK,
+          outlineWidth: 2,
+          style: LabelStyle.FILL_AND_OUTLINE,
+          // Only show labels when zoomed in
+          distanceDisplayCondition: new DistanceDisplayCondition(0, 5000000)
+      }
+  });
+};
+
 // Initialize satellites function with batch processing
 const initializeSatellites = async () => {
   try {
-    const satellites = await loadSatellites('starlink_550.csv');
-    console.log(`Starting to add ${satellites.length} satellites...`);
-    
-    // Create an entity collection for better performance
-    const entityCollection = viewer.entities;
-    let successCount = 0;
+      const cities = await loadCities('cities.csv');
+      console.log('Adding cities to the map...');
+      cities.forEach(city => addCity(viewer, city));
 
-    // Process satellites in batches
-    satellites.forEach((sat, index) => {
-      const entity = addSatellite(
-        sat.longitude,
-        sat.latitude,
-        sat.height
-      );
+      const satellites = await loadSatellites('starlink_550.csv');
+      console.log(`Starting to add ${satellites.length} satellites...`);
       
-      if (entity) {
-        entity.name = sat.name;
-        successCount++;
-      }
+      // Create map of satellite ID to position
+      const satellitePositions = new Map();
+      
+      satellites.forEach((sat) => {
+          const entity = addSatellite(sat.longitude, sat.latitude, sat.height);
+          if (entity) {
+              entity.name = sat.name;
+              satellitePositions.set(sat.id, {
+                  longitude: sat.longitude,
+                  latitude: sat.latitude,
+                  height: sat.height
+              });
+              console.log(`added ${sat.id} with longitude ${sat.longitude}`)
+          }
+      });
 
-      // Log progress every 100 satellites
-      if ((index + 1) % 100 === 0) {
-        console.log(`Processed ${index + 1} satellites out of ${satellites.length}`);
-      }
-    });
+      // Load and add ISLs
+      const isls = await loadISLs('isls.txt');
+      isls.forEach(({ a, b }) => {
+          const posA = satellitePositions.get(a);
+          const posB = satellitePositions.get(b);
 
-    console.log(`Successfully added ${successCount} out of ${satellites.length} satellites`);
-    
-    // Adjust the camera to see all satellites
-    viewer.zoomTo(entityCollection, new HeadingPitchRange(0, -Math.PI/2, 20000000));
-    
+          console.log(`Sats ${a} and ${b} link, posA ${posA} posB ${posB}`)
+          
+          if (posA && posB) {
+              viewer.entities.add({
+                  polyline: {
+                      positions: Cartesian3.fromDegreesArrayHeights([
+                          posA.longitude, posA.latitude, posA.height,
+                          posB.longitude, posB.latitude, posB.height
+                      ]),
+                      width: 1,
+                      material: Color.BLUE.withAlpha(0.5),
+                      arcType: ArcType.NONE  // Straight line instead of following the curve of the Earth
+                  }
+              });
+          }
+      });
+
   } catch (error) {
-    console.error('Failed to load satellites:', error);
+      console.error('Failed to load satellites and ISLs:', error);
   }
 };
 
