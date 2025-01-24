@@ -79,7 +79,7 @@ const addSatellite = (longitude, latitude, height = 550000) => {
   const entity = viewer.entities.add({
     position: Cartesian3.fromDegrees(longitude, latitude, height),
     ellipsoid: {
-      radii: new Cartesian3(10000.0, 10000.0, 10000.0), // Made satellites smaller
+      radii: new Cartesian3(20000.0, 20000.0, 20000.0), // Made satellites smaller
       material: Color.BLACK.withAlpha(1), // Made them red and slightly transparent
       outline: true,
       outlineColor: Color.BLACK,
@@ -186,12 +186,12 @@ const initializeSatellites = async () => {
           const satellite = satellitePositions.get(satelliteId);
           
           if (city && satellite) {
-              console.log(`City: ${city} Satellite ${satellite}`)
+              // console.log(`City: ${city} Satellite ${satellite}`)
               viewer.entities.add({
                   polyline: {
                       positions: Cartesian3.fromDegreesArrayHeights([
                           city.longitude, city.latitude, 0, // City at ground level
-                          satellite.longitude, satellite.latitude, satellite.height * 1000
+                          satellite.longitude, satellite.latitude, satellite.height
                       ]),
                       width: 1,
                       material: Color.YELLOW.withAlpha(0.2), // Faint yellow line

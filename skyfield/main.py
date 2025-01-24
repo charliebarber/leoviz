@@ -48,7 +48,7 @@ def main():
             network.update_node_positions(gs_positions, node_type='ground_station')
             
             # Update visibility edges
-            network.update_visibility_edges(min_elevation_angle)
+            network.update_visibility_edges(max_gsl_length_m, min_elevation_angle)
             
             # Save only satellite positions to CSV
             output_file = base_output_dir / f"{int(current_timestamp)}.csv"
