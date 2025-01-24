@@ -87,3 +87,19 @@ export const loadCities = async (filepath) => {
         throw error;
     }
 };
+
+export const loadGSLs = async (filepath) => {
+    try {
+        const response = await fetch(filepath);
+        const text = await response.text();
+        return text.split('\n')
+            .filter(line => line.trim().length > 0)
+            .map(line => {
+                const [cityId, satelliteId] = line.split(' ').map(Number);
+                return { cityId, satelliteId };
+            });
+    } catch (error) {
+        console.error('Error loading ground station links:', error);
+        throw error;
+    }
+};

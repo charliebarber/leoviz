@@ -14,7 +14,7 @@ import {
 } from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./css/main.css";
-import { loadSatellites, loadISLs, loadCities } from "./satellites-parser";
+import { loadSatellites, loadISLs, loadCities, loadGSLs } from "./satellites-parser";
 
 
 // CesiumJS has a default access token built in but it's not meant for active use.
@@ -122,9 +122,19 @@ const addCity = (viewer, city) => {
 // Initialize satellites function with batch processing
 const initializeSatellites = async () => {
   try {
+      // Load cities first and store their positions
+      console.log('Loading cities data...');
       const cities = await loadCities('cities.csv');
+      const cityPositions = new Map();
+      
       console.log('Adding cities to the map...');
-      cities.forEach(city => addCity(viewer, city));
+      cities.forEach(city => {
+          addCity(viewer, city);
+          cityPositions.set(city.id, {
+              longitude: city.longitude,
+              latitude: city.latitude
+          });
+      });
 
       const satellites = await loadSatellites('starlink_550.csv');
       console.log(`Starting to add ${satellites.length} satellites...`);
@@ -163,6 +173,29 @@ const initializeSatellites = async () => {
                       width: 1,
                       material: Color.BLUE.withAlpha(0.5),
                       arcType: ArcType.NONE  // Straight line instead of following the curve of the Earth
+                  }
+              });
+          }
+      });
+
+      // Add ground station links
+      console.log('Loading and adding ground station links...');
+      const gsls = await loadGSLs('gsls.txt');
+      gsls.forEach(({ cityId, satelliteId }) => {
+          const city = cityPositions.get(cityId);
+          const satellite = satellitePositions.get(satelliteId);
+          
+          if (city && satellite) {
+              console.log(`City: ${city} Satellite ${satellite}`)
+              viewer.entities.add({
+                  polyline: {
+                      positions: Cartesian3.fromDegreesArrayHeights([
+                          city.longitude, city.latitude, 0, // City at ground level
+                          satellite.longitude, satellite.latitude, satellite.height * 1000
+                      ]),
+                      width: 1,
+                      material: Color.YELLOW.withAlpha(0.2), // Faint yellow line
+                      arcType: ArcType.NONE
                   }
               });
           }
