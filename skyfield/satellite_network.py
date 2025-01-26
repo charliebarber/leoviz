@@ -1,5 +1,11 @@
 import networkx as nx
 from typing import List, Dict
+from math import radians, cos, sin, asin, sqrt
+from math import radians, degrees, cos, sin, asin, sqrt, atan2
+from concurrent.futures import ThreadPoolExecutor
+import itertools
+from tqdm import tqdm
+
 
 class SatelliteNetwork:
     """
@@ -25,7 +31,7 @@ class SatelliteNetwork:
                 # Parse the two node IDs from each line
                 node1, node2 = map(str, line.strip().split())
                 # Add single undirected edge
-                self.graph.add_edge(node1, node2)
+                self.graph.add_edge(node1, node2, type="ISL")
     
     def get_graph(self) -> nx.Graph:
         """
@@ -78,7 +84,6 @@ class SatelliteNetwork:
         Returns:
             List[tuple]: List of (ground_station_id, satellite_id) pairs
         """
-        from math import radians, degrees, cos, sin, asin, sqrt, atan2
         
         visible_pairs = []
         R_EARTH = 6371000.0  # Earth radius in meters
@@ -129,11 +134,11 @@ class SatelliteNetwork:
                 )
                 
                 if distance <= max_gsl_length_m and elevation >= min_elevation_angle:
-                    visible_pairs.append((gs, sat))
+                    visible_pairs.append((gs, sat, distance))
                     visible_count += 1
             
-            print(f"Ground station {gs}: {visible_count} visible satellites "
-                  f"(distance <= {max_gsl_length_m/1000:.2f}km, elevation >= {min_elevation_angle}°)")
+            # print(f"Ground station {gs}: {visible_count} visible satellites "
+                #   f"(distance <= {max_gsl_length_m/1000:.2f}km, elevation >= {min_elevation_angle}°)")
             
         print(f"Total visible pairs found: {len(visible_pairs)}")
         return visible_pairs
@@ -153,8 +158,52 @@ class SatelliteNetwork:
         
         # Add new visibility edges
         visible_pairs = self.find_visible_satellites(max_gsl_length_m, min_elevation_angle)
-        for gs, sat in visible_pairs:
-            self.graph.add_edge(gs, sat, type='visibility')
+        for gs, sat, distance in visible_pairs:
+            self.graph.add_edge(gs, sat, type='visibility', distance=distance)
+    
+    def calculate_isl_distance(self, sat1_id: str, sat2_id: str) -> float:
+        """Calculate straight-line distance between two satellites in meters."""
+        sat1 = self.graph.nodes[sat1_id]
+        sat2 = self.graph.nodes[sat2_id]
+        
+        # Convert to radians
+        lat1, lon1 = map(radians, [sat1['latitude'], sat1['longitude']])
+        lat2, lon2 = map(radians, [sat2['latitude'], sat2['longitude']])
+        
+        # Get altitudes in meters
+        alt1 = sat1['height_km'] * 1000
+        alt2 = sat2['height_km'] * 1000
+        R_EARTH = 6371000.0  # Earth radius in meters
+        
+        # Calculate great circle distance at the satellites' altitude
+        dlon = lon2 - lon1
+        dlat = lat2 - lat1
+        
+        # Use haversine formula to get angular distance
+        a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+        c = 2 * asin(sqrt(a))
+        
+        # Calculate arc distance at each satellite's altitude
+        arc1 = (R_EARTH + alt1) * c
+        arc2 = (R_EARTH + alt2) * c
+        
+        # Average of arc distances gives approximate chord length
+        arc_avg = (arc1 + arc2) / 2
+        
+        # Calculate straight-line (chord) distance using altitude difference
+        delta_h = abs(alt2 - alt1)
+        distance = sqrt(arc_avg**2 + delta_h**2)
+        
+        return distance
+
+    def update_isl_distances(self):
+        """Update ISL edges with their distances."""
+        isl_edges = [(u, v) for u, v, d in self.graph.edges(data=True) 
+                    if d.get('type') == 'ISL']
+        
+        for sat1, sat2 in isl_edges:
+            distance = self.calculate_isl_distance(sat1, sat2)
+            self.graph.edges[sat1, sat2]['distance'] = distance
     
     def get_network_stats(self) -> Dict:
         """
@@ -193,5 +242,62 @@ class SatelliteNetwork:
         
         with open(output_file, 'w') as f:
             for sat, gs in visibility_edges:
-                print(f"visibility edge: {gs} {sat}")
                 f.write(f"{gs} {sat}\n")    
+     
+    def _process_gs_pair(self, gs_pair):
+        gs1, gs2 = gs_pair
+        result = {}
+        try:
+            path = nx.shortest_path(self.graph, gs1, gs2, weight="weight")
+            for j in range(len(path) - 1):
+                edge = tuple(sorted([path[j], path[j+1]]))
+                if edge in result:
+                    result[edge] += 1
+                else:
+                    result[edge] = 1
+        except nx.NetworkXNoPath:
+            pass
+        return result
+
+    def calculate_gs_edge_betweenness(self):
+        """Calculate edge betweenness centrality for paths between ground station pairs."""
+
+        ground_stations = [n for n, d in self.graph.nodes(data=True) 
+                         if d.get('type') == 'ground_station']
+        print(f"Ground stations found: {len(ground_stations)}")
+        
+        # Generate all ground station pairs
+        gs_pairs = [(gs1, gs2) for i, gs1 in enumerate(ground_stations) 
+                   for gs2 in ground_stations[i+1:]]
+        total_pairs = len(gs_pairs)
+        print(f"Processing {total_pairs} ground station pairs...")
+        
+        # Initialize edge betweenness dictionary
+        edge_betweenness = {edge: 0 for edge in self.graph.edges()}
+        
+        # Process pairs in parallel with progress bar
+        with ThreadPoolExecutor() as executor:
+            results = list(tqdm(
+                executor.map(self._process_gs_pair, gs_pairs),
+                total=total_pairs,
+                desc="Calculating betweenness"
+            ))
+        
+        # Combine results
+        for result in results:
+            for edge, value in result.items():
+                if edge in edge_betweenness:
+                    edge_betweenness[edge] += value
+        
+        return edge_betweenness
+    
+    def save_edge_betweenness(self, output_file: str):
+        """
+        Calculate and save edge betweenness centrality for paths between ground station pairs.
+        """
+        edge_betweenness = self.calculate_gs_edge_betweenness()
+        
+        with open(output_file, 'w') as f:
+            for edge, value in sorted(edge_betweenness.items(), key=lambda x: x[1], reverse=True):
+                if value > 0:  # Only save edges that are used
+                    f.write(f"{edge[0]} {edge[1]} {value:.6f}\n")

@@ -37,7 +37,9 @@ const viewer = new Viewer("cesiumContainer", {
     webgl: {
       alpha: true
     }
-  }
+  },
+  timeline: false,
+  animation: false,
 });
 
 // Scene setup

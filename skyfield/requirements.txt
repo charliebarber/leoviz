@@ -4,3 +4,4 @@ networkx==3.4.2
 numpy==2.2.2
 sgp4==2.23
 skyfield==1.49
+tqdm==4.67.1
