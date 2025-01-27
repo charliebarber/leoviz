@@ -13,3 +13,7 @@ body {
   padding: 0;
   overflow: hidden;
 }
+
+#settings {
+  padding: 2rem;
+}
