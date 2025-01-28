@@ -68,7 +68,7 @@ const plot = async (index) => {
     const satellitePositions = await plotSatellites(satellitesDataSource, timestamps[index]);
     // Load and add ISLs
     const isls = await loadISLs('isls.txt');
-    plotISLs(isls, satellitePositions, islsDataSource);
+    plotISLs(isls, satellitePositions, islsDataSource, timestamps[index]);
     // Add ground station links
     console.log('Loading and adding ground station links...');
     plotGSLs(timestamps[index], viewer, {cityPositions, satellitePositions}, gslsDataSource);
