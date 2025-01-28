@@ -6,9 +6,20 @@
   <body>
     <div id="cesiumContainer"></div>
 
-    <div id="settings">
-      <input type="checkbox" id="gsToggler">Enable GSes
-      <input type="checkbox" id="gslToggler">Enable GSLs
+    <div style="display: grid">
+      <div id="settings">
+        <input type="checkbox" id="gsToggler" checked />
+        <label for="gsToggler">Enable GSes</label>
+
+        <input type="checkbox" id="gslToggler" checked />
+        <label for="gslToggler">Enable GSLs</label>
+      </div>
+
+      <div id="timestamp">
+        <button id="prevButton">Previous</button>
+        <span id="timestamp"></span>
+        <button id="nextButton">Next</button>
+      </div>
     </div>
   </body>
 </html>

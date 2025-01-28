@@ -1,151 +1,102 @@
 import {
-  Cartesian3,
-  Color,
-  ArcType,
-  HorizontalOrigin,
-  VerticalOrigin,
-  LabelStyle,
-  Cartesian2,
-  DistanceDisplayCondition
+    Cartesian3,
+    Color,
+    ArcType,
+    HorizontalOrigin,
+    VerticalOrigin,
+    LabelStyle,
+    Cartesian2,
+    DistanceDisplayCondition,
+    EntityCollection,
+    CustomDataSource
 } from "cesium";
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import "./css/main.css";
 import { setupViewer } from "./js/viewer";
-import { loadSatellites, loadISLs, loadCities, loadGSLs } from "./js/satellites-parser";
+import {
+    loadSatellites,
+    previousTimestamp,
+    nextTimestamp,
+    getCurrentTimestamp,
+    satelliteDataByTimestamp,
+    addSatellite,
+    plotSatellites
+} from "./js/satellites";
+import { initCities } from "./js/cities";
+import { plotGSLs } from "./js/gsls";
+import { plotISLs, loadISLs } from "./js/isls";
+import { createEntityToggle } from "./js/ui";
 
 const viewer = setupViewer();
 
-// Add satellite function with smaller size and better visibility
-const addSatellite = (longitude, latitude, height = 550000) => {
-  const entity = viewer.entities.add({
-    position: Cartesian3.fromDegrees(longitude, latitude, height),
-    ellipsoid: {
-      radii: new Cartesian3(20000.0, 20000.0, 20000.0), // Made satellites smaller
-      material: Color.BLACK.withAlpha(1), // Made them red and slightly transparent
-      outline: true,
-      outlineColor: Color.BLACK,
+const entities = viewer.entities;
+
+// Create custom DataSources instead of raw EntityCollections
+const gslsDataSource = new CustomDataSource('GSLs');
+const satellitesDataSource = new CustomDataSource('Satellites');
+const gsDataSource = new CustomDataSource('Ground Stations');
+const islsDataSource = new CustomDataSource('ISLs');
+
+// Add them to the viewer
+viewer.dataSources.add(gslsDataSource);
+viewer.dataSources.add(satellitesDataSource);
+viewer.dataSources.add(gsDataSource);
+viewer.dataSources.add(islsDataSource);
+
+
+const gslsEntity = entities.add(new EntityCollection());
+const satellitesEntity = entities.add(new EntityCollection());
+export const gsEntity = entities.add(new EntityCollection( ));
+// const islsEntity = entities.add(new EntityCollection());
+
+createEntityToggle(gslsDataSource, 'gslToggler');
+createEntityToggle(gsDataSource, 'gsToggler');
+
+// Initial load
+
+// Cities and timestamps stay constant and thus do not need a reload
+const cityPositions = await initCities("cities.csv", gsDataSource);
+
+const timestampResponse = await fetch(`/positions/starlink_550/timestamps.txt`);
+const timestampsText = await timestampResponse.text();
+const timestamps = timestampsText.split('\n');
+
+let timestamp_index = 0;
+
+const plot = async (index) => {
+    // Plot satellites at given timestamp
+    const satellitePositions = await plotSatellites(satellitesDataSource, timestamps[index]);
+    // Load and add ISLs
+    const isls = await loadISLs('isls.txt');
+    plotISLs(isls, satellitePositions, islsDataSource);
+    // Add ground station links
+    console.log('Loading and adding ground station links...');
+    plotGSLs(timestamps[index], viewer, {cityPositions, satellitePositions}, gslsDataSource);
+};
+
+plot(timestamp_index);
+
+
+document.getElementById('prevButton').addEventListener('click', async () => {
+    const satellites = await previousTimestamp();
+    if (satellites) {
+        // Clear existing satellites
+        satellitesEntity.removeAll();
+        // Add new satellites
+        satellites.forEach(sat => addSatellite(viewer, sat));
+        // Update timestamp display
+        document.getElementById('timestamp').textContent =
+            new Date(getCurrentTimestamp() * 1000).toLocaleString();
     }
-  });
-  return entity;
-};
+});
 
-const addCity = (viewer, city) => {
-  const DOT_SIZE = 50; // Base size in pixels
-  const scaleFactor = city.population / 100000;
-  
-  return viewer.entities.add({
-      name: city.name,
-      position: Cartesian3.fromDegrees(city.longitude, city.latitude),
-      point: {
-          pixelSize: DOT_SIZE * Math.sqrt(scaleFactor), // Using square root for more reasonable scaling
-          color: Color.YELLOW.withAlpha(0.8),
-          outlineColor: Color.BLACK,
-          outlineWidth: 1,
-          // Add a scale-based minimum size to ensure all cities are visible
-          pixelSize: Math.max(3, DOT_SIZE * Math.sqrt(scaleFactor))
-      },
-      label: {
-          text: city.name,
-          font: '12px sans-serif',
-          horizontalOrigin: HorizontalOrigin.LEFT,
-          verticalOrigin: VerticalOrigin.BOTTOM,
-          pixelOffset: new Cartesian2(5, 5),
-          fillColor: Color.WHITE,
-          outlineColor: Color.BLACK,
-          outlineWidth: 2,
-          style: LabelStyle.FILL_AND_OUTLINE,
-          // Only show labels when zoomed in
-          distanceDisplayCondition: new DistanceDisplayCondition(0, 5000000)
-      }
-  });
-};
-
-// Initialize satellites function with batch processing
-const initializeSatellites = async () => {
-  try {
-      // Load cities first and store their positions
-      console.log('Loading cities data...');
-      const cities = await loadCities('cities.csv');
-      const cityPositions = new Map();
-      
-      console.log('Adding cities to the map...');
-      cities.forEach(city => {
-          addCity(viewer, city);
-          cityPositions.set(city.id, {
-              longitude: city.longitude,
-              latitude: city.latitude
-          });
-      });
-
-      const satellites = await loadSatellites('starlink_550.csv');
-      console.log(`Starting to add ${satellites.length} satellites...`);
-      
-      // Create map of satellite ID to position
-      const satellitePositions = new Map();
-      
-      satellites.forEach((sat) => {
-          const entity = addSatellite(sat.longitude, sat.latitude, sat.height);
-          if (entity) {
-              entity.name = sat.name;
-              satellitePositions.set(sat.id, {
-                  longitude: sat.longitude,
-                  latitude: sat.latitude,
-                  height: sat.height
-              });
-              console.log(`added ${sat.id} with longitude ${sat.longitude}`)
-          }
-      });
-
-      // Load and add ISLs
-      const isls = await loadISLs('isls.txt');
-      isls.forEach(({ a, b }) => {
-          const posA = satellitePositions.get(a);
-          const posB = satellitePositions.get(b);
-
-          console.log(`Sats ${a} and ${b} link, posA ${posA} posB ${posB}`)
-          
-          if (posA && posB) {
-              viewer.entities.add({
-                  polyline: {
-                      positions: Cartesian3.fromDegreesArrayHeights([
-                          posA.longitude, posA.latitude, posA.height,
-                          posB.longitude, posB.latitude, posB.height
-                      ]),
-                      width: 1,
-                      material: Color.BLUE.withAlpha(0.5),
-                      arcType: ArcType.NONE  // Straight line instead of following the curve of the Earth
-                  }
-              });
-          }
-      });
-
-      // Add ground station links
-      console.log('Loading and adding ground station links...');
-      const gsls = await loadGSLs('gsls.txt');
-      gsls.forEach(({ cityId, satelliteId }) => {
-          const city = cityPositions.get(cityId);
-          const satellite = satellitePositions.get(satelliteId);
-          
-          if (city && satellite) {
-              // console.log(`City: ${city} Satellite ${satellite}`)
-              viewer.entities.add({
-                  polyline: {
-                      positions: Cartesian3.fromDegreesArrayHeights([
-                          city.longitude, city.latitude, 0, // City at ground level
-                          satellite.longitude, satellite.latitude, satellite.height
-                      ]),
-                      width: 1,
-                      material: Color.YELLOW.withAlpha(0.2), // Faint yellow line
-                      arcType: ArcType.NONE
-                  }
-              });
-          }
-      });
-
-  } catch (error) {
-      console.error('Failed to load satellites and ISLs:', error);
-  }
-};
-
-// Call initialization
-initializeSatellites();
+document.getElementById('nextButton').addEventListener('click', async () => {
+    timestamp_index += 1;
+    if (satellitesEntity) {
+        satellitesDataSource.entities.removeAll();
+        gslsDataSource.entities.removeAll();
+        islsDataSource.entities.removeAll();
+        console.log("Removed previous timestamp entities");
+        plot(timestamp_index);
+    }
+});
