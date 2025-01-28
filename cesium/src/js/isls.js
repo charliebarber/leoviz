@@ -88,18 +88,80 @@ const getBetweennessStyle = (value, maxBetweenness) => {
   }
 };
 
-// Updated plotISLs function
+// Function to get style for inverted betweenness visualisation
+const getInvertedBetweennessStyle = (value, maxBetweenness, percentile20th) => {
+  // No betweenness value (not on any shortest path)
+  if (value === undefined) {
+      return {
+          color: Color.RED.withAlpha(0.9), // Bright red for unused paths
+          width: 3
+      };
+  }
+  
+  // Normalize the value between 0 and 1
+  const normalized = value / maxBetweenness;
+  
+  if (value <= percentile20th) {
+      // Low betweenness - bright blue and thick
+      return {
+          color: Color.BLUE.withAlpha(0.9),
+          width: 3
+      };
+  } else {
+      // Higher betweenness - faint gray with decreasing width
+      return {
+          color: Color.GRAY.withAlpha(0.2),
+          width: 1
+      };
+  }
+};
+
+// Function to get style with green to red gradient for low betweenness
+const getLowBetweennessStyle = (value, maxBetweenness, percentile25th) => {
+  // Default style for higher betweenness values (above 20th percentile)
+  if (value > percentile25th) {
+      return {
+          color: Color.GRAY.withAlpha(0.2),
+          width: 1
+      };
+  }
+
+  if (value === undefined) {
+      // No betweenness - bright green
+      return {
+          color: Color.GREEN.withAlpha(0.9),
+          width: 3
+      };
+  }
+  
+  // For values between 0 and 25th percentile, create a gradient from green to red
+  const normalizedLow = value / percentile25th;  // Will be between 0 and 1
+  
+  // Create a gradient from green (low) to red (near 25th percentile)
+  return {
+      color: Color.fromHsl(
+          (1 - normalizedLow) * 0.33,  // Hue: 0.33 is green, 0 is red
+          0.9,                         // High saturation
+          0.5,                         // Medium lightness
+          0.8                          // High alpha for visibility
+      ),
+      width: 3 - normalizedLow         // Width gradually decreases as betweenness increases
+  };
+};
+
 export const plotISLs = async (isls, satellitePositions, islsCollection, timestamp) => {
   // Load betweenness data
   const betweennessMap = await loadBetweenness(timestamp);
   
-  // Find maximum betweenness value for scaling
-  const maxBetweenness = Math.max(...Array.from(betweennessMap.values()));
+  // Get all betweenness values for percentile calculation
+  const betweennessValues = Array.from(betweennessMap.values()).sort((a, b) => a - b);
+  const maxBetweenness = betweennessValues[betweennessValues.length - 1];
+  const percentile25th = betweennessValues[Math.floor(betweennessValues.length * 0.25)];
   
   // Keep track of different categories for logging
   let noPathCount = 0;
-  let highBetweennessCount = 0;
   let lowBetweennessCount = 0;
+  let highBetweennessCount = 0;
   
   isls.forEach(({ a, b }) => {
       const posA = satellitePositions.get(a);
@@ -108,12 +170,16 @@ export const plotISLs = async (isls, satellitePositions, islsCollection, timesta
       if (posA && posB) {
           const edgeKey = [a, b].sort((a, b) => a - b).join('-');
           const betweennessValue = betweennessMap.get(edgeKey);
-          const style = getBetweennessStyle(betweennessValue, maxBetweenness);
+          const style = getLowBetweennessStyle(betweennessValue, maxBetweenness, percentile25th);
           
           // Count different categories
-          if (betweennessValue === undefined) noPathCount++;
-          else if (betweennessValue/maxBetweenness >= 0.8) highBetweennessCount++;
-          else if (betweennessValue/maxBetweenness <= 0.2) lowBetweennessCount++;
+          if (betweennessValue === undefined) {
+              noPathCount++;
+          } else if (betweennessValue <= percentile25th) {
+              lowBetweennessCount++;
+          } else {
+              highBetweennessCount++;
+          }
           
           islsCollection.entities.add({
               polyline: {
@@ -129,10 +195,10 @@ export const plotISLs = async (isls, satellitePositions, islsCollection, timesta
       }
   });
   
-  // Log statistics
+  // Log statistics and threshold values
   console.log(`Betweenness Statistics:
-      No shortest paths: ${noPathCount} links
-      High betweenness: ${highBetweennessCount} links
-      Low betweenness: ${lowBetweennessCount} links
+      No shortest paths: ${noPathCount} links (shown in red)
+      Low betweenness (≤${percentile25th.toFixed(2)}): ${lowBetweennessCount} links (shown in blue)
+      Higher betweenness: ${highBetweennessCount} links (shown faint)
       Total: ${isls.length} links`);
 };
