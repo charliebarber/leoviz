@@ -34,24 +34,6 @@ const loadBetweenness = async (timestamp) => {
   }
 };
 
-const getBetweennessColor = (value, maxBetweenness) => {
-  if (value === undefined) {
-    return Color.GRAY.withAlpha(0.3); // Default color for edges without betweenness
-  }
-
-  // Normalize the value between 0 and 1
-  const normalized = value / maxBetweenness;
-
-  // Create a color gradient from blue (low) to red (high)
-  // You can adjust these colors to your preference
-  return Color.fromHsl(
-    (1 - normalized) * 0.6, // Hue: 0.6 is blue, 0 is red
-    1.0,                    // Saturation
-    0.5,                    // Lightness
-    0.8                     // Alpha
-  );
-};
-
 export const loadISLs = async (filepath) => {
   const response = await fetch(filepath);
   const text = await response.text();
@@ -63,33 +45,94 @@ export const loadISLs = async (filepath) => {
     });
 };
 
+// Function to get color and width based on betweenness value
+const getBetweennessStyle = (value, maxBetweenness) => {
+  // No betweenness value (not on any shortest path)
+  if (value === undefined) {
+      return {
+          color: Color.GRAY.withAlpha(0.1), // Very faint gray
+          width: 1
+      };
+  }
+  
+  // Normalize the value between 0 and 1
+  const normalized = value / maxBetweenness;
+  
+  // Define thresholds for extreme values
+  const HIGH_THRESHOLD = 0.8;  // Top 20%
+  const LOW_THRESHOLD = 0.2;   // Bottom 20%
+  
+  if (normalized >= HIGH_THRESHOLD) {
+      // High betweenness - bright red and thick
+      return {
+          color: Color.RED.withAlpha(0.9),
+          width: 3
+      };
+  } else if (normalized <= LOW_THRESHOLD) {
+      // Low but non-zero betweenness - dim blue and thin
+      return {
+          color: Color.BLUE.withAlpha(0.3),
+          width: 1
+      };
+  } else {
+      // Medium betweenness - gradient from blue to red
+      return {
+          color: Color.fromHsl(
+              (1 - normalized) * 0.6, // Hue: 0.6 is blue, 0 is red
+              0.8,                    // Slightly less saturated
+              0.5,                    // Lightness
+              0.5                     // Medium alpha
+          ),
+          width: 2
+      };
+  }
+};
+
+// Updated plotISLs function
 export const plotISLs = async (isls, satellitePositions, islsCollection, timestamp) => {
   // Load betweenness data
   const betweennessMap = await loadBetweenness(timestamp);
-
+  
   // Find maximum betweenness value for scaling
   const maxBetweenness = Math.max(...Array.from(betweennessMap.values()));
-
+  
+  // Keep track of different categories for logging
+  let noPathCount = 0;
+  let highBetweennessCount = 0;
+  let lowBetweennessCount = 0;
+  
   isls.forEach(({ a, b }) => {
-    const posA = satellitePositions.get(a);
-    const posB = satellitePositions.get(b);
-
-    if (posA && posB) {
-      // Create edge key in same format as betweenness map
-      const edgeKey = [a, b].sort((a, b) => a - b).join('-');
-      const betweennessValue = betweennessMap.get(edgeKey);
-
-      islsCollection.entities.add({
-        polyline: {
-          positions: Cartesian3.fromDegreesArrayHeights([
-            posA.longitude, posA.latitude, posA.height,
-            posB.longitude, posB.latitude, posB.height
-          ]),
-          width: 2, // Made slightly wider to better show colors
-          material: getBetweennessColor(betweennessValue, maxBetweenness),
-          arcType: ArcType.NONE
-        }
-      });
-    }
+      const posA = satellitePositions.get(a);
+      const posB = satellitePositions.get(b);
+      
+      if (posA && posB) {
+          const edgeKey = [a, b].sort((a, b) => a - b).join('-');
+          const betweennessValue = betweennessMap.get(edgeKey);
+          const style = getBetweennessStyle(betweennessValue, maxBetweenness);
+          
+          // Count different categories
+          if (betweennessValue === undefined) noPathCount++;
+          else if (betweennessValue/maxBetweenness >= 0.8) highBetweennessCount++;
+          else if (betweennessValue/maxBetweenness <= 0.2) lowBetweennessCount++;
+          
+          islsCollection.entities.add({
+              polyline: {
+                  positions: Cartesian3.fromDegreesArrayHeights([
+                      posA.longitude, posA.latitude, posA.height,
+                      posB.longitude, posB.latitude, posB.height
+                  ]),
+                  width: style.width,
+                  material: style.color,
+                  arcType: ArcType.NONE
+              }
+          });
+      }
   });
+  
+  // Log statistics
+  console.log(`Betweenness Statistics:
+      No shortest paths: ${noPathCount} links
+      High betweenness: ${highBetweennessCount} links
+      Low betweenness: ${lowBetweennessCount} links
+      Total: ${isls.length} links`);
 };
