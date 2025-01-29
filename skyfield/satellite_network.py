@@ -5,6 +5,7 @@ from math import radians, degrees, cos, sin, asin, sqrt, atan2
 from concurrent.futures import ThreadPoolExecutor
 import itertools
 from tqdm import tqdm
+import pandas as pd
 
 
 class SatelliteNetwork:
@@ -259,6 +260,21 @@ class SatelliteNetwork:
             pass
         return result
 
+    def _process_gs_pair_scaled(self, gs_pair):
+        gs1, gs2, demand = gs_pair
+        result = {}
+        try:
+            path = nx.shortest_path(self.graph, gs1, gs2, weight="distance")
+            for j in range(len(path) - 1):
+                edge = tuple(sorted([path[j], path[j+1]]))
+                if edge in result:
+                    result[edge] += demand
+                else:
+                    result[edge] = demand
+        except nx.NetworkXNoPath:
+            pass
+        return result
+
     def calculate_gs_edge_betweenness(self):
         """Calculate edge betweenness centrality for paths between ground station pairs."""
 
@@ -271,6 +287,13 @@ class SatelliteNetwork:
                    for gs2 in ground_stations[i+1:]]
         total_pairs = len(gs_pairs)
         print(f"Processing {total_pairs} ground station pairs...")
+
+        cities_scaled_df = pd.read_csv('cities_scaled.csv')
+        gs_pairs_scaled = []
+        for gs1, gs2 in gs_pairs:
+            row = cities_scaled_df.loc[(cities_scaled_df['gs1'] == gs1) & (cities_scaled_df['gs2'] == gs2)]
+            demand = row['demand'].iloc[0] if not row.empty else 0
+            gs_pairs_scaled.append((gs1, gs2, demand))
         
         # Initialize edge betweenness dictionary
         edge_betweenness = {edge: 0 for edge in self.graph.edges()}
@@ -278,7 +301,7 @@ class SatelliteNetwork:
         # Process pairs in parallel with progress bar
         with ThreadPoolExecutor() as executor:
             results = list(tqdm(
-                executor.map(self._process_gs_pair, gs_pairs),
+                executor.map(self._process_gs_pair_scaled, gs_pairs_scaled),
                 total=total_pairs,
                 desc="Calculating betweenness"
             ))

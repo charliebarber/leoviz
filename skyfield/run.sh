@@ -6,7 +6,7 @@ PHYSICAL_CORES=$(( NUM_CORES / 2 ))  # Assuming hyperthreading is enabled
 echo "Number of CPU cores available: $NUM_CORES (likely $PHYSICAL_CORES physical cores)"
 
 # Configuration
-START_TIME=$(date +%s)  # Current Unix timestamp
+START_TIME=1737835561  # Current Unix timestamp
 TOTAL_SNAPSHOTS=210
 TIME_STEP=60
 # Use number of physical cores + 20% for some overhead
