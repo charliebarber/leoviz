@@ -1,16 +1,14 @@
 #!/bin/bash
 
-# Get number of CPU cores
-NUM_CORES=$(nproc)
-PHYSICAL_CORES=$(( NUM_CORES / 2 ))  # Assuming hyperthreading is enabled
-echo "Number of CPU cores available: $NUM_CORES (likely $PHYSICAL_CORES physical cores)"
+# Get accurate count of physical CPU cores
+PHYSICAL_CORES=$(lscpu -p | egrep -v '^#' | sort -u -t, -k 2,2 | wc -l)
+echo "Number of physical CPU cores: $PHYSICAL_CORES"
 
 # Configuration
-START_TIME=1737835561  # Current Unix timestamp
-TOTAL_SNAPSHOTS=210
+START_TIME=1735689600 # 1st Jan 2025 00:00
+TOTAL_SNAPSHOTS=110
 TIME_STEP=60
-# Use number of physical cores + 20% for some overhead
-NUM_PROCESSES=$(( (PHYSICAL_CORES * 120) / 100 ))
+NUM_PROCESSES=$PHYSICAL_CORES  # Use exactly one process per physical core
 
 # Create a temporary directory for tracking progress
 TEMP_DIR=$(mktemp -d)
@@ -22,7 +20,10 @@ touch "$FAILED_FILE"
 # Calculate end time
 END_TIME=$((START_TIME + (TOTAL_SNAPSHOTS - 1) * TIME_STEP))
 
-echo "Using $NUM_PROCESSES parallel processes (optimized for CPU-intensive workload)"
+# Setup cleanup trap
+trap 'rm -rf "$TEMP_DIR"' EXIT
+
+echo "Using $NUM_PROCESSES parallel processes (one per physical core)"
 echo "Processing $TOTAL_SNAPSHOTS snapshots with ${TIME_STEP}s intervals"
 echo "Start time: $(date -d @${START_TIME})"
 echo "End time: $(date -d @${END_TIME})"
@@ -51,8 +52,12 @@ export TOTAL_SNAPSHOTS
 echo "Starting parallel processing at $(date)"
 echo "----------------------------------------"
 
-# No delay needed since we're not oversubscribing CPUs
-parallel --will-cite -j "$NUM_PROCESSES" process_timestamp ::: $(seq $START_TIME $TIME_STEP $END_TIME)
+# Run parallel processes with basic optimized settings
+parallel --will-cite \
+         --jobs "$NUM_PROCESSES" \
+         --progress \
+         --load 100% \
+         process_timestamp ::: $(seq $START_TIME $TIME_STEP $END_TIME)
 
 echo -e "\n----------------------------------------"
 echo "Processing complete at $(date)"
@@ -60,6 +65,7 @@ echo "Processing complete at $(date)"
 # Final statistics
 COMPLETED=$(wc -l < "$PROGRESS_FILE")
 FAILED=$(wc -l < "$FAILED_FILE")
+
 echo "Summary:"
 echo "- Successfully processed: $COMPLETED snapshots"
 echo "- Failed: $FAILED snapshots"
@@ -69,6 +75,3 @@ if [ $FAILED -gt 0 ]; then
     cat "$FAILED_FILE"
     exit 1
 fi
-
-# Cleanup
-rm -rf "$TEMP_DIR"
