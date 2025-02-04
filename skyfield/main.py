@@ -52,16 +52,20 @@ def main():
         network.update_visibility_edges(max_gsl_length_m, min_elevation_angle)
         
         # Save satellite positions to CSV
-        output_file = base_output_dir / f"{int(timestamp)}.csv"
-        parser.save_positions_to_csv(sat_positions, output_file)
+        # output_file = base_output_dir / f"{int(timestamp)}.csv"
+        # parser.save_positions_to_csv(sat_positions, output_file)
         
         # Save GSLs to file
-        gsls_file = base_output_dir / f"gsls_{int(timestamp)}.txt"
-        network.save_gsls(str(gsls_file))
+        # gsls_file = base_output_dir / f"gsls_{int(timestamp)}.txt"
+        # network.save_gsls(str(gsls_file))
         
         # Calculate and save edge betweenness
         betweenness_file = base_output_dir / f"betweenness_{int(timestamp)}.txt"
-        network.save_edge_betweenness(str(betweenness_file))
+        # network.save_edge_betweenness(str(betweenness_file))
+
+        # Load betweenness from file
+        network.load_edge_betweenness(str(betweenness_file))
+        print(network.get_edge_betweenness_stats())
 
         print(f"Successfully processed timestamp {timestamp} ({datetime.datetime.fromtimestamp(timestamp, tz=timezone.utc)})")
 

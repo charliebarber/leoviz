@@ -30,7 +30,9 @@ class SatelliteNetwork:
         # Edge properties
         self.edge_type = self.graph.new_edge_property("string")
         self.distance = self.graph.new_edge_property("double")
-        
+        self.betweenness = self.graph.new_edge_property("double")
+        self.is_spare = self.graph.new_edge_property("bool")
+
         # Add property maps to graph
         self.graph.vertex_properties["type"] = self.vertex_type
         self.graph.vertex_properties["latitude"] = self.latitude
@@ -41,6 +43,8 @@ class SatelliteNetwork:
         
         self.graph.edge_properties["type"] = self.edge_type
         self.graph.edge_properties["distance"] = self.distance
+        self.graph.edge_properties["betweenness"] = self.betweenness
+        self.graph.edge_properties["is_spare"] = self.is_spare 
         
         # Create vertex name to index mapping
         self.vertex_map = {}
@@ -289,3 +293,68 @@ class SatelliteNetwork:
                     v1 = reverse_map[int(e.source())]
                     v2 = reverse_map[int(e.target())]
                     f.write(f"{v1} {v2}\n")
+
+    def load_edge_betweenness(self, betweenness_file: str):
+        self.betweenness.a = 0
+        
+        try:
+            with open(betweenness_file, 'r') as f:
+                for line in f:
+                    node1, node2, value = line.strip().split()
+                    # Find the edge in the graph
+                    if node1 in self.vertex_map and node2 in self.vertex_map:
+                        v1 = self.graph.vertex(self.vertex_map[node1])
+                        v2 = self.graph.vertex(self.vertex_map[node2])
+                        # Find the edge between these vertices
+                        for e in v1.out_edges():
+                            if e.target() == v2:
+                                self.betweenness[e] = float(value)
+                                break
+        except Exception as e:  
+            print(f"Error loading edge betweenness from file: {e}")    
+
+    def get_edge_betweenness_stats(self):
+        betweenness_values = [self.betweenness[e] for e in self.graph.edges()]
+        
+        if not betweenness_values:
+            return {
+                'min': 0,
+                'max': 0,
+                'mean': 0,
+                'median': 0,
+                'num_edges_with_traffic': 0
+            }
+            
+        return {
+            'min': min(betweenness_values),
+            'max': max(betweenness_values),
+            'mean': sum(betweenness_values) / len(betweenness_values),
+            'median': sorted(betweenness_values)[len(betweenness_values) // 2],
+            'num_edges_with_traffic': sum(1 for v in betweenness_values if v > 0)
+        }
+
+    def update_edge_betweenness(self):
+        betweenness_dict = self.calculate_gs_edge_betweenness()
+        
+        self.betweenness.a = 0
+        
+        reverse_map = {v: k for k, v in self.vertex_map.items()}
+        
+        for e in self.graph.edges():
+            v1_orig = reverse_map[int(e.source())]
+            v2_orig = reverse_map[int(e.target())]
+            # Check both orientations of the edge
+            value = betweenness_dict.get((v1_orig, v2_orig), 0) or betweenness_dict.get((v2_orig, v1_orig), 0)
+            self.betweenness[e] = value
+
+    def update_spare_edges(self, percentile: float = 25.0):
+        betweenness_values = [self.betweenness[e] for e in self.graph.edges()]
+        if not betweenness_values:
+            return
+            
+        # Calculate the percentile threshold
+        threshold = np.percentile(betweenness_values, percentile)
+        
+        # Update is_spare property for each edge
+        for e in self.graph.edges():
+            self.is_spare[e] = self.betweenness[e] <= threshold
