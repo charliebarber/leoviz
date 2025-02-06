@@ -18,7 +18,7 @@ let currentTimestampIndex = 0;
 // Load a single CSV file
 const loadSingleCSV = async (timestamp) => {
     try {
-        const response = await fetch(`/positions/starlink_550/${timestamp}.csv`);
+        const response = await fetch(`/positions/starlink_550_traffic_scaled/${timestamp}/${timestamp}.csv`);
         const csvText = await response.text();
         
         return new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ const previousTimestamp = () => {
 const getCurrentTimestamp = () => timestamps[currentTimestampIndex];
 
 export const loadSatellites = async (timestamp) => {
-    const csvPath = `/positions/starlink_550_traffic_scaled/${timestamp}.csv`
+    const csvPath = `/positions/starlink_550_traffic_scaled/${timestamp}/${timestamp}.csv`
     try {
         const response = await fetch(csvPath);
         const csvText = await response.text();

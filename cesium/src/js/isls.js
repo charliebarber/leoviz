@@ -13,7 +13,7 @@ import {
 
 const loadBetweenness = async (timestamp) => {
   try {
-    const response = await fetch(`positions/starlink_550_traffic_scaled/betweenness_${timestamp}.txt`);
+    const response = await fetch(`positions/starlink_550_traffic_scaled/${timestamp}/betweenness_${timestamp}.txt`);
     const text = await response.text();
     const betweennessMap = new Map();
 
