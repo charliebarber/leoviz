@@ -359,6 +359,28 @@ class SatelliteNetwork:
         for e in self.graph.edges():
             self.is_spare[e] = self.betweenness[e] <= threshold
 
+    def write_paths_to_file(self, output_dir: str, source: str, target: str, shortest: List, spare: List):
+        """
+        Write shortest and spare paths to a file in the paths directory.
+        
+        Args:
+            source (str): Source ground station ID
+            target (str): Target ground station ID
+            shortest (List): List of nodes in shortest path
+            spare (List): List of nodes in spare path
+        """
+        # Create paths directory if it doesn't exist
+        import os
+        os.makedirs(f'{output_dir}/paths', exist_ok=True)
+        
+        # Write paths to file
+        with open(f'{output_dir}/paths/path_{source}_{target}.txt', 'w') as f:
+            f.write("SPARE PATH\n")
+            f.write(' '.join(str(node) for node in spare))
+            f.write("\nSHORTEST PATH\n")
+            f.write(' '.join(str(node) for node in shortest))
+            f.write("\n")
+
     def find_paths_via_spare_edges(self, source: str, target: str, target_weight_factor: float = 1.25) -> list:
         """
         Find paths between ground stations via spare edges.
@@ -404,12 +426,12 @@ class SatelliteNetwork:
         
         # Initialize collections for recursive search
         paths_found = []
-        initial_dist = self.distance[elist[0]]  # Distance to first satellite
-        initial_path = [int(v) for v in vlist[:2]]  # Source and first satellite
+        initial_path = [int(vlist[1])]  # Start with first satellite only
+        initial_dist = 0  # Start distance from first satellite
         
         # Start recursive search
         self._find_paths_recursive(
-            current_node=vlist[1],
+            current_node=vlist[1],  # Start from first satellite
             target=target_v,
             path_so_far=initial_path,
             dist_so_far=initial_dist,
@@ -435,6 +457,7 @@ class SatelliteNetwork:
             # Print results
             print(f"\nFound {len(paths_found)} valid paths")
             best_path, best_dist = converted_paths[0]
+            best_path = [source] + best_path  # Prepend source GS to the path
             print(f"\nSelected best path:")
             print(f"Path distance: {best_dist:.2f} (target: {target_dist:.2f}, shortest: {shortest_dist:.2f})")
             print(f"Distance increase: {((best_dist/shortest_dist) - 1) * 100:.1f}%")
@@ -444,12 +467,11 @@ class SatelliteNetwork:
                 for path, dist in converted_paths[1:]:
                     print(f"Distance: {dist:.2f}, Difference from target: {abs(dist - target_dist):.2f}")
             
-            # return [path for path, _ in converted_paths]
             return shortest_path_list, best_path
             
         print("\nNo valid paths found")
         return []
-
+    
     def _find_paths_recursive(self, current_node, target, path_so_far, dist_so_far, 
                         target_dist, excluded_edges, paths_found, visited_edges,
                         max_depth, weight_ceiling, current_depth=0):
@@ -466,32 +488,42 @@ class SatelliteNetwork:
         # Try routing to destination if we've already hit some spare segments
         if current_depth > 0:
             try:
+                # Get shortest path to target through satellites only
                 vlist, elist = shortest_path(self.graph, current_node, target, weights=self.distance)
-                path_edges = set((int(e.source()), int(e.target())) for e in elist)
-                if not (path_edges & excluded_edges):
-                    exit_dist = sum(self.distance[e] for e in elist)
-                    total_dist = dist_so_far + exit_dist
-                    print(f"{print_indent}Found potential path to destination: {total_dist:.2f}")
+                
+                # Check if path only uses satellite nodes (except target)
+                valid_path = True
+                for v in vlist[:-1]:  # Exclude target node from check
+                    if self.vertex_type[v] == 'ground_station':
+                        valid_path = False
+                        break
+                        
+                if valid_path:
+                    path_edges = set((int(e.source()), int(e.target())) for e in elist)
+                    if not (path_edges & excluded_edges):
+                        exit_dist = sum(self.distance[e] for e in elist)
+                        total_dist = dist_so_far + exit_dist
+                        print(f"{print_indent}Found potential satellite path to destination: {total_dist:.2f}")
 
-                    if total_dist >= target_dist:
-                        complete_path = path_so_far + [int(v) for v in vlist[1:]]
-                        paths_found.append((complete_path, total_dist))
-                        print(f"{print_indent}✓ Path accepted")
+                        if total_dist >= target_dist:
+                            complete_path = path_so_far + [int(v) for v in vlist[1:]]
+                            paths_found.append((complete_path, total_dist))
+                            print(f"{print_indent}✓ Path accepted")
             except ValueError:
                 pass
     
-        # Find all nodes that are endpoints of spare edges
+        # Find satellite nodes that are endpoints of spare edges
         spare_endpoints = set()
         for e in self.graph.edges():
             if self.is_spare[e]:
-                spare_endpoints.add(int(e.source()))
-                spare_endpoints.add(int(e.target()))
+                src, dst = self.graph.vertex(int(e.source())), self.graph.vertex(int(e.target()))
+                if self.vertex_type[src] != 'ground_station' and self.vertex_type[dst] != 'ground_station':
+                    spare_endpoints.add(int(e.source()))
+                    spare_endpoints.add(int(e.target()))
 
-        # print(list(dict.fromkeys(spare_endpoints)))
+        print(f"{print_indent}Found {len(spare_endpoints)} satellite nodes involved in spare edges")
     
-        print(f"{print_indent}Found {len(spare_endpoints)} nodes involved in spare edges")
-    
-        # For each spare endpoint, try to find a path to it
+        # Try paths to spare satellite endpoints
         candidates = []
         for endpoint in spare_endpoints:
             if endpoint == int(current_node):
@@ -501,8 +533,17 @@ class SatelliteNetwork:
                 vlist, elist = shortest_path(self.graph, current_node, 
                                            self.graph.vertex(endpoint), 
                                            weights=self.distance)
+                
+                # Verify path only contains satellites
+                valid_path = True
+                for v in vlist[1:]:  # Skip starting node
+                    if self.vertex_type[v] == 'ground_station':
+                        valid_path = False
+                        break
+                
+                if not valid_path:
+                    continue
 
-                # Check if path uses excluded edges
                 path_edges = set((int(e.source()), int(e.target())) for e in elist)
                 if not (path_edges & excluded_edges):
                     path_dist = sum(self.distance[e] for e in elist)
@@ -511,15 +552,12 @@ class SatelliteNetwork:
             except ValueError:
                 continue
     
-        # Sort by distance and try routing through closest candidates
         candidates.sort(key=lambda x: x[1])
-        print(f"{print_indent}Found {len(candidates)} reachable spare endpoints")
+        print(f"{print_indent}Found {len(candidates)} reachable satellite endpoints")
     
-        # Try a limited number of closest candidates
         for endpoint, path_dist, vlist, elist in candidates[:5]:
-            print(f"{print_indent}Trying to route through spare endpoint {endpoint}")
+            print(f"{print_indent}Trying to route through satellite {endpoint}")
 
-            # Avoid revisiting endpoints
             if endpoint in [int(v) for v in path_so_far]:
                 continue
 

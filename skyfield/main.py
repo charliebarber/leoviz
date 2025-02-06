@@ -68,11 +68,12 @@ def main():
         print(network.get_edge_betweenness_stats())
         network.update_spare_edges()
 
-        shortest_path, spare_path = network.find_paths_via_spare_edges("10028", "10010", 1.25)
+        shortest_path, spare_path = network.find_paths_via_spare_edges("10028", "10010", 1.15)
         print("\nSPARE PATH")
         print(spare_path)
         print("\nSHORTEST PATH")
         print(shortest_path)
+        network.write_paths_to_file(base_output_dir, "10028", "10010", shortest_path, spare_path)
 
         print(f"Successfully processed timestamp {timestamp} ({datetime.datetime.fromtimestamp(timestamp, tz=timezone.utc)})")
 

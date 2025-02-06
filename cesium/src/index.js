@@ -57,7 +57,7 @@ createEntityToggle(gsDataSource, 'gsToggler');
 // Cities and timestamps stay constant and thus do not need a reload
 const cityPositions = await initCities("cities.csv", gsDataSource);
 
-const timestampResponse = await fetch(`/positions/starlink_550/timestamps.txt`);
+const timestampResponse = await fetch(`/positions/starlink_550_traffic_scaled/timestamps.txt`);
 const timestampsText = await timestampResponse.text();
 const timestamps = timestampsText.split('\n');
 

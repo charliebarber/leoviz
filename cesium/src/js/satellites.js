@@ -99,7 +99,7 @@ const previousTimestamp = () => {
 const getCurrentTimestamp = () => timestamps[currentTimestampIndex];
 
 export const loadSatellites = async (timestamp) => {
-    const csvPath = `/positions/starlink_550/${timestamp}.csv`
+    const csvPath = `/positions/starlink_550_traffic_scaled/${timestamp}.csv`
     try {
         const response = await fetch(csvPath);
         const csvText = await response.text();

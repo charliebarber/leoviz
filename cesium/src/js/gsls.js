@@ -27,7 +27,7 @@ export const loadGSLs = async (filepath) => {
 };
 
 export const plotGSLs = async (timestamp, viewer, positionsMap, gslsCollection) => {
-  const filepath = `positions/starlink_550/gsls_${timestamp}.txt`;
+  const filepath = `positions/starlink_550_traffic_scaled/gsls_${timestamp}.txt`;
   const gsls = await loadGSLs(filepath);
   const { cityPositions, satellitePositions } = positionsMap;
 
