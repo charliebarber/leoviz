@@ -66,6 +66,13 @@ def main():
         # Load betweenness from file
         network.load_edge_betweenness(str(betweenness_file))
         print(network.get_edge_betweenness_stats())
+        network.update_spare_edges()
+
+        shortest_path, spare_path = network.find_paths_via_spare_edges("10028", "10010", 1.25)
+        print("\nSPARE PATH")
+        print(spare_path)
+        print("\nSHORTEST PATH")
+        print(shortest_path)
 
         print(f"Successfully processed timestamp {timestamp} ({datetime.datetime.fromtimestamp(timestamp, tz=timezone.utc)})")
 

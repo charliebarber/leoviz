@@ -358,3 +358,187 @@ class SatelliteNetwork:
         # Update is_spare property for each edge
         for e in self.graph.edges():
             self.is_spare[e] = self.betweenness[e] <= threshold
+
+    def find_paths_via_spare_edges(self, source: str, target: str, target_weight_factor: float = 1.25) -> list:
+        """
+        Find paths between ground stations via spare edges.
+        
+        Args:
+            source (str): Source ground station ID
+            target (str): Target ground station ID
+            target_weight_factor (float): Target path length multiplier compared to shortest path
+            
+        Returns:
+            list: List of paths found, where each path is a list of node IDs
+        """
+        if source not in self.vertex_map or target not in self.vertex_map:
+            print("Source or target not found in graph")
+            return []
+            
+        # Get vertex objects for source and target
+        source_v = self.graph.vertex(self.vertex_map[source])
+        target_v = self.graph.vertex(self.vertex_map[target])
+        
+        # Find shortest path for reference
+        print(f"\nFinding path from GS {source} to GS {target}")
+        print(f"Target weight factor: {target_weight_factor}")
+        
+        vlist, elist = shortest_path(self.graph, source_v, target_v, weights=self.distance)
+        shortest_path_list = [self.graph.vertex_index[v] for v in vlist]
+        shortest_dist = sum(self.distance[e] for e in elist)
+        target_dist = shortest_dist * target_weight_factor
+        
+        print(f"\nShortest path distance: {shortest_dist:.2f}")
+        print(f"Target distance: {target_dist:.2f}")
+        print(f"Initial satellite hop: {self.vertex_map[source]} -> {int(vlist[1])}")
+        
+        # Get edges to exclude (from shortest path)
+        excluded_edges = set((int(e.source()), int(e.target())) for e in elist[1:-1])
+        # Create reverse edges in a new set first
+        reverse_edges = set((v2, v1) for v1, v2 in excluded_edges)
+        excluded_edges.update(reverse_edges)  # Now update with reverse edges
+        
+        print("\nExcluded edges from shortest path:")
+        for e1, e2 in excluded_edges:
+            print(f"  {e1} -> {e2}")
+        
+        # Initialize collections for recursive search
+        paths_found = []
+        initial_dist = self.distance[elist[0]]  # Distance to first satellite
+        initial_path = [int(v) for v in vlist[:2]]  # Source and first satellite
+        
+        # Start recursive search
+        self._find_paths_recursive(
+            current_node=vlist[1],
+            target=target_v,
+            path_so_far=initial_path,
+            dist_so_far=initial_dist,
+            target_dist=target_dist,
+            excluded_edges=excluded_edges,
+            paths_found=paths_found,
+            visited_edges=set(),
+            max_depth=3,
+            weight_ceiling=target_dist * 1.5
+        )
+        
+        if paths_found:
+            # Sort by how close the distance is to target_dist
+            paths_found.sort(key=lambda x: abs(x[1] - target_dist))
+            
+            # Convert vertex indices back to original IDs
+            reverse_map = {v: k for k, v in self.vertex_map.items()}
+            converted_paths = []
+            for path, dist in paths_found[:4]:  # Keep top 4 paths
+                converted_path = [reverse_map[v] for v in path]
+                converted_paths.append((converted_path, dist))
+            
+            # Print results
+            print(f"\nFound {len(paths_found)} valid paths")
+            best_path, best_dist = converted_paths[0]
+            print(f"\nSelected best path:")
+            print(f"Path distance: {best_dist:.2f} (target: {target_dist:.2f}, shortest: {shortest_dist:.2f})")
+            print(f"Distance increase: {((best_dist/shortest_dist) - 1) * 100:.1f}%")
+            
+            if len(converted_paths) > 1:
+                print("\nNext best alternatives:")
+                for path, dist in converted_paths[1:]:
+                    print(f"Distance: {dist:.2f}, Difference from target: {abs(dist - target_dist):.2f}")
+            
+            # return [path for path, _ in converted_paths]
+            return shortest_path_list, best_path
+            
+        print("\nNo valid paths found")
+        return []
+
+    def _find_paths_recursive(self, current_node, target, path_so_far, dist_so_far, 
+                        target_dist, excluded_edges, paths_found, visited_edges,
+                        max_depth, weight_ceiling, current_depth=0):
+        print_indent = "  " * current_depth
+        print(f"\n{print_indent}At node {int(current_node)} (depth {current_depth})")
+    
+        if current_depth >= max_depth:
+            print(f"{print_indent}Max depth reached, backtracking...")
+            return
+        if dist_so_far > weight_ceiling:
+            print(f"{print_indent}Distance ceiling exceeded, backtracking...")
+            return
+
+        # Try routing to destination if we've already hit some spare segments
+        if current_depth > 0:
+            try:
+                vlist, elist = shortest_path(self.graph, current_node, target, weights=self.distance)
+                path_edges = set((int(e.source()), int(e.target())) for e in elist)
+                if not (path_edges & excluded_edges):
+                    exit_dist = sum(self.distance[e] for e in elist)
+                    total_dist = dist_so_far + exit_dist
+                    print(f"{print_indent}Found potential path to destination: {total_dist:.2f}")
+
+                    if total_dist >= target_dist:
+                        complete_path = path_so_far + [int(v) for v in vlist[1:]]
+                        paths_found.append((complete_path, total_dist))
+                        print(f"{print_indent}✓ Path accepted")
+            except ValueError:
+                pass
+    
+        # Find all nodes that are endpoints of spare edges
+        spare_endpoints = set()
+        for e in self.graph.edges():
+            if self.is_spare[e]:
+                spare_endpoints.add(int(e.source()))
+                spare_endpoints.add(int(e.target()))
+
+        # print(list(dict.fromkeys(spare_endpoints)))
+    
+        print(f"{print_indent}Found {len(spare_endpoints)} nodes involved in spare edges")
+    
+        # For each spare endpoint, try to find a path to it
+        candidates = []
+        for endpoint in spare_endpoints:
+            if endpoint == int(current_node):
+                continue
+
+            try:
+                vlist, elist = shortest_path(self.graph, current_node, 
+                                           self.graph.vertex(endpoint), 
+                                           weights=self.distance)
+
+                # Check if path uses excluded edges
+                path_edges = set((int(e.source()), int(e.target())) for e in elist)
+                if not (path_edges & excluded_edges):
+                    path_dist = sum(self.distance[e] for e in elist)
+                    candidates.append((endpoint, path_dist, vlist, elist))
+
+            except ValueError:
+                continue
+    
+        # Sort by distance and try routing through closest candidates
+        candidates.sort(key=lambda x: x[1])
+        print(f"{print_indent}Found {len(candidates)} reachable spare endpoints")
+    
+        # Try a limited number of closest candidates
+        for endpoint, path_dist, vlist, elist in candidates[:5]:
+            print(f"{print_indent}Trying to route through spare endpoint {endpoint}")
+
+            # Avoid revisiting endpoints
+            if endpoint in [int(v) for v in path_so_far]:
+                continue
+
+            new_path = path_so_far + [int(v) for v in vlist[1:]]
+            new_dist = dist_so_far + path_dist
+
+            if new_dist > weight_ceiling:
+                continue
+
+            self._find_paths_recursive(
+                current_node=self.graph.vertex(endpoint),
+                target=target,
+                path_so_far=new_path,
+                dist_so_far=new_dist,
+                target_dist=target_dist,
+                excluded_edges=excluded_edges,
+                paths_found=paths_found,
+                visited_edges=visited_edges | {endpoint},
+                max_depth=max_depth,
+                weight_ceiling=weight_ceiling,
+                current_depth=current_depth + 1
+            )
