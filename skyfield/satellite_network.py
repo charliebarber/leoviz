@@ -471,13 +471,13 @@ class SatelliteNetwork:
             
         print("\nNo valid paths found")
         return []
-    
+
     def _find_paths_recursive(self, current_node, target, path_so_far, dist_so_far, 
                         target_dist, excluded_edges, paths_found, visited_edges,
                         max_depth, weight_ceiling, current_depth=0):
         print_indent = "  " * current_depth
         print(f"\n{print_indent}At node {int(current_node)} (depth {current_depth})")
-    
+
         if current_depth >= max_depth:
             print(f"{print_indent}Max depth reached, backtracking...")
             return
@@ -499,8 +499,11 @@ class SatelliteNetwork:
                         break
                         
                 if valid_path:
+                    # Create set of edges including both directions
                     path_edges = set((int(e.source()), int(e.target())) for e in elist)
-                    if not (path_edges & excluded_edges):
+                    path_edges.update((int(e.target()), int(e.source())) for e in elist)
+                    
+                    if not (path_edges & (excluded_edges | visited_edges)):
                         exit_dist = sum(self.distance[e] for e in elist)
                         total_dist = dist_so_far + exit_dist
                         print(f"{print_indent}Found potential satellite path to destination: {total_dist:.2f}")
@@ -511,7 +514,7 @@ class SatelliteNetwork:
                             print(f"{print_indent}✓ Path accepted")
             except ValueError:
                 pass
-    
+
         # Find satellite nodes that are endpoints of spare edges
         spare_endpoints = set()
         for e in self.graph.edges():
@@ -522,7 +525,7 @@ class SatelliteNetwork:
                     spare_endpoints.add(int(e.target()))
 
         print(f"{print_indent}Found {len(spare_endpoints)} satellite nodes involved in spare edges")
-    
+
         # Try paths to spare satellite endpoints
         candidates = []
         for endpoint in spare_endpoints:
@@ -531,8 +534,8 @@ class SatelliteNetwork:
 
             try:
                 vlist, elist = shortest_path(self.graph, current_node, 
-                                           self.graph.vertex(endpoint), 
-                                           weights=self.distance)
+                                        self.graph.vertex(endpoint), 
+                                        weights=self.distance)
                 
                 # Verify path only contains satellites
                 valid_path = True
@@ -544,18 +547,21 @@ class SatelliteNetwork:
                 if not valid_path:
                     continue
 
+                # Create set of edges including both directions
                 path_edges = set((int(e.source()), int(e.target())) for e in elist)
-                if not (path_edges & excluded_edges):
+                path_edges.update((int(e.target()), int(e.source())) for e in elist)
+                
+                if not (path_edges & (excluded_edges | visited_edges)):
                     path_dist = sum(self.distance[e] for e in elist)
-                    candidates.append((endpoint, path_dist, vlist, elist))
+                    candidates.append((endpoint, path_dist, vlist, elist, path_edges))
 
             except ValueError:
                 continue
-    
+
         candidates.sort(key=lambda x: x[1])
         print(f"{print_indent}Found {len(candidates)} reachable satellite endpoints")
-    
-        for endpoint, path_dist, vlist, elist in candidates[:5]:
+
+        for endpoint, path_dist, vlist, elist, path_edges in candidates[:5]:
             print(f"{print_indent}Trying to route through satellite {endpoint}")
 
             if endpoint in [int(v) for v in path_so_far]:
@@ -567,6 +573,9 @@ class SatelliteNetwork:
             if new_dist > weight_ceiling:
                 continue
 
+            # Update visited edges with both directions
+            new_visited = visited_edges | path_edges
+
             self._find_paths_recursive(
                 current_node=self.graph.vertex(endpoint),
                 target=target,
@@ -575,7 +584,7 @@ class SatelliteNetwork:
                 target_dist=target_dist,
                 excluded_edges=excluded_edges,
                 paths_found=paths_found,
-                visited_edges=visited_edges | {endpoint},
+                visited_edges=new_visited,
                 max_depth=max_depth,
                 weight_ceiling=weight_ceiling,
                 current_depth=current_depth + 1
