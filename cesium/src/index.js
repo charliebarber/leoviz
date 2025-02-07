@@ -26,6 +26,7 @@ import { initCities } from "./js/cities";
 import { plotGSLs } from "./js/gsls";
 import { plotISLs, loadISLs } from "./js/isls";
 import { createEntityToggle } from "./js/ui";
+import { plotPaths } from "./js/paths";
 
 const viewer = setupViewer();
 
@@ -36,13 +37,14 @@ const gslsDataSource = new CustomDataSource('GSLs');
 const satellitesDataSource = new CustomDataSource('Satellites');
 const gsDataSource = new CustomDataSource('Ground Stations');
 const islsDataSource = new CustomDataSource('ISLs');
+const pathsDataSource = new CustomDataSource('Paths');
 
 // Add them to the viewer
 viewer.dataSources.add(gslsDataSource);
 viewer.dataSources.add(satellitesDataSource);
 viewer.dataSources.add(gsDataSource);
 viewer.dataSources.add(islsDataSource);
-
+viewer.dataSources.add(pathsDataSource);
 
 const gslsEntity = entities.add(new EntityCollection());
 const satellitesEntity = entities.add(new EntityCollection());
@@ -66,6 +68,8 @@ let timestamp_index = 0;
 const plot = async (index) => {
     // Plot satellites at given timestamp
     const satellitePositions = await plotSatellites(satellitesDataSource, timestamps[index]);
+    console.log("Adding paths");
+    plotPaths(pathsDataSource, satellitePositions, cityPositions, timestamps[index]);
     // Load and add ISLs
     const isls = await loadISLs('isls.txt');
     plotISLs(isls, satellitePositions, islsDataSource, timestamps[index]);
