@@ -17,7 +17,7 @@ def main():
     tle_file = "../constellations/starlink_550/tles.txt"
     isls_file = "../constellations/starlink_550/isls.txt"
     cities_file = "./cities.csv"
-    base_output_dir = Path("../positions/starlink_550_traffic_scaled")
+    base_output_dir = Path(f"../positions/starlink_550_traffic_scaled/{str(int(args.timestamp))}/")
 
     # Create output directory if it doesn't exist
     base_output_dir.mkdir(parents=True, exist_ok=True)
