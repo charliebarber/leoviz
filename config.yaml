@@ -1,0 +1,36 @@
+topology:
+  nodes:
+    - id: 0
+      name: "1611"
+    - id: 1
+      name: "331"
+    - id: 2
+      name: "330"    
+    - id: 3
+      name: "352"
+    - id: 4
+      name: "373"
+    - id: 5
+      name: "1593"
+  
+  links:
+    - source: "1611"
+      target: "331"
+      data_rate: "5Mbps"
+      delay: "2ms"
+    - source: "331"
+      target: "330"
+      data_rate: "5Mbps"
+      delay: "4ms"
+    - source: "330"
+      target: "352"
+      data_rate: "5Mbps"
+      delay: "5ms"
+    - source: "352"
+      target: "373"
+      data_rate: "5Mbps"
+      delay: "2ms"
+    - source: "373"
+      target: "1593"
+      data_rate: "5Mbps"
+      delay: "3ms"
