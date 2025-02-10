@@ -13,8 +13,6 @@ using namespace ns3;
 NS_LOG_COMPONENT_DEFINE("YamlTest");
 
 void run(YAML::Node config) {
-  // Store mappings of Node ID - Sat Name
-  std::map<std::string, Ptr<Node>> nodeMap;
   NodeContainer nodes;
 
   // Track how many links created
@@ -25,9 +23,8 @@ void run(YAML::Node config) {
   for (const auto& node : configNodes) {
     Ptr<Node> newNode = CreateObject<Node>();
     std::string nodeName = node["name"].as<std::string>();
-    nodeMap[nodeName] = newNode;
     
-    // Also add an internal NS3 node mapping - may be needed later?
+    // Map Node to Name
     Names::Add(node["name"].as<std::string>(), newNode);
 
     nodes.Add(newNode);
@@ -44,8 +41,8 @@ void run(YAML::Node config) {
     std::string targetName = link["target"].as<std::string>();
 
     NodeContainer linkNodes;
-    linkNodes.Add(nodeMap[sourceName]);
-    linkNodes.Add(nodeMap[targetName]);
+    linkNodes.Add(Names::Find<Node>(sourceName));
+    linkNodes.Add(Names::Find<Node>(targetName));
 
     NS_LOG_UNCOND("Creating link from "
                 << sourceName << " to " << targetName << " with rate "
