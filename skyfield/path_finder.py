@@ -8,7 +8,8 @@ import logging
 class PathCandidate:
     """Represents a candidate path segment to explore"""
     endpoint: int
-    distance: float
+    delay: float  # Changed from distance to delay
+    distance: float  # Added to track distance
     vertex_list: List[Vertex]
     edge_list: List[Edge]
     path_edges: Set[Tuple[int, int]]
@@ -35,8 +36,9 @@ class PathFinder:
                            excluded_edges: Set[Tuple[int, int]]) -> Optional[Tuple[List[Vertex], List[Edge]]]:
         """Attempt to find a path to the target"""
         try:
+            # Changed to use delay for weights instead of distance
             vlist, elist = shortest_path(self.network.graph, current_node, target, 
-                                       weights=self.network.distance)
+                                       weights=self.network.delay)
             
             if not self._is_valid_satellite_path(vlist):
                 return None
@@ -75,7 +77,7 @@ class PathFinder:
             try:
                 vlist, elist = shortest_path(self.network.graph, current_node,
                                            self.network.graph.vertex(endpoint),
-                                           weights=self.network.distance)
+                                           weights=self.network.delay)  # Changed to delay
                 
                 if not self._is_valid_satellite_path(vlist):
                     continue
@@ -84,13 +86,15 @@ class PathFinder:
                 if path_edges & (excluded_edges | visited_edges):
                     continue
 
+                path_delay = sum(self.network.delay[e] for e in elist)
                 path_dist = sum(self.network.distance[e] for e in elist)
-                candidates.append(PathCandidate(endpoint, path_dist, vlist, elist, path_edges))
+                candidates.append(PathCandidate(endpoint, path_delay, path_dist, vlist, elist, path_edges))
 
             except ValueError:
                 continue
 
-        return sorted(candidates, key=lambda x: x.distance)
+        return sorted(candidates, key=lambda x: x.delay)  # Sort by delay instead of distance
+
 
     def _count_edge_types(self, path: List[int]) -> Tuple[int, int]:
         """Count the number of spare and normal edges in a path"""
@@ -124,12 +128,14 @@ class PathFinder:
             source_v = self.network.graph.vertex(self.network.vertex_map[source])
             target_v = self.network.graph.vertex(self.network.vertex_map[target])
 
+            # Get shortest path based on delay
             vlist, elist = shortest_path(self.network.graph, source_v, target_v, 
-                                       weights=self.network.distance)
-            shortest_path_list = [self.network.graph.vertex_index[v] for v in vlist]
+                                       weights=self.network.delay)
+            shortest_path_list = [str(self.network.index_map[v]) for v in vlist]
+            shortest_delay = sum(self.network.delay[e] for e in elist)
             shortest_dist = sum(self.network.distance[e] for e in elist)
-            target_dist = shortest_dist * target_weight_factor
-            weight_ceiling = target_dist * 1.5
+            target_delay = shortest_delay * target_weight_factor
+            delay_ceiling = target_delay * 2.0 # Double the delay to allow more path options
 
             # Get edges to exclude (from shortest path)
             excluded_edges = self._create_edge_set(elist[1:-1])
@@ -142,31 +148,33 @@ class PathFinder:
                 current_node=vlist[1],
                 target=target_v,
                 path_so_far=initial_path,
+                delay_so_far=0,
                 dist_so_far=0,
-                target_dist=target_dist,
+                target_delay=target_delay,
                 excluded_edges=excluded_edges,
                 paths_found=paths_found,
                 visited_edges=set(),
                 max_depth=max_depth,
-                weight_ceiling=weight_ceiling,
+                delay_ceiling=delay_ceiling,
                 max_candidates=max_candidates
             )
 
-            return shortest_path_list, self._get_best_path(paths_found, target_dist, source, shortest_dist)
+            return shortest_path_list, self._get_best_path(paths_found, target_delay, source, shortest_delay, shortest_dist)
         except ValueError:
             print(f"No path found between {source} and {target}")
             return [], []
 
     def _find_paths_recursive(self, current_node: Vertex, target: Vertex,
-                            path_so_far: List[int], dist_so_far: float,
-                            target_dist: float, excluded_edges: Set[Tuple[int, int]],
-                            paths_found: List[Tuple[List[int], float]],
+                            path_so_far: List[int], delay_so_far: float,
+                            dist_so_far: float, target_delay: float, 
+                            excluded_edges: Set[Tuple[int, int]],
+                            paths_found: List[Tuple[List[int], float, float]],  # Added distance
                             visited_edges: Set[Tuple[int, int]],
-                            max_depth: int, weight_ceiling: float,
+                            max_depth: int, delay_ceiling: float,
                             current_depth: int = 0,
                             max_candidates: int = 5):
         """Recursive path finding implementation"""
-        if current_depth >= max_depth or dist_so_far > weight_ceiling:
+        if current_depth >= max_depth or delay_so_far > delay_ceiling:
             return
 
         # Try routing to destination if we've hit some spare segments
@@ -175,10 +183,11 @@ class PathFinder:
                                                  visited_edges, excluded_edges)
             if path_result:
                 vlist, elist = path_result
+                total_delay = delay_so_far + sum(self.network.delay[e] for e in elist)
                 total_dist = dist_so_far + sum(self.network.distance[e] for e in elist)
-                if total_dist >= target_dist:
+                if total_delay >= target_delay:
                     complete_path = path_so_far + [int(v) for v in vlist[1:]]
-                    paths_found.append((complete_path, total_dist))
+                    paths_found.append((complete_path, total_delay, total_dist))
 
         # Find and process candidates
         spare_endpoints = self._find_spare_endpoints()
@@ -191,9 +200,10 @@ class PathFinder:
                 continue
 
             new_path = path_so_far + [int(v) for v in candidate.vertex_list[1:]]
+            new_delay = delay_so_far + candidate.delay
             new_dist = dist_so_far + candidate.distance
 
-            if new_dist > weight_ceiling:
+            if new_delay > delay_ceiling:
                 continue
 
             new_visited = visited_edges | candidate.path_edges
@@ -202,25 +212,27 @@ class PathFinder:
                 current_node=self.network.graph.vertex(candidate.endpoint),
                 target=target,
                 path_so_far=new_path,
+                delay_so_far=new_delay,
                 dist_so_far=new_dist,
-                target_dist=target_dist,
+                target_delay=target_delay,
                 excluded_edges=excluded_edges,
                 paths_found=paths_found,
                 visited_edges=new_visited,
                 max_depth=max_depth,
-                weight_ceiling=weight_ceiling,
+                delay_ceiling=delay_ceiling,
                 current_depth=current_depth + 1,
                 max_candidates=max_candidates
             )
 
-    def _get_best_path(self, paths_found: List[Tuple[List[int], float]], 
-                           target_dist: float, source: str, shortest_dist: float) -> List[str]:
+    def _get_best_path(self, paths_found: List[Tuple[List[int], float, float]], 
+                           target_delay: float, source: str, 
+                           shortest_delay: float, shortest_dist: float) -> List[str]:
         """Get the best path from the found paths and log path statistics"""
         if not paths_found:
             return []
 
-        paths_found.sort(key=lambda x: abs(x[1] - target_dist))
-        best_path_data, best_dist = paths_found[0]
+        paths_found.sort(key=lambda x: abs(x[1] - target_delay))
+        best_path_data, best_delay, best_dist = paths_found[0]
         reverse_map = {v: k for k, v in self.network.vertex_map.items()}
         
         # Count edge types in the path
@@ -228,13 +240,16 @@ class PathFinder:
         total_edges = spare_edges + normal_edges
         
         best_path = [reverse_map[v] for v in best_path_data]
-        best_path.insert(0, source)  # Prepend source GS
+        best_path.insert(0, source)
 
         # Log path statistics
         print(f"\nPath Statistics:")
-        print(f"Shortest path distance: {shortest_dist:.2f}")
-        print(f"Target distance: {target_dist:.2f}")
-        print(f"Best spare path distance: {best_dist:.2f}")
+        print(f"Shortest path delay: {shortest_delay:.6f} seconds")
+        print(f"Shortest path distance: {shortest_dist:.2f} meters")
+        print(f"Target delay: {target_delay:.6f} seconds")
+        print(f"Best spare path delay: {best_delay:.6f} seconds")
+        print(f"Best spare path distance: {best_dist:.2f} meters")
+        print(f"Delay increase: {((best_delay/shortest_delay) - 1) * 100:.1f}%")
         print(f"Distance increase: {((best_dist/shortest_dist) - 1) * 100:.1f}%")
         
         print(f"\nEdge Type Statistics:")
@@ -243,11 +258,12 @@ class PathFinder:
         print(f"Normal edges: {normal_edges} ({(normal_edges/total_edges)*100:.1f}%)")
         
         if len(paths_found) > 1:
-            print("\nAlternative path distances:")
-            for path_data, dist in paths_found[1:4]:  # Show up to 3 alternatives
+            print("\nAlternative path statistics:")
+            for path_data, delay, dist in paths_found[1:4]:  # Show up to 3 alternatives
                 spare_count, normal_count = self._count_edge_types(path_data)
                 total = spare_count + normal_count
-                print(f"Distance: {dist:.2f} (+{((dist/shortest_dist) - 1) * 100:.1f}%), "
+                print(f"Delay: {delay:.6f}s (+{((delay/shortest_delay) - 1) * 100:.1f}%), "
+                      f"Distance: {dist:.2f}m (+{((dist/shortest_dist) - 1) * 100:.1f}%), "
                       f"Spare edges: {spare_count}/{total} ({(spare_count/total)*100:.1f}%)")
             
         return best_path

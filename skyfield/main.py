@@ -5,6 +5,7 @@ import argparse
 from satellite_network import SatelliteNetwork
 from tle_parser import TLEParser
 from ground_stations import GroundStations
+import os
 
 def main():
     # Parse command line arguments
@@ -48,8 +49,11 @@ def main():
         network.update_node_positions(gs_positions, node_type='ground_station')
         
         # Update ISL distances and visibility edges
-        network.update_isl_distances()
+        # network.update_isl_distances() # not needed as update_link_delays also calculates
         network.update_visibility_edges(max_gsl_length_m, min_elevation_angle)
+
+        # Calculate and update link delays
+        network.update_link_delays()
         
         # Save satellite positions to CSV
         # output_file = base_output_dir / f"{int(timestamp)}.csv"
@@ -68,12 +72,23 @@ def main():
         print(network.get_edge_betweenness_stats())
         network.update_spare_edges()
 
-        shortest_path, spare_path = network.find_paths_via_spare_edges("10028", "10010", 1.15)
-        print("\nSPARE PATH")
-        print(spare_path)
-        print("\nSHORTEST PATH")
-        print(shortest_path)
-        network.write_paths_to_file(base_output_dir, "10028", "10010", shortest_path, spare_path)
+        # Pairs: (London, NYC), (Singapore, London), (Paris, Johannesburg), (Birmingham, Tokyo), (Goteborg, Perth), (Kansas City, Philadelphia)
+        pairs = [("10028", "10010"), ("10064", "10028"), ("10025", "10035"), ("10179", "10001"), ("10883", "10255"), ("10300", "10065")]
+        # pairs = [("10883", "10255"), ("10300", "10065")]
+        for (src, dst) in pairs:
+            print(f"\n\nProcessing pair ({src}, {dst})")
+            shortest_path, spare_path = network.find_paths_via_spare_edges(src, dst, 1.25)
+            os.makedirs(f'{base_output_dir}/paths', exist_ok=True)
+            os.makedirs(f'{base_output_dir}/paths/path_{src}_{dst}', exist_ok=True)
+            print("\nSPARE PATH")
+            print(spare_path)
+            print("\nSHORTEST PATH")
+            print(shortest_path)
+            network.write_paths_to_file(f"{base_output_dir}/paths/path_{src}_{dst}/paths.txt", src, dst, shortest_path, spare_path)
+
+            network.write_path_yaml(f"{base_output_dir}/paths/path_{src}_{dst}/spare.yaml", spare_path)
+            network.write_path_yaml(f"{base_output_dir}/paths/path_{src}_{dst}/shortest.yaml", shortest_path)
+            print("Finished processing pair")
 
         print(f"Successfully processed timestamp {timestamp} ({datetime.datetime.fromtimestamp(timestamp, tz=timezone.utc)})")
 

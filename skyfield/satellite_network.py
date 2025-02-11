@@ -5,7 +5,12 @@ from math import radians, cos, sin, asin, sqrt, atan2, degrees
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+import yaml;
+
 from path_finder import PathFinder
+
+# Speed of light in vacuum (m/s)
+SPEED_OF_LIGHT = 299792458.0
 
 class SatelliteNetwork:
     """
@@ -30,6 +35,7 @@ class SatelliteNetwork:
         
         # Edge properties
         self.edge_type = self.graph.new_edge_property("string")
+        self.delay = self.graph.new_edge_property("double")
         self.distance = self.graph.new_edge_property("double")
         self.betweenness = self.graph.new_edge_property("double")
         self.is_spare = self.graph.new_edge_property("bool")
@@ -44,11 +50,13 @@ class SatelliteNetwork:
         
         self.graph.edge_properties["type"] = self.edge_type
         self.graph.edge_properties["distance"] = self.distance
+        self.graph.edge_properties["delay"] = self.delay
         self.graph.edge_properties["betweenness"] = self.betweenness
         self.graph.edge_properties["is_spare"] = self.is_spare 
         
         # Create vertex name to index mapping
         self.vertex_map = {}
+        self.index_map = {}
         
         self._load_isls(isls_file)
 
@@ -56,8 +64,11 @@ class SatelliteNetwork:
         """Get vertex index, creating new vertex if needed."""
         if name not in self.vertex_map:
             v = self.graph.add_vertex()
-            self.vertex_map[name] = int(v)
+            v_int = int(v)
+            self.vertex_map[name] = v_int
+            self.index_map[v_int] = name  # Changed from v to v_int
         return self.graph.vertex(self.vertex_map[name])
+        
 
     def _load_isls(self, isls_file: str):
         """Load inter-satellite links from file."""
@@ -184,6 +195,25 @@ class SatelliteNetwork:
             if self.edge_type[e] == 'ISL':
                 distance = self.calculate_isl_distance(e.source(), e.target())
                 self.distance[e] = distance
+
+    def update_link_delays(self):
+        """Update link delays based on distance attribute."""
+        for e in self.graph.edges():
+            if self.edge_type[e] == 'ISL':
+                distance = self.calculate_isl_distance(e.source(), e.target())
+                self.distance[e] = distance 
+
+                delay = distance / SPEED_OF_LIGHT
+                self.delay[e] = delay
+
+            # Visible GSLs 
+            if self.edge_type[e] == 'visibility':
+                distance = self.distance[e]
+                
+                # Potential for adding constants based on refraction
+                delay = distance / SPEED_OF_LIGHT
+                self.delay[e] = delay
+                
 
     def get_network_stats(self) -> Dict:
         """Get network statistics."""
@@ -360,7 +390,7 @@ class SatelliteNetwork:
         for e in self.graph.edges():
             self.is_spare[e] = self.betweenness[e] <= threshold
 
-    def write_paths_to_file(self, output_dir: str, source: str, target: str, shortest: List, spare: List):
+    def write_paths_to_file(self, output_file: str, source: str, target: str, shortest: List, spare: List):
         """
         Write shortest and spare paths to a file in the paths directory.
         
@@ -370,12 +400,8 @@ class SatelliteNetwork:
             shortest (List): List of nodes in shortest path
             spare (List): List of nodes in spare path
         """
-        # Create paths directory if it doesn't exist
-        import os
-        os.makedirs(f'{output_dir}/paths', exist_ok=True)
-        
         # Write paths to file
-        with open(f'{output_dir}/paths/path_{source}_{target}.txt', 'w') as f:
+        with open(output_file, 'w') as f:
             f.write("SPARE PATH\n")
             f.write(' '.join(str(node) for node in spare))
             f.write("\nSHORTEST PATH\n")
@@ -385,3 +411,54 @@ class SatelliteNetwork:
     def find_paths_via_spare_edges(self, source: str, target: str, target_weight_factor: float = 1.25) -> list:
         path_finder = PathFinder(self)
         return path_finder.find_paths_via_spare_edges(source, target, target_weight_factor) 
+
+    def write_path_yaml(self, filename: str, path: List[str]):
+        """
+        Write path to YAML file using PyYAML library.
+        
+        Args:
+            filename (str): Output YAML file path
+            path (List[str]): List of node IDs in path order
+        """
+        # Create topology dictionary
+        topology = {
+            'topology': {
+                'nodes': [],
+                'links': []
+            }
+        }
+        
+        # Add nodes
+        for i, node_id in enumerate(path):
+            topology['topology']['nodes'].append({
+                'id': i,
+                'name': str(node_id)
+            })
+        
+        # Add links
+        for i in range(len(path)-1):
+            v1 = self.graph.vertex(self.vertex_map[path[i]])
+            v2 = self.graph.vertex(self.vertex_map[path[i+1]])
+            
+            # Find edge between vertices
+            edge = None
+            for e in v1.out_edges():
+                if e.target() == v2:
+                    edge = e
+                    break
+            
+            if edge:
+                # Determine data rate based on edge type
+                data_rate = "4Gbps" if self.edge_type[edge] == 'visibility' else "20Gbps"
+                delay_ms = self.delay[edge] * 1000  # Convert to milliseconds
+                
+                topology['topology']['links'].append({
+                    'source': str(path[i]),
+                    'target': str(path[i+1]),
+                    'data_rate': data_rate,
+                    'delay': f"{delay_ms:.2f}ms"
+                })
+        
+        # Write to YAML file
+        with open(filename, 'w') as f:
+            yaml.dump(topology, f, default_flow_style=False, sort_keys=False)

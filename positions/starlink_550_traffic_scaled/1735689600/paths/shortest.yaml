@@ -1,0 +1,35 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10028'
+  - id: 1
+    name: '331'
+  - id: 2
+    name: '330'
+  - id: 3
+    name: '352'
+  - id: 4
+    name: '373'
+  - id: 5
+    name: '10010'
+  links:
+  - source: '10028'
+    target: '331'
+    data_rate: 4Gbps
+    delay: 3.45ms
+  - source: '331'
+    target: '330'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '330'
+    target: '352'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '352'
+    target: '373'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '373'
+    target: '10010'
+    data_rate: 4Gbps
+    delay: 3.10ms
