@@ -10,7 +10,7 @@
 
 using namespace ns3;
 
-NS_LOG_COMPONENT_DEFINE("YamlTest");
+NS_LOG_COMPONENT_DEFINE("LEO-Satellite-Sim");
 
 void run(YAML::Node config) {
   NodeContainer nodes;
@@ -50,6 +50,7 @@ void run(YAML::Node config) {
                 << link["delay"].as<std::string>());
     // Create Point to Point link with params from config
     PointToPointHelper p2p;
+    p2p.SetQueue("ns3::DropTailQueue");
     p2p.SetDeviceAttribute("DataRate",
                             StringValue(link["data_rate"].as<std::string>()));
     p2p.SetChannelAttribute("Delay",
@@ -88,7 +89,5 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  Simulator::Run();
-  Simulator::Destroy();
   return 0;
 }
