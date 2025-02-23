@@ -12,7 +12,7 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LEO-Satellite-Sim");
 
-void run(YAML::Node config) {
+void run(YAML::Node config, std::string outputDir) {
   NodeContainer nodes;
 
   // Track how many links created
@@ -99,7 +99,8 @@ void run(YAML::Node config) {
 
     // Save source and destination IP addresses
     // Only enable PCAPs on these nodes
-    std::string pcapDir = "/home/charlie/fyp/leoviz/networksim/results/";
+    // std::string pcapDir = "/home/charlie/fyp/leoviz/networksim/results/";
+    std::string pcapDir = outputDir;
     if (i == 0) {
       srcAddress = interface.GetAddress(0);
       p2p.EnablePcap(pcapDir + "src_", linkDevices.Get(0));
@@ -139,8 +140,10 @@ void run(YAML::Node config) {
 
 int main(int argc, char* argv[]) {
   std::string configFile;
+  std::string outputDir;
   CommandLine cmd;
   cmd.AddValue("config", "Path to YAML config file", configFile);
+  cmd.AddValue("output-dir", "Output directory", outputDir);
   cmd.Parse(argc, argv);
 
   LogComponentEnableAll(LOG_LEVEL_INFO);
@@ -148,7 +151,7 @@ int main(int argc, char* argv[]) {
   try {
     auto config = ReadYamlConfig(configFile);
     NS_LOG_UNCOND("Successfully read YAML config:");
-    run(config);
+    run(config, outputDir);
   } catch (const std::exception& e) {
     NS_LOG_ERROR("Failed to read config: " << e.what());
     return 1;
