@@ -3,69 +3,75 @@ topology:
   - id: 0
     name: '10064'
   - id: 1
-    name: '673'
-  - id: 2
     name: '651'
+  - id: 2
+    name: '629'
   - id: 3
-    name: '650'
+    name: '607'
   - id: 4
-    name: '649'
+    name: '585'
   - id: 5
-    name: '648'
+    name: '563'
   - id: 6
-    name: '670'
+    name: '585'
   - id: 7
-    name: '692'
+    name: '584'
   - id: 8
-    name: '691'
+    name: '583'
   - id: 9
-    name: '690'
+    name: '582'
   - id: 10
-    name: '689'
+    name: '581'
   - id: 11
+    name: '580'
+  - id: 12
     name: '10028'
   links:
   - source: '10064'
-    target: '673'
-    data_rate: 4Gbps
-    delay: 2.67ms
-  - source: '673'
     target: '651'
+    data_rate: 4Gbps
+    delay: 1.74ms
+  - source: '651'
+    target: '629'
+    data_rate: 20Gbps
+    delay: 4.77ms
+  - source: '629'
+    target: '607'
     data_rate: 20Gbps
     delay: 2.63ms
-  - source: '651'
-    target: '650'
+  - source: '607'
+    target: '585'
+    data_rate: 20Gbps
+    delay: 4.77ms
+  - source: '585'
+    target: '563'
+    data_rate: 20Gbps
+    delay: 2.63ms
+  - source: '563'
+    target: '585'
+    data_rate: 20Gbps
+    delay: 2.63ms
+  - source: '585'
+    target: '584'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '650'
-    target: '649'
-    data_rate: 20Gbps
-    delay: 6.58ms
-  - source: '649'
-    target: '648'
+  - source: '584'
+    target: '583'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '648'
-    target: '670'
-    data_rate: 20Gbps
-    delay: 2.28ms
-  - source: '670'
-    target: '692'
-    data_rate: 20Gbps
-    delay: 4.58ms
-  - source: '692'
-    target: '691'
+  - source: '583'
+    target: '582'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '691'
-    target: '690'
+  - source: '582'
+    target: '581'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '690'
-    target: '689'
+  - source: '581'
+    target: '580'
     data_rate: 20Gbps
-    delay: 6.54ms
-  - source: '689'
+    delay: 6.55ms
+  - source: '580'
     target: '10028'
     data_rate: 4Gbps
-    delay: 2.85ms
+    delay: 1.87ms

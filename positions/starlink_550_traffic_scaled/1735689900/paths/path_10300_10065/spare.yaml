@@ -5,9 +5,9 @@ topology:
   - id: 1
     name: '371'
   - id: 2
-    name: '370'
+    name: '372'
   - id: 3
-    name: '348'
+    name: '350'
   - id: 4
     name: '349'
   - id: 5
@@ -18,17 +18,17 @@ topology:
     data_rate: 4Gbps
     delay: 2.54ms
   - source: '371'
-    target: '370'
+    target: '372'
     data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '370'
-    target: '348'
+    delay: 6.55ms
+  - source: '372'
+    target: '350'
     data_rate: 20Gbps
-    delay: 2.41ms
-  - source: '348'
+    delay: 2.12ms
+  - source: '350'
     target: '349'
     data_rate: 20Gbps
-    delay: 6.56ms
+    delay: 6.55ms
   - source: '349'
     target: '10065'
     data_rate: 4Gbps

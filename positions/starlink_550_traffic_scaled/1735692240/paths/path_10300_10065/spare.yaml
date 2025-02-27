@@ -8,8 +8,6 @@ topology:
     name: '428'
   - id: 3
     name: '450'
-  - id: 4
-    name: '10065'
   links:
   - source: '10300'
     target: '406'
@@ -23,7 +21,3 @@ topology:
     target: '450'
     data_rate: 20Gbps
     delay: 2.24ms
-  - source: '450'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 1.80ms

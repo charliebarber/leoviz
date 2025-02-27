@@ -3,69 +3,69 @@ topology:
   - id: 0
     name: '10025'
   - id: 1
-    name: '388'
+    name: '344'
   - id: 2
-    name: '10233'
+    name: '322'
   - id: 3
-    name: '345'
+    name: '300'
   - id: 4
-    name: '346'
+    name: '278'
   - id: 5
-    name: '10705'
+    name: '256'
   - id: 6
-    name: '1041'
+    name: '257'
   - id: 7
-    name: '1063'
+    name: '258'
   - id: 8
-    name: '10230'
+    name: '259'
   - id: 9
-    name: '239'
+    name: '260'
   - id: 10
-    name: '217'
+    name: '261'
   - id: 11
     name: '10035'
   links:
   - source: '10025'
-    target: '388'
+    target: '344'
     data_rate: 4Gbps
-    delay: 3.34ms
-  - source: '388'
-    target: '10233'
-    data_rate: 4Gbps
-    delay: 2.69ms
-  - source: '10233'
-    target: '345'
-    data_rate: 4Gbps
-    delay: 2.83ms
-  - source: '345'
-    target: '346'
+    delay: 3.47ms
+  - source: '344'
+    target: '322'
+    data_rate: 20Gbps
+    delay: 4.55ms
+  - source: '322'
+    target: '300'
+    data_rate: 20Gbps
+    delay: 2.22ms
+  - source: '300'
+    target: '278'
+    data_rate: 20Gbps
+    delay: 4.55ms
+  - source: '278'
+    target: '256'
+    data_rate: 20Gbps
+    delay: 2.22ms
+  - source: '256'
+    target: '257'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '257'
+    target: '258'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '346'
-    target: '10705'
-    data_rate: 4Gbps
-    delay: 2.99ms
-  - source: '10705'
-    target: '1041'
-    data_rate: 4Gbps
-    delay: 2.46ms
-  - source: '1041'
-    target: '1063'
+  - source: '258'
+    target: '259'
     data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '1063'
-    target: '10230'
-    data_rate: 4Gbps
-    delay: 3.08ms
-  - source: '10230'
-    target: '239'
-    data_rate: 4Gbps
-    delay: 3.37ms
-  - source: '239'
-    target: '217'
+    delay: 6.58ms
+  - source: '259'
+    target: '260'
     data_rate: 20Gbps
-    delay: 2.56ms
-  - source: '217'
+    delay: 6.58ms
+  - source: '260'
+    target: '261'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '261'
     target: '10035'
     data_rate: 4Gbps
-    delay: 2.98ms
+    delay: 3.60ms

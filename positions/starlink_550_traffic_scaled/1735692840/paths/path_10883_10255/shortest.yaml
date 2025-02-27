@@ -3,63 +3,57 @@ topology:
   - id: 0
     name: '10883'
   - id: 1
-    name: '670'
+    name: '604'
   - id: 2
-    name: '10752'
+    name: '605'
   - id: 3
-    name: '540'
+    name: '606'
   - id: 4
-    name: '562'
+    name: '607'
   - id: 5
-    name: '563'
+    name: '608'
   - id: 6
-    name: '564'
+    name: '609'
   - id: 7
-    name: '565'
+    name: '610'
   - id: 8
-    name: '566'
+    name: '611'
   - id: 9
-    name: '567'
-  - id: 10
     name: '10255'
   links:
   - source: '10883'
-    target: '670'
+    target: '604'
     data_rate: 4Gbps
-    delay: 3.50ms
-  - source: '670'
-    target: '10752'
-    data_rate: 4Gbps
-    delay: 3.39ms
-  - source: '10752'
-    target: '540'
-    data_rate: 4Gbps
-    delay: 3.46ms
-  - source: '540'
-    target: '562'
+    delay: 3.51ms
+  - source: '604'
+    target: '605'
     data_rate: 20Gbps
-    delay: 4.59ms
-  - source: '562'
-    target: '563'
+    delay: 6.55ms
+  - source: '605'
+    target: '606'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '606'
+    target: '607'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '563'
-    target: '564'
+  - source: '607'
+    target: '608'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '564'
-    target: '565'
+  - source: '608'
+    target: '609'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '565'
-    target: '566'
+  - source: '609'
+    target: '610'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '566'
-    target: '567'
+  - source: '610'
+    target: '611'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '567'
+  - source: '611'
     target: '10255'
     data_rate: 4Gbps
-    delay: 3.42ms
+    delay: 2.61ms

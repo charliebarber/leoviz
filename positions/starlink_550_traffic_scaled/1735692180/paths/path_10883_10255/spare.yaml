@@ -23,11 +23,9 @@ topology:
   - id: 10
     name: '571'
   - id: 11
-    name: '593'
+    name: '570'
   - id: 12
     name: '592'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '585'
@@ -70,14 +68,10 @@ topology:
     data_rate: 20Gbps
     delay: 6.55ms
   - source: '571'
-    target: '593'
+    target: '570'
     data_rate: 20Gbps
-    delay: 2.27ms
-  - source: '593'
+    delay: 6.55ms
+  - source: '570'
     target: '592'
     data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '592'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.65ms
+    delay: 2.43ms

@@ -26,8 +26,6 @@ topology:
     name: '533'
   - id: 12
     name: '532'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '547'
@@ -77,7 +75,3 @@ topology:
     target: '532'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '532'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.12ms

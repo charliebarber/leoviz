@@ -8,8 +8,6 @@ topology:
     name: '422'
   - id: 3
     name: '444'
-  - id: 4
-    name: '10065'
   links:
   - source: '10300'
     target: '421'
@@ -23,7 +21,3 @@ topology:
     target: '444'
     data_rate: 20Gbps
     delay: 2.14ms
-  - source: '444'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 3.35ms

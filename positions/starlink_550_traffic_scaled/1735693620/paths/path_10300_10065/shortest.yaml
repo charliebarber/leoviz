@@ -3,27 +3,21 @@ topology:
   - id: 0
     name: '10300'
   - id: 1
-    name: '422'
+    name: '1549'
   - id: 2
-    name: '10479'
+    name: '1571'
   - id: 3
-    name: '466'
-  - id: 4
     name: '10065'
   links:
   - source: '10300'
-    target: '422'
+    target: '1549'
     data_rate: 4Gbps
-    delay: 2.08ms
-  - source: '422'
-    target: '10479'
-    data_rate: 4Gbps
-    delay: 2.21ms
-  - source: '10479'
-    target: '466'
-    data_rate: 4Gbps
-    delay: 2.29ms
-  - source: '466'
+    delay: 1.90ms
+  - source: '1549'
+    target: '1571'
+    data_rate: 20Gbps
+    delay: 4.59ms
+  - source: '1571'
     target: '10065'
     data_rate: 4Gbps
-    delay: 2.35ms
+    delay: 2.72ms

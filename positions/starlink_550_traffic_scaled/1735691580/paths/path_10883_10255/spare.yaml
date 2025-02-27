@@ -34,8 +34,6 @@ topology:
     name: '530'
   - id: 16
     name: '529'
-  - id: 17
-    name: '10255'
   links:
   - source: '10883'
     target: '565'
@@ -101,7 +99,3 @@ topology:
     target: '529'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '529'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.01ms

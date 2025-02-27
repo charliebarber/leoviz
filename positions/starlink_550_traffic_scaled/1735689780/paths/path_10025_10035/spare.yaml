@@ -3,25 +3,25 @@ topology:
   - id: 0
     name: '10025'
   - id: 1
-    name: '375'
+    name: '287'
   - id: 2
-    name: '376'
+    name: '288'
   - id: 3
-    name: '377'
+    name: '289'
   - id: 4
-    name: '378'
+    name: '290'
   - id: 5
-    name: '379'
+    name: '291'
   - id: 6
-    name: '380'
+    name: '313'
   - id: 7
-    name: '381'
+    name: '314'
   - id: 8
-    name: '359'
-  - id: 9
-    name: '337'
-  - id: 10
     name: '315'
+  - id: 9
+    name: '314'
+  - id: 10
+    name: '292'
   - id: 11
     name: '293'
   - id: 12
@@ -38,49 +38,49 @@ topology:
     name: '10035'
   links:
   - source: '10025'
-    target: '375'
+    target: '287'
     data_rate: 4Gbps
-    delay: 3.33ms
-  - source: '375'
-    target: '376'
+    delay: 3.63ms
+  - source: '287'
+    target: '288'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '376'
-    target: '377'
+  - source: '288'
+    target: '289'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '377'
-    target: '378'
+  - source: '289'
+    target: '290'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '378'
-    target: '379'
+  - source: '290'
+    target: '291'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '379'
-    target: '380'
+  - source: '291'
+    target: '313'
+    data_rate: 20Gbps
+    delay: 2.63ms
+  - source: '313'
+    target: '314'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '380'
-    target: '381'
-    data_rate: 20Gbps
-    delay: 6.57ms
-  - source: '381'
-    target: '359'
-    data_rate: 20Gbps
-    delay: 4.68ms
-  - source: '359'
-    target: '337'
-    data_rate: 20Gbps
-    delay: 2.47ms
-  - source: '337'
+  - source: '314'
     target: '315'
     data_rate: 20Gbps
-    delay: 4.68ms
+    delay: 6.57ms
   - source: '315'
+    target: '314'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '314'
+    target: '292'
+    data_rate: 20Gbps
+    delay: 2.59ms
+  - source: '292'
     target: '293'
     data_rate: 20Gbps
-    delay: 2.47ms
+    delay: 6.57ms
   - source: '293'
     target: '271'
     data_rate: 20Gbps

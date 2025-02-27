@@ -13,24 +13,32 @@ topology:
   - id: 5
     name: '332'
   - id: 6
-    name: '333'
+    name: '354'
   - id: 7
-    name: '334'
+    name: '355'
   - id: 8
-    name: '312'
+    name: '356'
   - id: 9
-    name: '290'
+    name: '334'
   - id: 10
-    name: '268'
+    name: '333'
   - id: 11
-    name: '246'
+    name: '311'
   - id: 12
-    name: '224'
+    name: '312'
   - id: 13
-    name: '202'
+    name: '290'
   - id: 14
-    name: '180'
+    name: '268'
   - id: 15
+    name: '246'
+  - id: 16
+    name: '224'
+  - id: 17
+    name: '202'
+  - id: 18
+    name: '180'
+  - id: 19
     name: '10035'
   links:
   - source: '10025'
@@ -54,17 +62,33 @@ topology:
     data_rate: 20Gbps
     delay: 6.58ms
   - source: '332'
-    target: '333'
+    target: '354'
+    data_rate: 20Gbps
+    delay: 2.63ms
+  - source: '354'
+    target: '355'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '333'
-    target: '334'
+  - source: '355'
+    target: '356'
     data_rate: 20Gbps
     delay: 6.57ms
+  - source: '356'
+    target: '334'
+    data_rate: 20Gbps
+    delay: 2.47ms
   - source: '334'
+    target: '333'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '333'
+    target: '311'
+    data_rate: 20Gbps
+    delay: 4.74ms
+  - source: '311'
     target: '312'
     data_rate: 20Gbps
-    delay: 4.68ms
+    delay: 6.57ms
   - source: '312'
     target: '290'
     data_rate: 20Gbps

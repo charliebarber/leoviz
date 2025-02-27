@@ -5,20 +5,30 @@ topology:
   - id: 1
     name: '675'
   - id: 2
-    name: '653'
+    name: '697'
   - id: 3
-    name: '654'
+    name: '719'
   - id: 4
-    name: '10953'
+    name: '741'
   - id: 5
-    name: '939'
+    name: '763'
   - id: 6
-    name: '940'
+    name: '785'
   - id: 7
-    name: '941'
+    name: '807'
   - id: 8
-    name: '942'
+    name: '829'
   - id: 9
+    name: '851'
+  - id: 10
+    name: '873'
+  - id: 11
+    name: '874'
+  - id: 12
+    name: '875'
+  - id: 13
+    name: '876'
+  - id: 14
     name: '10001'
   links:
   - source: '10179'
@@ -26,34 +36,54 @@ topology:
     data_rate: 4Gbps
     delay: 3.01ms
   - source: '675'
-    target: '653'
+    target: '697'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '697'
+    target: '719'
     data_rate: 20Gbps
     delay: 2.08ms
-  - source: '653'
-    target: '654'
+  - source: '719'
+    target: '741'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '741'
+    target: '763'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '763'
+    target: '785'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '785'
+    target: '807'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '807'
+    target: '829'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '829'
+    target: '851'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '851'
+    target: '873'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '873'
+    target: '874'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '654'
-    target: '10953'
-    data_rate: 4Gbps
-    delay: 3.16ms
-  - source: '10953'
-    target: '939'
-    data_rate: 4Gbps
-    delay: 3.60ms
-  - source: '939'
-    target: '940'
+  - source: '874'
+    target: '875'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '940'
-    target: '941'
+  - source: '875'
+    target: '876'
     data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '941'
-    target: '942'
-    data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '942'
+    delay: 6.56ms
+  - source: '876'
     target: '10001'
     data_rate: 4Gbps
-    delay: 2.16ms
+    delay: 2.95ms

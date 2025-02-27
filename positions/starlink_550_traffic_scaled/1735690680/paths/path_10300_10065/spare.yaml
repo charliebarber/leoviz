@@ -5,25 +5,19 @@ topology:
   - id: 1
     name: '1538'
   - id: 2
-    name: '1516'
+    name: '1560'
   - id: 3
-    name: '1517'
-  - id: 4
-    name: '10065'
+    name: '1582'
   links:
   - source: '10300'
     target: '1538'
     data_rate: 4Gbps
     delay: 3.59ms
   - source: '1538'
-    target: '1516'
+    target: '1560'
+    data_rate: 20Gbps
+    delay: 2.25ms
+  - source: '1560'
+    target: '1582'
     data_rate: 20Gbps
     delay: 4.56ms
-  - source: '1516'
-    target: '1517'
-    data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '1517'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 3.16ms

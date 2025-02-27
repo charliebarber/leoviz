@@ -5,10 +5,8 @@ topology:
   - id: 1
     name: '3'
   - id: 2
-    name: '10683'
+    name: '25'
   - id: 3
-    name: '47'
-  - id: 4
     name: '10065'
   links:
   - source: '10300'
@@ -16,14 +14,10 @@ topology:
     data_rate: 4Gbps
     delay: 2.40ms
   - source: '3'
-    target: '10683'
-    data_rate: 4Gbps
-    delay: 2.23ms
-  - source: '10683'
-    target: '47'
-    data_rate: 4Gbps
-    delay: 2.26ms
-  - source: '47'
+    target: '25'
+    data_rate: 20Gbps
+    delay: 4.60ms
+  - source: '25'
     target: '10065'
     data_rate: 4Gbps
-    delay: 2.06ms
+    delay: 2.43ms

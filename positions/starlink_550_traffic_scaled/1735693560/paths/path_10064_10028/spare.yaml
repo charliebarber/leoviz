@@ -5,25 +5,25 @@ topology:
   - id: 1
     name: '650'
   - id: 2
-    name: '628'
+    name: '651'
   - id: 3
-    name: '606'
+    name: '673'
   - id: 4
-    name: '584'
+    name: '672'
   - id: 5
-    name: '562'
+    name: '671'
   - id: 6
-    name: '561'
+    name: '670'
   - id: 7
-    name: '560'
+    name: '669'
   - id: 8
-    name: '559'
+    name: '668'
   - id: 9
-    name: '558'
+    name: '646'
   - id: 10
-    name: '557'
+    name: '624'
   - id: 11
-    name: '579'
+    name: '623'
   - id: 12
     name: '10028'
   links:
@@ -32,46 +32,46 @@ topology:
     data_rate: 4Gbps
     delay: 1.84ms
   - source: '650'
-    target: '628'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '628'
-    target: '606'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '606'
-    target: '584'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '584'
-    target: '562'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '562'
-    target: '561'
+    target: '651'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '561'
-    target: '560'
+  - source: '651'
+    target: '673'
+    data_rate: 20Gbps
+    delay: 2.61ms
+  - source: '673'
+    target: '672'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '560'
-    target: '559'
+  - source: '672'
+    target: '671'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '671'
+    target: '670'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '559'
-    target: '558'
+  - source: '670'
+    target: '669'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '558'
-    target: '557'
+  - source: '669'
+    target: '668'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '557'
-    target: '579'
+  - source: '668'
+    target: '646'
     data_rate: 20Gbps
-    delay: 2.07ms
-  - source: '579'
+    delay: 2.13ms
+  - source: '646'
+    target: '624'
+    data_rate: 20Gbps
+    delay: 4.50ms
+  - source: '624'
+    target: '623'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '623'
     target: '10028'
     data_rate: 4Gbps
-    delay: 2.11ms
+    delay: 2.18ms

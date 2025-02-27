@@ -3,52 +3,46 @@ topology:
   - id: 0
     name: '10064'
   - id: 1
-    name: '708'
+    name: '686'
   - id: 2
-    name: '707'
+    name: '685'
   - id: 3
-    name: '706'
+    name: '684'
   - id: 4
-    name: '705'
+    name: '683'
   - id: 5
-    name: '704'
+    name: '682'
   - id: 6
-    name: '10554'
-  - id: 7
     name: '703'
-  - id: 8
+  - id: 7
     name: '681'
-  - id: 9
+  - id: 8
     name: '10028'
   links:
   - source: '10064'
-    target: '708'
+    target: '686'
     data_rate: 4Gbps
-    delay: 2.47ms
-  - source: '708'
-    target: '707'
+    delay: 1.83ms
+  - source: '686'
+    target: '685'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '707'
-    target: '706'
+  - source: '685'
+    target: '684'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '684'
+    target: '683'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '706'
-    target: '705'
+  - source: '683'
+    target: '682'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '705'
-    target: '704'
+  - source: '682'
+    target: '703'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '704'
-    target: '10554'
-    data_rate: 4Gbps
-    delay: 2.38ms
-  - source: '10554'
-    target: '703'
-    data_rate: 4Gbps
-    delay: 3.05ms
   - source: '703'
     target: '681'
     data_rate: 20Gbps

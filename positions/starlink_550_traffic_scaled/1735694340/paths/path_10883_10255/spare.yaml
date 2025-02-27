@@ -26,8 +26,6 @@ topology:
     name: '585'
   - id: 12
     name: '584'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '577'
@@ -77,7 +75,3 @@ topology:
     target: '584'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '584'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.33ms

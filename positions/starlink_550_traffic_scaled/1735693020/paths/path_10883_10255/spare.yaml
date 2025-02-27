@@ -5,73 +5,73 @@ topology:
   - id: 1
     name: '582'
   - id: 2
-    name: '583'
+    name: '560'
   - id: 3
-    name: '584'
+    name: '561'
   - id: 4
-    name: '585'
+    name: '562'
   - id: 5
-    name: '586'
+    name: '563'
   - id: 6
-    name: '587'
+    name: '564'
   - id: 7
-    name: '588'
+    name: '565'
   - id: 8
-    name: '589'
+    name: '566'
   - id: 9
-    name: '590'
+    name: '567'
   - id: 10
     name: '568'
   - id: 11
-    name: '567'
+    name: '590'
   - id: 12
-    name: '10255'
+    name: '589'
   links:
   - source: '10883'
     target: '582'
     data_rate: 4Gbps
     delay: 3.62ms
   - source: '582'
-    target: '583'
+    target: '560'
+    data_rate: 20Gbps
+    delay: 2.13ms
+  - source: '560'
+    target: '561'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '583'
-    target: '584'
-    data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '584'
-    target: '585'
+  - source: '561'
+    target: '562'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '585'
-    target: '586'
+  - source: '562'
+    target: '563'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '586'
-    target: '587'
+  - source: '563'
+    target: '564'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '587'
-    target: '588'
+  - source: '564'
+    target: '565'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '588'
-    target: '589'
+  - source: '565'
+    target: '566'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '589'
-    target: '590'
-    data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '590'
-    target: '568'
-    data_rate: 20Gbps
-    delay: 2.23ms
-  - source: '568'
+  - source: '566'
     target: '567'
     data_rate: 20Gbps
-    delay: 6.55ms
+    delay: 6.56ms
   - source: '567'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.17ms
+    target: '568'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '568'
+    target: '590'
+    data_rate: 20Gbps
+    delay: 2.23ms
+  - source: '590'
+    target: '589'
+    data_rate: 20Gbps
+    delay: 6.56ms

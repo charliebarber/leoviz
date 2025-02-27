@@ -5,79 +5,73 @@ topology:
   - id: 1
     name: '621'
   - id: 2
-    name: '599'
+    name: '643'
   - id: 3
-    name: '600'
+    name: '644'
   - id: 4
-    name: '601'
+    name: '645'
   - id: 5
-    name: '602'
+    name: '646'
   - id: 6
-    name: '603'
+    name: '647'
   - id: 7
-    name: '604'
+    name: '648'
   - id: 8
-    name: '605'
+    name: '649'
   - id: 9
-    name: '606'
+    name: '650'
   - id: 10
-    name: '607'
+    name: '628'
   - id: 11
-    name: '629'
+    name: '606'
   - id: 12
     name: '628'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '621'
     data_rate: 4Gbps
     delay: 2.82ms
   - source: '621'
-    target: '599'
+    target: '643'
     data_rate: 20Gbps
-    delay: 2.09ms
-  - source: '599'
-    target: '600'
+    delay: 4.48ms
+  - source: '643'
+    target: '644'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '600'
-    target: '601'
+  - source: '644'
+    target: '645'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '601'
-    target: '602'
+  - source: '645'
+    target: '646'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '602'
-    target: '603'
+  - source: '646'
+    target: '647'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '603'
-    target: '604'
+  - source: '647'
+    target: '648'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '604'
-    target: '605'
+  - source: '648'
+    target: '649'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '605'
-    target: '606'
+  - source: '649'
+    target: '650'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '606'
-    target: '607'
-    data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '607'
-    target: '629'
-    data_rate: 20Gbps
-    delay: 2.29ms
-  - source: '629'
+  - source: '650'
     target: '628'
     data_rate: 20Gbps
-    delay: 6.56ms
+    delay: 4.67ms
   - source: '628'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 3.02ms
+    target: '606'
+    data_rate: 20Gbps
+    delay: 2.45ms
+  - source: '606'
+    target: '628'
+    data_rate: 20Gbps
+    delay: 2.45ms

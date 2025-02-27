@@ -3,82 +3,46 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '676'
+    name: '741'
   - id: 2
-    name: '675'
+    name: '740'
   - id: 3
-    name: '674'
-  - id: 4
-    name: '673'
-  - id: 5
-    name: '695'
-  - id: 6
-    name: '717'
-  - id: 7
-    name: '739'
-  - id: 8
-    name: '761'
-  - id: 9
     name: '762'
-  - id: 10
+  - id: 4
     name: '763'
-  - id: 11
+  - id: 5
     name: '764'
-  - id: 12
+  - id: 6
     name: '765'
-  - id: 13
-    name: '787'
-  - id: 14
-    name: '788'
-  - id: 15
-    name: '789'
-  - id: 16
+  - id: 7
+    name: '766'
+  - id: 8
+    name: '767'
+  - id: 9
+    name: '768'
+  - id: 10
     name: '790'
-  - id: 17
+  - id: 11
     name: '812'
-  - id: 18
+  - id: 12
     name: '834'
-  - id: 19
+  - id: 13
     name: '856'
-  - id: 20
+  - id: 14
     name: '10001'
   links:
   - source: '10179'
-    target: '676'
+    target: '741'
     data_rate: 4Gbps
-    delay: 2.58ms
-  - source: '676'
-    target: '675'
+    delay: 3.62ms
+  - source: '741'
+    target: '740'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '675'
-    target: '674'
-    data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '674'
-    target: '673'
-    data_rate: 20Gbps
-    delay: 6.57ms
-  - source: '673'
-    target: '695'
-    data_rate: 20Gbps
-    delay: 4.69ms
-  - source: '695'
-    target: '717'
-    data_rate: 20Gbps
-    delay: 2.50ms
-  - source: '717'
-    target: '739'
-    data_rate: 20Gbps
-    delay: 4.69ms
-  - source: '739'
-    target: '761'
-    data_rate: 20Gbps
-    delay: 2.50ms
-  - source: '761'
+  - source: '740'
     target: '762'
     data_rate: 20Gbps
-    delay: 6.57ms
+    delay: 2.34ms
   - source: '762'
     target: '763'
     data_rate: 20Gbps
@@ -92,21 +56,21 @@ topology:
     data_rate: 20Gbps
     delay: 6.55ms
   - source: '765'
-    target: '787'
-    data_rate: 20Gbps
-    delay: 4.48ms
-  - source: '787'
-    target: '788'
+    target: '766'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '788'
-    target: '789'
+  - source: '766'
+    target: '767'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '767'
+    target: '768'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '789'
+  - source: '768'
     target: '790'
     data_rate: 20Gbps
-    delay: 6.57ms
+    delay: 4.68ms
   - source: '790'
     target: '812'
     data_rate: 20Gbps

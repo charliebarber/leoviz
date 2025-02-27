@@ -34,8 +34,6 @@ topology:
     name: '589'
   - id: 16
     name: '588'
-  - id: 17
-    name: '10255'
   links:
   - source: '10883'
     target: '602'
@@ -101,7 +99,3 @@ topology:
     target: '588'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '588'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 1.74ms

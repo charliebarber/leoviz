@@ -1,0 +1,36 @@
+Path Statistics: 10028 to 10010
+=============================================
+
+Shortest Path:
+  Delay: 0.021126 seconds
+  Distance: 6333283.34 meters
+  Nodes: 10028 → 472 → 494 → 493 → 492 → 10010
+
+Target delay: 0.026407 seconds
+
+Best Spare Path:
+  Delay: 0.026788 seconds
+  Distance: 8030952.19 meters
+  Delay increase: 26.8%
+  Distance increase: 26.8%
+  Total edges: 5
+  Spare edges: 2 (40.0%)
+  Normal edges: 3 (60.0%)
+  Nodes: 10028 → 472 → 450 → 449 → 448 → 470 → 492
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.029040s (+37.5%)
+    Distance: 8706023.65m (+37.5%)
+    Spare edges: 3/6 (50.0%)
+
+  Path 2:
+    Delay: 0.026788s (+26.8%)
+    Distance: 8030952.19m (+26.8%)
+    Spare edges: 2/6 (33.3%)
+
+  Path 3:
+    Delay: 0.022422s (+6.1%)
+    Distance: 6721807.96m (+6.1%)
+    Spare edges: 2/4 (50.0%)
+

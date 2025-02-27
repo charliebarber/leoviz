@@ -3,6 +3,7 @@ from typing import Set, List, Tuple, Optional, Dict
 from graph_tool import Vertex, Edge, Graph
 from graph_tool.topology import shortest_path
 import logging
+import os
 
 @dataclass
 class PathCandidate:
@@ -16,9 +17,11 @@ class PathCandidate:
 
 class PathFinder:
     """Handles path finding logic separate from the main SatelliteNetwork class"""
-    def __init__(self, network):
+    def __init__(self, network, output_dir):
         self.network = network
         self.logger = logging.getLogger(__name__)
+
+        self.output_dir = output_dir
 
         self.spare_edges = None
         self.distances_to_target = None
@@ -68,7 +71,7 @@ class PathFinder:
                        visited_edges: Set[Tuple[int, int]], 
                        max_candidates: int) -> List[PathCandidate]:
         """Find path candidates to spare edges"""
-        print(f"\nLooking for candidates from node {current_node}")
+        # print(f"\nLooking for candidates from node {current_node}")
         candidates = []
         current_node_id = int(current_node)
         
@@ -215,7 +218,7 @@ class PathFinder:
                     pass
         
         # Sort candidates by distance to target
-        print(f"Found {len(candidates)} path candidates to spare edges")
+        # print(f"Found {len(candidates)} path candidates to spare edges")
         return sorted(candidates, key=lambda x: self.distances_to_target[x.endpoint])[:max_candidates]
 
 
@@ -538,16 +541,16 @@ class PathFinder:
                         visited_edges: Set[Tuple[int, int]], 
                         excluded_edges: Set[Tuple[int, int]]) -> Optional[Tuple[List[Vertex], List[Edge]]]:
         """Attempt to find a path to the target with satellite-only constraint"""
-        print(f"Trying to find path from {int(current_node)} to target")
+        # print(f"Trying to find path from {int(current_node)} to target")
         
         path_result = self._find_satellite_constrained_path(
             current_node, target, excluded_edges, visited_edges)
         
         if path_result:
-            print(f"Found valid constrained path to target with {len(path_result[0])} nodes")
+            # print(f"Found valid constrained path to target with {len(path_result[0])} nodes")
             return path_result
         else:
-            print("No valid constrained path found")
+            # print("No valid constrained path found")
             return None
 
     def _find_spare_edges(self) -> List[Tuple[Edge, Vertex, Vertex]]:
@@ -592,7 +595,7 @@ class PathFinder:
                 shortest_delay = sum(self.network.delay[e] for e in elist)
                 shortest_dist = sum(self.network.distance[e] for e in elist)
                 self.target_delay = shortest_delay * target_weight_factor
-                self.delay_ceiling = self.target_delay * 4.0
+                self.delay_ceiling = self.target_delay * 2.0
 
                 # Get edges to exclude (from shortest path)
                 self.excluded_edges = self._create_edge_set(elist[1:-1])
@@ -614,7 +617,15 @@ class PathFinder:
                     max_candidates=max_candidates
                 )
 
-                return shortest_path_list, self._get_best_path(self.paths_found, self.target_delay, source, shortest_delay, shortest_dist)
+                return shortest_path_list, self._get_best_path(
+                    self.paths_found, 
+                    self.target_delay, 
+                    source, 
+                    target,  # Pass the target ID
+                    shortest_path_list,  # Pass the shortest path list
+                    shortest_delay, 
+                    shortest_dist
+                )
                 
             except ValueError as e:
                 print(f"Error finding constrained path: {str(e)}")
@@ -631,27 +642,27 @@ class PathFinder:
                             max_candidates: int = 5):
         """Recursive path finding implementation"""
         if current_depth >= max_depth:
-            print(f"Stopping: reached max depth {max_depth}")
+            # print(f"Stopping: reached max depth {max_depth}")
             return
         if delay_so_far > self.delay_ceiling:
-            print(f"Stopping: delay {delay_so_far} exceeds ceiling {self.delay_ceiling}")
+            # print(f"Stopping: delay {delay_so_far} exceeds ceiling {self.delay_ceiling}")
             return
 
         # Try routing to destination if we've hit some spare segments
         if current_depth > 0:
-            print("Attempting to find path to target...")
+            # print("Attempting to find path to target...")
             path_result = self._get_path_to_target(current_node, self.target_vertex, 
                                                 visited_edges, self.excluded_edges)
             if path_result:
-                print("Found path to target")
+                # print("Found path to target")
                 vlist, elist = path_result
                 total_delay = delay_so_far + sum(self.network.delay[e] for e in elist)
                 total_dist = dist_so_far + sum(self.network.distance[e] for e in elist)
                 if total_delay < self.delay_ceiling:
                     complete_path = path_so_far + [int(v) for v in vlist[1:]]
                     self.paths_found.append((complete_path, total_delay, total_dist))
-            else:
-                print("No path to target found")
+            # else:
+                # print("No path to target found")
 
         # Find and process candidates
         spare_endpoints = self._find_spare_endpoints()
@@ -684,8 +695,9 @@ class PathFinder:
             )
 
     def _get_best_path(self, paths_found: List[Tuple[List[int], float, float]], 
-                           target_delay: float, source: str, 
-                           shortest_delay: float, shortest_dist: float) -> List[str]:
+                    target_delay: float, source: str, target: str,
+                    shortest_path_list: List[str],
+                    shortest_delay: float, shortest_dist: float) -> List[str]:
         """Get the best path from the found paths and log path statistics"""
         if not paths_found:
             return []
@@ -697,18 +709,37 @@ class PathFinder:
         if not valid_paths:
             return []
 
-        # Sort by how close the delay is to target_delay
-        valid_paths.sort(key=lambda x: abs(x[1] - target_delay))
-        best_path_data, best_delay, best_dist = valid_paths[0]
+        # Calculate metrics for each path
+        path_metrics = []
+        for path_data, delay, dist in valid_paths:
+            # Calculate delay metric (how close to target_delay)
+            delay_metric = abs(delay - target_delay) / target_delay
+            
+            # Calculate spare edge percentage
+            spare_edges, normal_edges = self._count_edge_types(path_data)
+            total_edges = spare_edges + normal_edges
+            spare_percentage = spare_edges / total_edges if total_edges > 0 else 0
+            
+            # Combined score - lower is better
+            # Weight factors can be adjusted to prioritize delay vs spare usage
+            delay_weight = 0.6  # 60% weight on delay
+            spare_weight = 0.4  # 40% weight on spare edge usage
+            
+            # Delay metric: lower is better, spare percentage: higher is better
+            combined_score = (delay_weight * delay_metric) - (spare_weight * spare_percentage)
+            
+            path_metrics.append((path_data, delay, dist, spare_edges, normal_edges, combined_score))
+        
+        # Sort by combined score (lower is better)
+        path_metrics.sort(key=lambda x: x[5])
+        
+        best_path_data, best_delay, best_dist, spare_edges, normal_edges, _ = path_metrics[0]
+        total_edges = spare_edges + normal_edges
         
         # Get node names from reverse mapping
         reverse_map = {v: k for k, v in self.network.vertex_map.items()}
         best_path = [reverse_map[v] for v in best_path_data]
         best_path.insert(0, source)
-
-        # Count edge types in the path
-        spare_edges, normal_edges = self._count_edge_types(best_path_data)
-        total_edges = spare_edges + normal_edges
 
         # Log path statistics
         print(f"\nPath Statistics:")
@@ -725,13 +756,67 @@ class PathFinder:
         print(f"Spare edges: {spare_edges} ({(spare_edges/total_edges)*100:.1f}%)")
         print(f"Normal edges: {normal_edges} ({(normal_edges/total_edges)*100:.1f}%)")
         
-        if len(paths_found) > 1:
+        # Print alternative paths if available
+        if len(path_metrics) > 1:
             print("\nAlternative path statistics:")
-            for path_data, delay, dist in paths_found[1:4]:  # Show up to 3 alternatives
-                spare_count, normal_count = self._count_edge_types(path_data)
+            for path_data, delay, dist, spare_count, normal_count, _ in path_metrics[1:4]:  # Show up to 3 alternatives
                 total = spare_count + normal_count
                 print(f"Delay: {delay:.6f}s (+{((delay/shortest_delay) - 1) * 100:.1f}%), "
-                      f"Distance: {dist:.2f}m (+{((dist/shortest_dist) - 1) * 100:.1f}%), "
-                      f"Spare edges: {spare_count}/{total} ({(spare_count/total)*100:.1f}%)")
+                    f"Distance: {dist:.2f}m (+{((dist/shortest_dist) - 1) * 100:.1f}%), "
+                    f"Spare edges: {spare_count}/{total} ({(spare_count/total)*100:.1f}%)")
             
+        self.write_path_stats(
+            source, target, 
+            shortest_path_list, shortest_delay, shortest_dist,
+            best_path, best_delay, best_dist,
+            spare_edges, normal_edges,
+            target_delay,
+            path_metrics[1:4] if len(path_metrics) > 1 else None  # Pass alternative paths
+        )
+
         return best_path
+
+    def write_path_stats(self, src: str, dst: str, 
+                   shortest_path_list: List[str], shortest_delay: float, shortest_dist: float,
+                   best_path: List[str], best_delay: float, best_dist: float,
+                   spare_edges: int, normal_edges: int, 
+                   target_delay: float,
+                   alternative_paths: List[Tuple] = None):
+        stats_dir = f"{self.output_dir}/paths/path_{src}_{dst}"
+        os.makedirs(stats_dir, exist_ok=True)
+        
+        # Write statistics to the file
+        with open(f"{stats_dir}/stats.txt", 'w') as f:
+            f.write(f"Path Statistics: {src} to {dst}\n")
+            f.write(f"=============================================\n\n")
+            
+            f.write(f"Shortest Path:\n")
+            f.write(f"  Delay: {shortest_delay:.6f} seconds\n")
+            f.write(f"  Distance: {shortest_dist:.2f} meters\n")
+            f.write(f"  Nodes: {' → '.join(shortest_path_list)}\n\n")
+            
+            f.write(f"Target delay: {target_delay:.6f} seconds\n\n")
+            
+            if best_path:
+                total_edges = spare_edges + normal_edges
+                f.write(f"Best Spare Path:\n")
+                f.write(f"  Delay: {best_delay:.6f} seconds\n")
+                f.write(f"  Distance: {best_dist:.2f} meters\n")
+                f.write(f"  Delay increase: {((best_delay/shortest_delay) - 1) * 100:.1f}%\n")
+                f.write(f"  Distance increase: {((best_dist/shortest_dist) - 1) * 100:.1f}%\n")
+                f.write(f"  Total edges: {total_edges}\n")
+                f.write(f"  Spare edges: {spare_edges} ({(spare_edges/total_edges)*100:.1f}%)\n")
+                f.write(f"  Normal edges: {normal_edges} ({(normal_edges/total_edges)*100:.1f}%)\n")
+                f.write(f"  Nodes: {' → '.join(best_path)}\n\n")
+            else:
+                f.write(f"No valid spare path found\n\n")
+            
+            # Include alternative paths if provided
+            if alternative_paths and len(alternative_paths) > 0:
+                f.write(f"Alternative Paths:\n")
+                for i, (_, delay, dist, spare_count, normal_count, _) in enumerate(alternative_paths[:3], 1):
+                    total = spare_count + normal_count
+                    f.write(f"  Path {i}:\n")
+                    f.write(f"    Delay: {delay:.6f}s (+{((delay/shortest_delay) - 1) * 100:.1f}%)\n")
+                    f.write(f"    Distance: {dist:.2f}m (+{((dist/shortest_dist) - 1) * 100:.1f}%)\n")
+                    f.write(f"    Spare edges: {spare_count}/{total} ({(spare_count/total)*100:.1f}%)\n\n")

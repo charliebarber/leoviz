@@ -7,19 +7,19 @@ topology:
   - id: 2
     name: '590'
   - id: 3
-    name: '589'
+    name: '568'
   - id: 4
-    name: '588'
+    name: '590'
   - id: 5
-    name: '587'
+    name: '589'
   - id: 6
-    name: '586'
+    name: '588'
   - id: 7
-    name: '585'
+    name: '587'
   - id: 8
-    name: '584'
+    name: '586'
   - id: 9
-    name: '606'
+    name: '585'
   - id: 10
     name: '10028'
   links:
@@ -31,6 +31,14 @@ topology:
     target: '590'
     data_rate: 20Gbps
     delay: 4.76ms
+  - source: '590'
+    target: '568'
+    data_rate: 20Gbps
+    delay: 2.62ms
+  - source: '568'
+    target: '590'
+    data_rate: 20Gbps
+    delay: 2.62ms
   - source: '590'
     target: '589'
     data_rate: 20Gbps
@@ -52,14 +60,6 @@ topology:
     data_rate: 20Gbps
     delay: 6.54ms
   - source: '585'
-    target: '584'
-    data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '584'
-    target: '606'
-    data_rate: 20Gbps
-    delay: 4.50ms
-  - source: '606'
     target: '10028'
     data_rate: 4Gbps
-    delay: 3.48ms
+    delay: 2.12ms

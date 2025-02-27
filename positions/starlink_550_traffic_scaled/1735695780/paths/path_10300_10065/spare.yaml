@@ -7,7 +7,9 @@ topology:
   - id: 2
     name: '503'
   - id: 3
-    name: '10065'
+    name: '481'
+  - id: 4
+    name: '503'
   links:
   - source: '10300'
     target: '502'
@@ -18,6 +20,10 @@ topology:
     data_rate: 20Gbps
     delay: 6.56ms
   - source: '503'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 3.47ms
+    target: '481'
+    data_rate: 20Gbps
+    delay: 2.15ms
+  - source: '481'
+    target: '503'
+    data_rate: 20Gbps
+    delay: 2.15ms

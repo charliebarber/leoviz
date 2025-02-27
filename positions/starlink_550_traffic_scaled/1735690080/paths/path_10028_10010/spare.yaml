@@ -7,7 +7,7 @@ topology:
   - id: 2
     name: '417'
   - id: 3
-    name: '416'
+    name: '439'
   - id: 4
     name: '438'
   - id: 5
@@ -26,13 +26,13 @@ topology:
     data_rate: 20Gbps
     delay: 2.09ms
   - source: '417'
-    target: '416'
+    target: '439'
     data_rate: 20Gbps
-    delay: 6.54ms
-  - source: '416'
+    delay: 4.48ms
+  - source: '439'
     target: '438'
     data_rate: 20Gbps
-    delay: 4.47ms
+    delay: 6.55ms
   - source: '438'
     target: '437'
     data_rate: 20Gbps

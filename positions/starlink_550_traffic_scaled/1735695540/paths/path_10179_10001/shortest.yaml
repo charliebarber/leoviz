@@ -3,57 +3,81 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '725'
+    name: '812'
   - id: 2
-    name: '703'
+    name: '813'
   - id: 3
-    name: '682'
+    name: '835'
   - id: 4
-    name: '10953'
+    name: '857'
   - id: 5
-    name: '989'
+    name: '879'
   - id: 6
-    name: '1011'
+    name: '901'
   - id: 7
-    name: '990'
+    name: '923'
   - id: 8
-    name: '991'
+    name: '945'
   - id: 9
+    name: '967'
+  - id: 10
+    name: '946'
+  - id: 11
+    name: '947'
+  - id: 12
+    name: '948'
+  - id: 13
     name: '10001'
   links:
   - source: '10179'
-    target: '725'
+    target: '812'
     data_rate: 4Gbps
-    delay: 2.77ms
-  - source: '725'
-    target: '703'
-    data_rate: 20Gbps
-    delay: 2.07ms
-  - source: '703'
-    target: '682'
+    delay: 2.91ms
+  - source: '812'
+    target: '813'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '682'
-    target: '10953'
-    data_rate: 4Gbps
-    delay: 3.58ms
-  - source: '10953'
-    target: '989'
-    data_rate: 4Gbps
-    delay: 3.36ms
-  - source: '989'
-    target: '1011'
+  - source: '813'
+    target: '835'
     data_rate: 20Gbps
     delay: 4.47ms
-  - source: '1011'
-    target: '990'
+  - source: '835'
+    target: '857'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '857'
+    target: '879'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '879'
+    target: '901'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '901'
+    target: '923'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '923'
+    target: '945'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '945'
+    target: '967'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '967'
+    target: '946'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '990'
-    target: '991'
+  - source: '946'
+    target: '947'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '991'
+  - source: '947'
+    target: '948'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '948'
     target: '10001'
     data_rate: 4Gbps
-    delay: 3.49ms
+    delay: 2.53ms

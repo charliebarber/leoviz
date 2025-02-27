@@ -73,12 +73,12 @@ def main():
         network.update_spare_edges()
 
         # Pairs: (London, NYC), (Singapore, London), (Paris, Johannesburg), (Birmingham, Tokyo), (Goteborg, Perth), (Kansas City, Philadelphia)
-        # pairs = [("10028", "10010"), ("10064", "10028"), ("10025", "10035"), ("10179", "10001"), ("10883", "10255"), ("10300", "10065")]
+        pairs = [("10028", "10010"), ("10064", "10028"), ("10025", "10035"), ("10179", "10001"), ("10883", "10255"), ("10300", "10065")]
         # pairs = [("10883", "10255"), ("10300", "10065")]
-        pairs = [("10025", "10035"), ("10179", "10001")]
+        # pairs = [("10025", "10035"), ("10179", "10001")]
         for (src, dst) in pairs:
             print(f"\n\nProcessing pair ({src}, {dst})")
-            shortest_path, spare_path = network.find_paths_via_spare_edges(src, dst, 1.25)
+            shortest_path, spare_path = network.find_paths_via_spare_edges(src, dst, 1.25, base_output_dir)
             os.makedirs(f'{base_output_dir}/paths', exist_ok=True)
             os.makedirs(f'{base_output_dir}/paths/path_{src}_{dst}', exist_ok=True)
             print("\nSPARE PATH")

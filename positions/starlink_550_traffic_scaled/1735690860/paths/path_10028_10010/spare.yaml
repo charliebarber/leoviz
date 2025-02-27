@@ -5,15 +5,15 @@ topology:
   - id: 1
     name: '392'
   - id: 2
-    name: '414'
+    name: '370'
   - id: 3
-    name: '413'
+    name: '348'
   - id: 4
-    name: '435'
+    name: '370'
   - id: 5
-    name: '434'
+    name: '369'
   - id: 6
-    name: '412'
+    name: '368'
   - id: 7
     name: '10010'
   links:
@@ -22,26 +22,26 @@ topology:
     data_rate: 4Gbps
     delay: 3.06ms
   - source: '392'
-    target: '414'
+    target: '370'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '370'
+    target: '348'
     data_rate: 20Gbps
     delay: 2.09ms
-  - source: '414'
-    target: '413'
+  - source: '348'
+    target: '370'
+    data_rate: 20Gbps
+    delay: 2.09ms
+  - source: '370'
+    target: '369'
     data_rate: 20Gbps
     delay: 6.54ms
-  - source: '413'
-    target: '435'
-    data_rate: 20Gbps
-    delay: 4.47ms
-  - source: '435'
-    target: '434'
+  - source: '369'
+    target: '368'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '434'
-    target: '412'
-    data_rate: 20Gbps
-    delay: 4.51ms
-  - source: '412'
+  - source: '368'
     target: '10010'
     data_rate: 4Gbps
-    delay: 3.03ms
+    delay: 3.01ms

@@ -3,75 +3,81 @@ topology:
   - id: 0
     name: '10883'
   - id: 1
-    name: '625'
+    name: '581'
   - id: 2
-    name: '626'
+    name: '559'
   - id: 3
-    name: '627'
+    name: '560'
   - id: 4
-    name: '628'
+    name: '561'
   - id: 5
-    name: '629'
+    name: '562'
   - id: 6
-    name: '630'
+    name: '563'
   - id: 7
-    name: '631'
+    name: '564'
   - id: 8
-    name: '632'
+    name: '565'
   - id: 9
-    name: '633'
+    name: '566'
   - id: 10
-    name: '611'
+    name: '567'
   - id: 11
-    name: '610'
+    name: '545'
   - id: 12
-    name: '10255'
+    name: '523'
+  - id: 13
+    name: '545'
   links:
   - source: '10883'
-    target: '625'
+    target: '581'
     data_rate: 4Gbps
-    delay: 3.52ms
-  - source: '625'
-    target: '626'
+    delay: 2.63ms
+  - source: '581'
+    target: '559'
+    data_rate: 20Gbps
+    delay: 2.10ms
+  - source: '559'
+    target: '560'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '626'
-    target: '627'
+  - source: '560'
+    target: '561'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '627'
-    target: '628'
+  - source: '561'
+    target: '562'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '628'
-    target: '629'
+  - source: '562'
+    target: '563'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '629'
-    target: '630'
+  - source: '563'
+    target: '564'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '630'
-    target: '631'
+  - source: '564'
+    target: '565'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '631'
-    target: '632'
+  - source: '565'
+    target: '566'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '632'
-    target: '633'
+  - source: '566'
+    target: '567'
     data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '633'
-    target: '611'
+    delay: 6.55ms
+  - source: '567'
+    target: '545'
+    data_rate: 20Gbps
+    delay: 4.58ms
+  - source: '545'
+    target: '523'
     data_rate: 20Gbps
     delay: 2.28ms
-  - source: '611'
-    target: '610'
+  - source: '523'
+    target: '545'
     data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '610'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.62ms
+    delay: 2.28ms

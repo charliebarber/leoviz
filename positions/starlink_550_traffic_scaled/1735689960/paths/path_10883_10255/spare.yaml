@@ -26,8 +26,6 @@ topology:
     name: '492'
   - id: 12
     name: '491'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '484'
@@ -77,7 +75,3 @@ topology:
     target: '491'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '491'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.47ms

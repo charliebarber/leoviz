@@ -3,38 +3,36 @@ topology:
   - id: 0
     name: '10064'
   - id: 1
-    name: '632'
-  - id: 2
     name: '610'
-  - id: 3
+  - id: 2
     name: '588'
-  - id: 4
+  - id: 3
     name: '566'
-  - id: 5
+  - id: 4
     name: '544'
-  - id: 6
+  - id: 5
     name: '522'
-  - id: 7
+  - id: 6
     name: '500'
+  - id: 7
+    name: '478'
   - id: 8
-    name: '499'
+    name: '500'
   - id: 9
-    name: '498'
+    name: '499'
   - id: 10
-    name: '497'
+    name: '498'
   - id: 11
-    name: '496'
+    name: '497'
   - id: 12
+    name: '496'
+  - id: 13
     name: '10028'
   links:
   - source: '10064'
-    target: '632'
-    data_rate: 4Gbps
-    delay: 2.71ms
-  - source: '632'
     target: '610'
-    data_rate: 20Gbps
-    delay: 2.63ms
+    data_rate: 4Gbps
+    delay: 2.90ms
   - source: '610'
     target: '588'
     data_rate: 20Gbps
@@ -55,6 +53,14 @@ topology:
     target: '500'
     data_rate: 20Gbps
     delay: 4.77ms
+  - source: '500'
+    target: '478'
+    data_rate: 20Gbps
+    delay: 2.63ms
+  - source: '478'
+    target: '500'
+    data_rate: 20Gbps
+    delay: 2.63ms
   - source: '500'
     target: '499'
     data_rate: 20Gbps

@@ -3,141 +3,117 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '725'
+    name: '812'
   - id: 2
-    name: '747'
+    name: '811'
   - id: 3
-    name: '726'
+    name: '810'
   - id: 4
-    name: '727'
+    name: '809'
   - id: 5
-    name: '749'
+    name: '831'
   - id: 6
-    name: '771'
+    name: '832'
   - id: 7
-    name: '772'
+    name: '833'
   - id: 8
-    name: '773'
+    name: '834'
   - id: 9
-    name: '774'
+    name: '835'
   - id: 10
-    name: '775'
+    name: '814'
   - id: 11
-    name: '797'
+    name: '815'
   - id: 12
-    name: '819'
+    name: '816'
   - id: 13
-    name: '841'
+    name: '838'
   - id: 14
-    name: '863'
+    name: '860'
   - id: 15
-    name: '885'
+    name: '882'
   - id: 16
-    name: '907'
+    name: '904'
   - id: 17
-    name: '929'
+    name: '926'
   - id: 18
-    name: '951'
+    name: '948'
   - id: 19
-    name: '973'
-  - id: 20
-    name: '972'
-  - id: 21
-    name: '971'
-  - id: 22
-    name: '970'
-  - id: 23
     name: '10001'
   links:
   - source: '10179'
-    target: '725'
+    target: '812'
     data_rate: 4Gbps
-    delay: 2.77ms
-  - source: '725'
-    target: '747'
-    data_rate: 20Gbps
-    delay: 4.47ms
-  - source: '747'
-    target: '726'
-    data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '726'
-    target: '727'
-    data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '727'
-    target: '749'
-    data_rate: 20Gbps
-    delay: 2.22ms
-  - source: '749'
-    target: '771'
-    data_rate: 20Gbps
-    delay: 4.55ms
-  - source: '771'
-    target: '772'
+    delay: 2.91ms
+  - source: '812'
+    target: '811'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '772'
-    target: '773'
+  - source: '811'
+    target: '810'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '773'
-    target: '774'
+  - source: '810'
+    target: '809'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '774'
-    target: '775'
+  - source: '809'
+    target: '831'
     data_rate: 20Gbps
-    delay: 6.58ms
-  - source: '775'
-    target: '797'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '797'
-    target: '819'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '819'
-    target: '841'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '841'
-    target: '863'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '863'
-    target: '885'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '885'
-    target: '907'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '907'
-    target: '929'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '929'
-    target: '951'
-    data_rate: 20Gbps
-    delay: 4.77ms
-  - source: '951'
-    target: '973'
-    data_rate: 20Gbps
-    delay: 2.63ms
-  - source: '973'
-    target: '972'
-    data_rate: 20Gbps
-    delay: 6.58ms
-  - source: '972'
-    target: '971'
-    data_rate: 20Gbps
-    delay: 6.58ms
-  - source: '971'
-    target: '970'
+    delay: 4.73ms
+  - source: '831'
+    target: '832'
     data_rate: 20Gbps
     delay: 6.57ms
-  - source: '970'
+  - source: '832'
+    target: '833'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '833'
+    target: '834'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '834'
+    target: '835'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '835'
+    target: '814'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '814'
+    target: '815'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '815'
+    target: '816'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '816'
+    target: '838'
+    data_rate: 20Gbps
+    delay: 2.38ms
+  - source: '838'
+    target: '860'
+    data_rate: 20Gbps
+    delay: 4.63ms
+  - source: '860'
+    target: '882'
+    data_rate: 20Gbps
+    delay: 2.38ms
+  - source: '882'
+    target: '904'
+    data_rate: 20Gbps
+    delay: 4.63ms
+  - source: '904'
+    target: '926'
+    data_rate: 20Gbps
+    delay: 2.38ms
+  - source: '926'
+    target: '948'
+    data_rate: 20Gbps
+    delay: 4.63ms
+  - source: '948'
     target: '10001'
     data_rate: 4Gbps
-    delay: 2.10ms
+    delay: 2.53ms

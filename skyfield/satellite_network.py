@@ -408,8 +408,8 @@ class SatelliteNetwork:
             f.write(' '.join(str(node) for node in shortest))
             f.write("\n")
 
-    def find_paths_via_spare_edges(self, source: str, target: str, target_weight_factor: float = 1.25) -> list:
-        path_finder = PathFinder(self)
+    def find_paths_via_spare_edges(self, source: str, target: str, target_weight_factor: float, base_output_dir: str) -> list:
+        path_finder = PathFinder(self,base_output_dir)
         return path_finder.find_paths_via_spare_edges(source, target, target_weight_factor) 
 
     def write_path_yaml(self, filename: str, path: List[str]):

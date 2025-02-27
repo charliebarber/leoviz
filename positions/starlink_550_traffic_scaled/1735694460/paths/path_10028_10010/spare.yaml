@@ -7,7 +7,7 @@ topology:
   - id: 2
     name: '488'
   - id: 3
-    name: '487'
+    name: '510'
   - id: 4
     name: '509'
   - id: 5
@@ -26,13 +26,13 @@ topology:
     data_rate: 20Gbps
     delay: 2.09ms
   - source: '488'
-    target: '487'
-    data_rate: 20Gbps
-    delay: 6.54ms
-  - source: '487'
-    target: '509'
+    target: '510'
     data_rate: 20Gbps
     delay: 4.48ms
+  - source: '510'
+    target: '509'
+    data_rate: 20Gbps
+    delay: 6.55ms
   - source: '509'
     target: '508'
     data_rate: 20Gbps

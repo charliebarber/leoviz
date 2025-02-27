@@ -6,10 +6,6 @@ topology:
     name: '410'
   - id: 2
     name: '432'
-  - id: 3
-    name: '454'
-  - id: 4
-    name: '10065'
   links:
   - source: '10300'
     target: '410'
@@ -19,11 +15,3 @@ topology:
     target: '432'
     data_rate: 20Gbps
     delay: 4.57ms
-  - source: '432'
-    target: '454'
-    data_rate: 20Gbps
-    delay: 2.27ms
-  - source: '454'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 1.80ms

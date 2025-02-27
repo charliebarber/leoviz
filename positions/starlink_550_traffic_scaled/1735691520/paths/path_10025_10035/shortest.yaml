@@ -7,22 +7,26 @@ topology:
   - id: 2
     name: '347'
   - id: 3
-    name: '10429'
+    name: '325'
   - id: 4
-    name: '913'
+    name: '303'
   - id: 5
-    name: '935'
+    name: '281'
   - id: 6
-    name: '10690'
+    name: '259'
   - id: 7
-    name: '978'
+    name: '237'
   - id: 8
-    name: '10714'
+    name: '238'
   - id: 9
-    name: '197'
+    name: '239'
   - id: 10
-    name: '176'
+    name: '240'
   - id: 11
+    name: '241'
+  - id: 12
+    name: '220'
+  - id: 13
     name: '10035'
   links:
   - source: '10025'
@@ -34,38 +38,46 @@ topology:
     data_rate: 20Gbps
     delay: 2.29ms
   - source: '347'
-    target: '10429'
-    data_rate: 4Gbps
-    delay: 3.02ms
-  - source: '10429'
-    target: '913'
-    data_rate: 4Gbps
-    delay: 3.15ms
-  - source: '913'
-    target: '935'
+    target: '325'
     data_rate: 20Gbps
-    delay: 2.51ms
-  - source: '935'
-    target: '10690'
-    data_rate: 4Gbps
-    delay: 3.34ms
-  - source: '10690'
-    target: '978'
-    data_rate: 4Gbps
-    delay: 2.66ms
-  - source: '978'
-    target: '10714'
-    data_rate: 4Gbps
-    delay: 2.95ms
-  - source: '10714'
-    target: '197'
-    data_rate: 4Gbps
-    delay: 3.24ms
-  - source: '197'
-    target: '176'
+    delay: 4.58ms
+  - source: '325'
+    target: '303'
+    data_rate: 20Gbps
+    delay: 2.29ms
+  - source: '303'
+    target: '281'
+    data_rate: 20Gbps
+    delay: 4.58ms
+  - source: '281'
+    target: '259'
+    data_rate: 20Gbps
+    delay: 2.29ms
+  - source: '259'
+    target: '237'
+    data_rate: 20Gbps
+    delay: 4.58ms
+  - source: '237'
+    target: '238'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '238'
+    target: '239'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '239'
+    target: '240'
     data_rate: 20Gbps
     delay: 6.58ms
-  - source: '176'
+  - source: '240'
+    target: '241'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '241'
+    target: '220'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '220'
     target: '10035'
     data_rate: 4Gbps
-    delay: 3.62ms
+    delay: 3.27ms

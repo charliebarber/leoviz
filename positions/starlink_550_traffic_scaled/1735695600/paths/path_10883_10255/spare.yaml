@@ -26,8 +26,6 @@ topology:
     name: '624'
   - id: 12
     name: '623'
-  - id: 13
-    name: '10255'
   links:
   - source: '10883'
     target: '616'
@@ -77,7 +75,3 @@ topology:
     target: '623'
     data_rate: 20Gbps
     delay: 6.56ms
-  - source: '623'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.05ms

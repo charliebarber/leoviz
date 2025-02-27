@@ -3,63 +3,81 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '519'
+    name: '759'
   - id: 2
-    name: '10681'
+    name: '760'
   - id: 3
-    name: '804'
-  - id: 4
     name: '782'
+  - id: 4
+    name: '804'
   - id: 5
-    name: '10953'
+    name: '826'
   - id: 6
-    name: '936'
+    name: '848'
   - id: 7
-    name: '937'
+    name: '870'
   - id: 8
-    name: '938'
+    name: '892'
   - id: 9
-    name: '939'
+    name: '914'
   - id: 10
+    name: '915'
+  - id: 11
+    name: '916'
+  - id: 12
+    name: '917'
+  - id: 13
     name: '10001'
   links:
   - source: '10179'
-    target: '519'
+    target: '759'
     data_rate: 4Gbps
-    delay: 3.42ms
-  - source: '519'
-    target: '10681'
-    data_rate: 4Gbps
-    delay: 3.59ms
-  - source: '10681'
-    target: '804'
-    data_rate: 4Gbps
-    delay: 3.38ms
-  - source: '804'
+    delay: 3.39ms
+  - source: '759'
+    target: '760'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '760'
     target: '782'
     data_rate: 20Gbps
-    delay: 2.08ms
+    delay: 4.48ms
   - source: '782'
-    target: '10953'
-    data_rate: 4Gbps
-    delay: 3.02ms
-  - source: '10953'
-    target: '936'
-    data_rate: 4Gbps
-    delay: 3.04ms
-  - source: '936'
-    target: '937'
+    target: '804'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '804'
+    target: '826'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '826'
+    target: '848'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '848'
+    target: '870'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '870'
+    target: '892'
+    data_rate: 20Gbps
+    delay: 2.08ms
+  - source: '892'
+    target: '914'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '914'
+    target: '915'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '937'
-    target: '938'
+  - source: '915'
+    target: '916'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '938'
-    target: '939'
+  - source: '916'
+    target: '917'
     data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '939'
+    delay: 6.56ms
+  - source: '917'
     target: '10001'
     data_rate: 4Gbps
-    delay: 2.32ms
+    delay: 1.88ms

@@ -3,57 +3,81 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '671'
+    name: '758'
   - id: 2
-    name: '649'
+    name: '759'
   - id: 3
-    name: '650'
+    name: '781'
   - id: 4
-    name: '10953'
+    name: '803'
   - id: 5
-    name: '935'
+    name: '825'
   - id: 6
-    name: '957'
+    name: '847'
   - id: 7
-    name: '958'
+    name: '869'
   - id: 8
-    name: '959'
+    name: '891'
   - id: 9
+    name: '913'
+  - id: 10
+    name: '914'
+  - id: 11
+    name: '915'
+  - id: 12
+    name: '916'
+  - id: 13
     name: '10001'
   links:
   - source: '10179'
-    target: '671'
+    target: '758'
     data_rate: 4Gbps
-    delay: 3.00ms
-  - source: '671'
-    target: '649'
-    data_rate: 20Gbps
-    delay: 2.07ms
-  - source: '649'
-    target: '650'
+    delay: 3.25ms
+  - source: '758'
+    target: '759'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '650'
-    target: '10953'
-    data_rate: 4Gbps
-    delay: 3.26ms
-  - source: '10953'
-    target: '935'
-    data_rate: 4Gbps
-    delay: 3.60ms
-  - source: '935'
-    target: '957'
+  - source: '759'
+    target: '781'
     data_rate: 20Gbps
     delay: 4.47ms
-  - source: '957'
-    target: '958'
+  - source: '781'
+    target: '803'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '803'
+    target: '825'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '825'
+    target: '847'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '847'
+    target: '869'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '869'
+    target: '891'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '891'
+    target: '913'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '913'
+    target: '914'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '958'
-    target: '959'
+  - source: '914'
+    target: '915'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '959'
+  - source: '915'
+    target: '916'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '916'
     target: '10001'
     data_rate: 4Gbps
-    delay: 3.39ms
+    delay: 2.25ms

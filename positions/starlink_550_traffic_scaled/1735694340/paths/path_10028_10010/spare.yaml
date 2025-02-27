@@ -7,15 +7,13 @@ topology:
   - id: 2
     name: '509'
   - id: 3
-    name: '508'
+    name: '487'
   - id: 4
-    name: '530'
+    name: '465'
   - id: 5
-    name: '529'
+    name: '464'
   - id: 6
-    name: '507'
-  - id: 7
-    name: '10010'
+    name: '486'
   links:
   - source: '10028'
     target: '510'
@@ -26,22 +24,18 @@ topology:
     data_rate: 20Gbps
     delay: 6.54ms
   - source: '509'
-    target: '508'
+    target: '487'
+    data_rate: 20Gbps
+    delay: 4.49ms
+  - source: '487'
+    target: '465'
+    data_rate: 20Gbps
+    delay: 2.10ms
+  - source: '465'
+    target: '464'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '508'
-    target: '530'
+  - source: '464'
+    target: '486'
     data_rate: 20Gbps
     delay: 2.22ms
-  - source: '530'
-    target: '529'
-    data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '529'
-    target: '507'
-    data_rate: 20Gbps
-    delay: 2.38ms
-  - source: '507'
-    target: '10010'
-    data_rate: 4Gbps
-    delay: 2.49ms

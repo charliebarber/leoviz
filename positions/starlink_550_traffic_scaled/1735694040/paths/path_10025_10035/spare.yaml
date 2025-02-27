@@ -1,3 +1,113 @@
 topology:
-  nodes: []
-  links: []
+  nodes:
+  - id: 0
+    name: '10025'
+  - id: 1
+    name: '403'
+  - id: 2
+    name: '404'
+  - id: 3
+    name: '405'
+  - id: 4
+    name: '406'
+  - id: 5
+    name: '428'
+  - id: 6
+    name: '450'
+  - id: 7
+    name: '451'
+  - id: 8
+    name: '452'
+  - id: 9
+    name: '430'
+  - id: 10
+    name: '408'
+  - id: 11
+    name: '386'
+  - id: 12
+    name: '364'
+  - id: 13
+    name: '342'
+  - id: 14
+    name: '320'
+  - id: 15
+    name: '298'
+  - id: 16
+    name: '276'
+  - id: 17
+    name: '254'
+  - id: 18
+    name: '10035'
+  links:
+  - source: '10025'
+    target: '403'
+    data_rate: 4Gbps
+    delay: 2.56ms
+  - source: '403'
+    target: '404'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '404'
+    target: '405'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '405'
+    target: '406'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '406'
+    target: '428'
+    data_rate: 20Gbps
+    delay: 4.76ms
+  - source: '428'
+    target: '450'
+    data_rate: 20Gbps
+    delay: 2.62ms
+  - source: '450'
+    target: '451'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '451'
+    target: '452'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '452'
+    target: '430'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '430'
+    target: '408'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '408'
+    target: '386'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '386'
+    target: '364'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '364'
+    target: '342'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '342'
+    target: '320'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '320'
+    target: '298'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '298'
+    target: '276'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '276'
+    target: '254'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '254'
+    target: '10035'
+    data_rate: 4Gbps
+    delay: 2.16ms

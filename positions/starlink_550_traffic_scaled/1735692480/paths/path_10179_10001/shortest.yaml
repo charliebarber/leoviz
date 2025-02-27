@@ -3,63 +3,75 @@ topology:
   - id: 0
     name: '10179'
   - id: 1
-    name: '540'
+    name: '758'
   - id: 2
-    name: '10277'
-  - id: 3
     name: '759'
+  - id: 3
+    name: '781'
   - id: 4
-    name: '737'
+    name: '803'
   - id: 5
-    name: '10953'
+    name: '825'
   - id: 6
-    name: '956'
+    name: '847'
   - id: 7
-    name: '957'
+    name: '869'
   - id: 8
-    name: '958'
+    name: '891'
   - id: 9
-    name: '959'
+    name: '892'
   - id: 10
+    name: '893'
+  - id: 11
+    name: '894'
+  - id: 12
     name: '10001'
   links:
   - source: '10179'
-    target: '540'
+    target: '758'
     data_rate: 4Gbps
-    delay: 3.54ms
-  - source: '540'
-    target: '10277'
-    data_rate: 4Gbps
-    delay: 2.76ms
-  - source: '10277'
+    delay: 3.62ms
+  - source: '758'
     target: '759'
-    data_rate: 4Gbps
-    delay: 3.57ms
+    data_rate: 20Gbps
+    delay: 6.55ms
   - source: '759'
-    target: '737'
+    target: '781'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '781'
+    target: '803'
     data_rate: 20Gbps
     delay: 2.07ms
-  - source: '737'
-    target: '10953'
-    data_rate: 4Gbps
-    delay: 3.18ms
-  - source: '10953'
-    target: '956'
-    data_rate: 4Gbps
-    delay: 3.21ms
-  - source: '956'
-    target: '957'
+  - source: '803'
+    target: '825'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '825'
+    target: '847'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '847'
+    target: '869'
+    data_rate: 20Gbps
+    delay: 4.47ms
+  - source: '869'
+    target: '891'
+    data_rate: 20Gbps
+    delay: 2.07ms
+  - source: '891'
+    target: '892'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '957'
-    target: '958'
+  - source: '892'
+    target: '893'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '958'
-    target: '959'
+  - source: '893'
+    target: '894'
     data_rate: 20Gbps
-    delay: 6.55ms
-  - source: '959'
+    delay: 6.56ms
+  - source: '894'
     target: '10001'
     data_rate: 4Gbps
-    delay: 2.42ms
+    delay: 3.15ms

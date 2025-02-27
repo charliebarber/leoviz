@@ -3,27 +3,27 @@ topology:
   - id: 0
     name: '10300'
   - id: 1
-    name: '386'
+    name: '408'
   - id: 2
-    name: '387'
-  - id: 3
     name: '409'
+  - id: 3
+    name: '387'
   - id: 4
-    name: '10065'
+    name: '409'
   links:
   - source: '10300'
-    target: '386'
+    target: '408'
     data_rate: 4Gbps
-    delay: 2.14ms
-  - source: '386'
+    delay: 2.50ms
+  - source: '408'
+    target: '409'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '409'
     target: '387'
     data_rate: 20Gbps
-    delay: 6.55ms
+    delay: 2.18ms
   - source: '387'
     target: '409'
     data_rate: 20Gbps
     delay: 2.18ms
-  - source: '409'
-    target: '10065'
-    data_rate: 4Gbps
-    delay: 2.44ms

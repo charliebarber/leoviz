@@ -23,11 +23,11 @@ topology:
   - id: 10
     name: '602'
   - id: 11
-    name: '624'
+    name: '580'
   - id: 12
-    name: '623'
+    name: '558'
   - id: 13
-    name: '10255'
+    name: '580'
   links:
   - source: '10883'
     target: '616'
@@ -70,14 +70,14 @@ topology:
     data_rate: 20Gbps
     delay: 6.55ms
   - source: '602'
-    target: '624'
+    target: '580'
+    data_rate: 20Gbps
+    delay: 4.57ms
+  - source: '580'
+    target: '558'
     data_rate: 20Gbps
     delay: 2.27ms
-  - source: '624'
-    target: '623'
+  - source: '558'
+    target: '580'
     data_rate: 20Gbps
-    delay: 6.56ms
-  - source: '623'
-    target: '10255'
-    data_rate: 4Gbps
-    delay: 2.99ms
+    delay: 2.27ms
