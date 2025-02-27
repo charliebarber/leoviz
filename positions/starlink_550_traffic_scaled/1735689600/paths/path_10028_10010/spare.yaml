@@ -5,16 +5,20 @@ topology:
   - id: 1
     name: '331'
   - id: 2
-    name: '353'
+    name: '309'
   - id: 3
-    name: '352'
+    name: '287'
   - id: 4
-    name: '374'
+    name: '265'
   - id: 5
-    name: '395'
+    name: '264'
   - id: 6
-    name: '373'
+    name: '285'
   - id: 7
+    name: '307'
+  - id: 8
+    name: '329'
+  - id: 9
     name: '10010'
   links:
   - source: '10028'
@@ -22,26 +26,34 @@ topology:
     data_rate: 4Gbps
     delay: 3.45ms
   - source: '331'
-    target: '353'
+    target: '309'
+    data_rate: 20Gbps
+    delay: 4.49ms
+  - source: '309'
+    target: '287'
     data_rate: 20Gbps
     delay: 2.10ms
-  - source: '353'
-    target: '352'
+  - source: '287'
+    target: '265'
+    data_rate: 20Gbps
+    delay: 4.49ms
+  - source: '265'
+    target: '264'
     data_rate: 20Gbps
     delay: 6.54ms
-  - source: '352'
-    target: '374'
-    data_rate: 20Gbps
-    delay: 4.47ms
-  - source: '374'
-    target: '395'
+  - source: '264'
+    target: '285'
     data_rate: 20Gbps
     delay: 6.55ms
-  - source: '395'
-    target: '373'
+  - source: '285'
+    target: '307'
     data_rate: 20Gbps
     delay: 4.51ms
-  - source: '373'
+  - source: '307'
+    target: '329'
+    data_rate: 20Gbps
+    delay: 2.14ms
+  - source: '329'
     target: '10010'
     data_rate: 4Gbps
-    delay: 3.10ms
+    delay: 3.53ms
