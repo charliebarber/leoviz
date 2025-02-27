@@ -1,0 +1,83 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10064'
+  - id: 1
+    name: '687'
+  - id: 2
+    name: '688'
+  - id: 3
+    name: '689'
+  - id: 4
+    name: '667'
+  - id: 5
+    name: '645'
+  - id: 6
+    name: '644'
+  - id: 7
+    name: '643'
+  - id: 8
+    name: '642'
+  - id: 9
+    name: '641'
+  - id: 10
+    name: '640'
+  - id: 11
+    name: '639'
+  - id: 12
+    name: '617'
+  - id: 13
+    name: '10028'
+  links:
+  - source: '10064'
+    target: '687'
+    data_rate: 4Gbps
+    delay: 3.28ms
+  - source: '687'
+    target: '688'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '688'
+    target: '689'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '689'
+    target: '667'
+    data_rate: 20Gbps
+    delay: 4.74ms
+  - source: '667'
+    target: '645'
+    data_rate: 20Gbps
+    delay: 2.58ms
+  - source: '645'
+    target: '644'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '644'
+    target: '643'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '643'
+    target: '642'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '642'
+    target: '641'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '641'
+    target: '640'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '640'
+    target: '639'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '639'
+    target: '617'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '617'
+    target: '10028'
+    data_rate: 4Gbps
+    delay: 3.21ms

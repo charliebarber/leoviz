@@ -1,0 +1,137 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10179'
+  - id: 1
+    name: '769'
+  - id: 2
+    name: '747'
+  - id: 3
+    name: '726'
+  - id: 4
+    name: '727'
+  - id: 5
+    name: '728'
+  - id: 6
+    name: '729'
+  - id: 7
+    name: '730'
+  - id: 8
+    name: '731'
+  - id: 9
+    name: '732'
+  - id: 10
+    name: '754'
+  - id: 11
+    name: '776'
+  - id: 12
+    name: '798'
+  - id: 13
+    name: '820'
+  - id: 14
+    name: '842'
+  - id: 15
+    name: '864'
+  - id: 16
+    name: '886'
+  - id: 17
+    name: '908'
+  - id: 18
+    name: '930'
+  - id: 19
+    name: '929'
+  - id: 20
+    name: '928'
+  - id: 21
+    name: '927'
+  - id: 22
+    name: '10001'
+  links:
+  - source: '10179'
+    target: '769'
+    data_rate: 4Gbps
+    delay: 2.64ms
+  - source: '769'
+    target: '747'
+    data_rate: 20Gbps
+    delay: 2.09ms
+  - source: '747'
+    target: '726'
+    data_rate: 20Gbps
+    delay: 6.54ms
+  - source: '726'
+    target: '727'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '727'
+    target: '728'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '728'
+    target: '729'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '729'
+    target: '730'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '730'
+    target: '731'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '731'
+    target: '732'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '732'
+    target: '754'
+    data_rate: 20Gbps
+    delay: 2.60ms
+  - source: '754'
+    target: '776'
+    data_rate: 20Gbps
+    delay: 4.75ms
+  - source: '776'
+    target: '798'
+    data_rate: 20Gbps
+    delay: 2.60ms
+  - source: '798'
+    target: '820'
+    data_rate: 20Gbps
+    delay: 4.75ms
+  - source: '820'
+    target: '842'
+    data_rate: 20Gbps
+    delay: 2.60ms
+  - source: '842'
+    target: '864'
+    data_rate: 20Gbps
+    delay: 4.75ms
+  - source: '864'
+    target: '886'
+    data_rate: 20Gbps
+    delay: 2.60ms
+  - source: '886'
+    target: '908'
+    data_rate: 20Gbps
+    delay: 4.75ms
+  - source: '908'
+    target: '930'
+    data_rate: 20Gbps
+    delay: 2.60ms
+  - source: '930'
+    target: '929'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '929'
+    target: '928'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '928'
+    target: '927'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '927'
+    target: '10001'
+    data_rate: 4Gbps
+    delay: 3.16ms

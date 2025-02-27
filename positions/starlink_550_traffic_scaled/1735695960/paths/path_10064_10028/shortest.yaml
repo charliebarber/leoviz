@@ -1,0 +1,59 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10064'
+  - id: 1
+    name: '707'
+  - id: 2
+    name: '706'
+  - id: 3
+    name: '705'
+  - id: 4
+    name: '704'
+  - id: 5
+    name: '725'
+  - id: 6
+    name: '10554'
+  - id: 7
+    name: '702'
+  - id: 8
+    name: '680'
+  - id: 9
+    name: '10028'
+  links:
+  - source: '10064'
+    target: '707'
+    data_rate: 4Gbps
+    delay: 2.00ms
+  - source: '707'
+    target: '706'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '706'
+    target: '705'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '705'
+    target: '704'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '704'
+    target: '725'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '725'
+    target: '10554'
+    data_rate: 4Gbps
+    delay: 2.91ms
+  - source: '10554'
+    target: '702'
+    data_rate: 4Gbps
+    delay: 2.54ms
+  - source: '702'
+    target: '680'
+    data_rate: 20Gbps
+    delay: 4.48ms
+  - source: '680'
+    target: '10028'
+    data_rate: 4Gbps
+    delay: 3.45ms

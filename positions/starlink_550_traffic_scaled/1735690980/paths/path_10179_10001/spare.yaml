@@ -1,0 +1,131 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10179'
+  - id: 1
+    name: '654'
+  - id: 2
+    name: '676'
+  - id: 3
+    name: '677'
+  - id: 4
+    name: '678'
+  - id: 5
+    name: '679'
+  - id: 6
+    name: '680'
+  - id: 7
+    name: '681'
+  - id: 8
+    name: '660'
+  - id: 9
+    name: '661'
+  - id: 10
+    name: '683'
+  - id: 11
+    name: '705'
+  - id: 12
+    name: '727'
+  - id: 13
+    name: '749'
+  - id: 14
+    name: '748'
+  - id: 15
+    name: '769'
+  - id: 16
+    name: '791'
+  - id: 17
+    name: '813'
+  - id: 18
+    name: '835'
+  - id: 19
+    name: '834'
+  - id: 20
+    name: '856'
+  - id: 21
+    name: '10001'
+  links:
+  - source: '10179'
+    target: '654'
+    data_rate: 4Gbps
+    delay: 2.86ms
+  - source: '654'
+    target: '676'
+    data_rate: 20Gbps
+    delay: 2.10ms
+  - source: '676'
+    target: '677'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '677'
+    target: '678'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '678'
+    target: '679'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '679'
+    target: '680'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '680'
+    target: '681'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '681'
+    target: '660'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '660'
+    target: '661'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '661'
+    target: '683'
+    data_rate: 20Gbps
+    delay: 4.76ms
+  - source: '683'
+    target: '705'
+    data_rate: 20Gbps
+    delay: 2.61ms
+  - source: '705'
+    target: '727'
+    data_rate: 20Gbps
+    delay: 4.76ms
+  - source: '727'
+    target: '749'
+    data_rate: 20Gbps
+    delay: 2.61ms
+  - source: '749'
+    target: '748'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '748'
+    target: '769'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '769'
+    target: '791'
+    data_rate: 20Gbps
+    delay: 4.73ms
+  - source: '791'
+    target: '813'
+    data_rate: 20Gbps
+    delay: 2.56ms
+  - source: '813'
+    target: '835'
+    data_rate: 20Gbps
+    delay: 4.73ms
+  - source: '835'
+    target: '834'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '834'
+    target: '856'
+    data_rate: 20Gbps
+    delay: 2.43ms
+  - source: '856'
+    target: '10001'
+    data_rate: 4Gbps
+    delay: 3.58ms

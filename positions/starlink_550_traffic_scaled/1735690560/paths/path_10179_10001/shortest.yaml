@@ -1,0 +1,53 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10179'
+  - id: 1
+    name: '678'
+  - id: 2
+    name: '679'
+  - id: 3
+    name: '10413'
+  - id: 4
+    name: '898'
+  - id: 5
+    name: '899'
+  - id: 6
+    name: '900'
+  - id: 7
+    name: '901'
+  - id: 8
+    name: '10001'
+  links:
+  - source: '10179'
+    target: '678'
+    data_rate: 4Gbps
+    delay: 3.56ms
+  - source: '678'
+    target: '679'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '679'
+    target: '10413'
+    data_rate: 4Gbps
+    delay: 3.12ms
+  - source: '10413'
+    target: '898'
+    data_rate: 4Gbps
+    delay: 3.18ms
+  - source: '898'
+    target: '899'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '899'
+    target: '900'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '900'
+    target: '901'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '901'
+    target: '10001'
+    data_rate: 4Gbps
+    delay: 3.06ms

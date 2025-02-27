@@ -378,7 +378,7 @@ class SatelliteNetwork:
             value = betweenness_dict.get((v1_orig, v2_orig), 0) or betweenness_dict.get((v2_orig, v1_orig), 0)
             self.betweenness[e] = value
 
-    def update_spare_edges(self, percentile: float = 25.0):
+    def update_spare_edges(self, percentile: float = 50.0):
         betweenness_values = [self.betweenness[e] for e in self.graph.edges()]
         if not betweenness_values:
             return

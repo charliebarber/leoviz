@@ -1,0 +1,47 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10300'
+  - id: 1
+    name: '1534'
+  - id: 2
+    name: '1533'
+  - id: 3
+    name: '1555'
+  - id: 4
+    name: '1577'
+  - id: 5
+    name: '15'
+  - id: 6
+    name: '16'
+  - id: 7
+    name: '10065'
+  links:
+  - source: '10300'
+    target: '1534'
+    data_rate: 4Gbps
+    delay: 3.24ms
+  - source: '1534'
+    target: '1533'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '1533'
+    target: '1555'
+    data_rate: 20Gbps
+    delay: 2.14ms
+  - source: '1555'
+    target: '1577'
+    data_rate: 20Gbps
+    delay: 4.51ms
+  - source: '1577'
+    target: '15'
+    data_rate: 20Gbps
+    delay: 2.14ms
+  - source: '15'
+    target: '16'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '16'
+    target: '10065'
+    data_rate: 4Gbps
+    delay: 2.27ms

@@ -84,8 +84,10 @@ void run(YAML::Node config, std::string outputDir) {
     p2p.SetQueue("ns3::DropTailQueue");
     p2p.SetDeviceAttribute("DataRate",
                            StringValue(link["data_rate"].as<std::string>()));
-    p2p.SetChannelAttribute("Delay",
-                            StringValue(link["delay"].as<std::string>()));
+    // p2p.SetChannelAttribute("Delay",
+                            // StringValue(link["delay"].as<std::string>()));
+    // Hard coded value to be 20Mbps for ISLs (not 20Gbps)
+    p2p.SetChannelAttribute("Delay", StringValue("20Mbps"));
 
     // Install devices for this link
     NetDeviceContainer linkDevices = p2p.Install(linkNodes);

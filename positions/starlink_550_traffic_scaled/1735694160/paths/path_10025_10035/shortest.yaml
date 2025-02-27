@@ -1,0 +1,65 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10025'
+  - id: 1
+    name: '795'
+  - id: 2
+    name: '10171'
+  - id: 3
+    name: '316'
+  - id: 4
+    name: '317'
+  - id: 5
+    name: '10690'
+  - id: 6
+    name: '274'
+  - id: 7
+    name: '10518'
+  - id: 8
+    name: '231'
+  - id: 9
+    name: '232'
+  - id: 10
+    name: '10035'
+  links:
+  - source: '10025'
+    target: '795'
+    data_rate: 4Gbps
+    delay: 2.38ms
+  - source: '795'
+    target: '10171'
+    data_rate: 4Gbps
+    delay: 3.32ms
+  - source: '10171'
+    target: '316'
+    data_rate: 4Gbps
+    delay: 3.42ms
+  - source: '316'
+    target: '317'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '317'
+    target: '10690'
+    data_rate: 4Gbps
+    delay: 2.45ms
+  - source: '10690'
+    target: '274'
+    data_rate: 4Gbps
+    delay: 3.52ms
+  - source: '274'
+    target: '10518'
+    data_rate: 4Gbps
+    delay: 3.53ms
+  - source: '10518'
+    target: '231'
+    data_rate: 4Gbps
+    delay: 2.48ms
+  - source: '231'
+    target: '232'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '232'
+    target: '10035'
+    data_rate: 4Gbps
+    delay: 2.75ms

@@ -1,0 +1,17 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10300'
+  - id: 1
+    name: '426'
+  - id: 2
+    name: '10065'
+  links:
+  - source: '10300'
+    target: '426'
+    data_rate: 4Gbps
+    delay: 3.16ms
+  - source: '426'
+    target: '10065'
+    data_rate: 4Gbps
+    delay: 3.39ms

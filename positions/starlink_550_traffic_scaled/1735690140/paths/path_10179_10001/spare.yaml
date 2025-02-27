@@ -1,0 +1,161 @@
+topology:
+  nodes:
+  - id: 0
+    name: '10179'
+  - id: 1
+    name: '570'
+  - id: 2
+    name: '571'
+  - id: 3
+    name: '550'
+  - id: 4
+    name: '551'
+  - id: 5
+    name: '552'
+  - id: 6
+    name: '553'
+  - id: 7
+    name: '554'
+  - id: 8
+    name: '555'
+  - id: 9
+    name: '577'
+  - id: 10
+    name: '599'
+  - id: 11
+    name: '621'
+  - id: 12
+    name: '643'
+  - id: 13
+    name: '665'
+  - id: 14
+    name: '687'
+  - id: 15
+    name: '709'
+  - id: 16
+    name: '731'
+  - id: 17
+    name: '753'
+  - id: 18
+    name: '752'
+  - id: 19
+    name: '751'
+  - id: 20
+    name: '750'
+  - id: 21
+    name: '772'
+  - id: 22
+    name: '794'
+  - id: 23
+    name: '816'
+  - id: 24
+    name: '815'
+  - id: 25
+    name: '837'
+  - id: 26
+    name: '10001'
+  links:
+  - source: '10179'
+    target: '570'
+    data_rate: 4Gbps
+    delay: 3.53ms
+  - source: '570'
+    target: '571'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '571'
+    target: '550'
+    data_rate: 20Gbps
+    delay: 6.55ms
+  - source: '550'
+    target: '551'
+    data_rate: 20Gbps
+    delay: 6.56ms
+  - source: '551'
+    target: '552'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '552'
+    target: '553'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '553'
+    target: '554'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '554'
+    target: '555'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '555'
+    target: '577'
+    data_rate: 20Gbps
+    delay: 2.55ms
+  - source: '577'
+    target: '599'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '599'
+    target: '621'
+    data_rate: 20Gbps
+    delay: 2.55ms
+  - source: '621'
+    target: '643'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '643'
+    target: '665'
+    data_rate: 20Gbps
+    delay: 2.55ms
+  - source: '665'
+    target: '687'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '687'
+    target: '709'
+    data_rate: 20Gbps
+    delay: 2.55ms
+  - source: '709'
+    target: '731'
+    data_rate: 20Gbps
+    delay: 4.72ms
+  - source: '731'
+    target: '753'
+    data_rate: 20Gbps
+    delay: 2.55ms
+  - source: '753'
+    target: '752'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '752'
+    target: '751'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '751'
+    target: '750'
+    data_rate: 20Gbps
+    delay: 6.58ms
+  - source: '750'
+    target: '772'
+    data_rate: 20Gbps
+    delay: 4.71ms
+  - source: '772'
+    target: '794'
+    data_rate: 20Gbps
+    delay: 2.54ms
+  - source: '794'
+    target: '816'
+    data_rate: 20Gbps
+    delay: 4.71ms
+  - source: '816'
+    target: '815'
+    data_rate: 20Gbps
+    delay: 6.57ms
+  - source: '815'
+    target: '837'
+    data_rate: 20Gbps
+    delay: 2.39ms
+  - source: '837'
+    target: '10001'
+    data_rate: 4Gbps
+    delay: 3.36ms
