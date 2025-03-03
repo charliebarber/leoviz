@@ -12,6 +12,30 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("LEO-Satellite-Sim");
 
+void SetupTCPConfig()
+{
+    // TCP recovery algorithm
+    Config::SetDefault(
+        "ns3::TcpL4Protocol::RecoveryType",
+        TypeIdValue(TypeId::LookupByName("ns3::TcpClassicRecovery")));
+    // Congestion control algorithm
+    Config::SetDefault("ns3::TcpL4Protocol::SocketType",
+                       StringValue("ns3::TcpLinuxReno"));
+    Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue(1073741824));
+    Config::SetDefault("ns3::TcpSocket::RcvBufSize", UintegerValue(1073741824));
+    // Initial congestion window
+    Config::SetDefault("ns3::TcpSocket::InitialCwnd", UintegerValue(1));
+    // Set delayed ack count
+    Config::SetDefault("ns3::TcpSocket::DelAckTimeout", TimeValue(Time("1ms")));
+    Config::SetDefault("ns3::TcpSocket::DelAckCount", UintegerValue(1));
+    // Set segment size of packet
+    Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue(1024));
+    // Enable/disable SACKs (disabled)
+    Config::SetDefault("ns3::TcpSocketBase::Sack", BooleanValue(false));
+    Config::SetDefault("ns3::TcpSocketBase::MinRto", TimeValue(Seconds(1.0)));
+}
+
+
 void run(YAML::Node config, std::string outputDir) {
   NodeContainer nodes;
 
@@ -21,19 +45,11 @@ void run(YAML::Node config, std::string outputDir) {
   Ptr<Node> srcNode;
   Ptr<Node> dstNode;
 
-  Config::SetDefault(
-      "ns3::TcpL4Protocol::RecoveryType",
-      TypeIdValue(TypeId::LookupByName("ns3::TcpClassicRecovery")));
-  Config::SetDefault("ns3::TcpL4Protocol::SocketType",
-                     StringValue("ns3::TcpLinuxReno"));
-  // Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue(1073741824));
-  // Config::SetDefault("ns3::TcpSocket::RcvBufSize", UintegerValue(1073741824));
-  // Set segment size of packet
-  Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue(1446));
-  // Enable/disable SACKs (disabled)
-  Config::SetDefault("ns3::TcpSocketBase::Sack", BooleanValue(true));
-
-  RngSeedManager::SetSeed(123456789);
+  // Config::SetDefault("ns3::TcpL4Protocol::SocketType", StringValue("ns3::TcpLinuxReno"));
+  // Config::SetDefault(
+      // "ns3::TcpL4Protocol::RecoveryType",
+      // TypeIdValue(TypeId::LookupByName("ns3::TcpClassicRecovery")));
+  SetupTCPConfig();
 
   // Read nodes from file and store in above data structures
   auto configNodes = config["topology"]["nodes"];
@@ -82,12 +98,13 @@ void run(YAML::Node config, std::string outputDir) {
     // Create Point to Point link with params from config
     PointToPointHelper p2p;
     p2p.SetQueue("ns3::DropTailQueue");
-    p2p.SetDeviceAttribute("DataRate",
-                           StringValue(link["data_rate"].as<std::string>()));
-    // p2p.SetChannelAttribute("Delay",
-                            // StringValue(link["delay"].as<std::string>()));
     // Hard coded value to be 20Mbps for ISLs (not 20Gbps)
-    p2p.SetChannelAttribute("Delay", StringValue("20Mbps"));
+    // p2p.SetDeviceAttribute("DataRate",
+                          //  StringValue(link["data_rate"].as<std::string>()));
+    p2p.SetDeviceAttribute("DataRate",
+                           StringValue("20Mbps"));
+    p2p.SetChannelAttribute("Delay",
+                            StringValue(link["delay"].as<std::string>()));
 
     // Install devices for this link
     NetDeviceContainer linkDevices = p2p.Install(linkNodes);
@@ -106,10 +123,14 @@ void run(YAML::Node config, std::string outputDir) {
     if (i == 0) {
       srcAddress = interface.GetAddress(0);
       p2p.EnablePcap(pcapDir + "src_", linkDevices.Get(0));
+      // Hard coded to 4Mbps (Not 4Gbps)
+      p2p.SetDeviceAttribute("DataRate", StringValue("4Mbps"));
     }
     if (i == configLinks.size() - 1) {
       dstAddress = interface.GetAddress(1);
       p2p.EnablePcap(pcapDir + "dst_", linkDevices.Get(1));
+      // Hard coded to 4Mbps (Not 4Gbps)
+      p2p.SetDeviceAttribute("DataRate", StringValue("4Mbps"));
     }
   }
 
@@ -117,11 +138,11 @@ void run(YAML::Node config, std::string outputDir) {
   Ipv4GlobalRoutingHelper::PopulateRoutingTables();
   uint16_t port = 50000;
   // Install TCP sender on source node
-  BulkSendHelper sendHelper("ns3::TcpSocketFactory",
+  OnOffHelper onOffHelper("ns3::TcpSocketFactory",
                             InetSocketAddress(dstAddress, port));
-  sendHelper.SetAttribute("MaxBytes", UintegerValue(0));
-  sendHelper.SetAttribute("SendSize", UintegerValue(1024));
-  auto tcpSender = sendHelper.Install(srcNode);
+  onOffHelper.SetAttribute("MaxBytes", UintegerValue(1000000));
+  // sendHelper.SetAttribute("SendSize", UintegerValue(1024));
+  auto tcpSender = onOffHelper.Install(srcNode);
 
   // Install packet sink on destination node, receiving on all interfaces
   // (0.0.0.0)
@@ -133,8 +154,8 @@ void run(YAML::Node config, std::string outputDir) {
   sinkApp.Start(Seconds(0.0));
   tcpSender.Start(Seconds(0.0));
   // sinkApp.Stop(Seconds(60.0));
-  // tcpSender.Stop(Seconds(60.0));
-  Simulator::Stop(Seconds(60.0));
+  tcpSender.Stop(Seconds(600.0));
+  Simulator::Stop(Seconds(600.0));
 
   Simulator::Run();
   Simulator::Destroy();
