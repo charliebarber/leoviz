@@ -67,18 +67,103 @@ class PathFinder:
                 distances[int(v)] = float('inf')
         return distances
 
-    def _get_path_candidates(self, current_node: Vertex, 
-                       visited_edges: Set[Tuple[int, int]], 
-                       max_candidates: int) -> List[PathCandidate]:
-        """Find path candidates to spare edges"""
-        # print(f"\nLooking for candidates from node {current_node}")
-        candidates = []
+    def _find_nearest_spare_edges(self, current_node: Vertex, max_candidates: int = 20) -> List[Tuple[Edge, Vertex, Vertex]]:
+        """Find the nearest spare edges to the current node based on network distance.
+        
+        Args:
+            current_node: The current node to find nearest spare edges for
+            max_candidates: Maximum number of spare edges to return
+            
+        Returns:
+            List of (edge, src, dst) tuples for the nearest spare edges
+        """
         current_node_id = int(current_node)
+        
+        # Calculate distance from current node to all spare edge endpoints
+        edge_distances = []
         
         for edge, src, dst in self.spare_edges:
             src_id = int(src)
             dst_id = int(dst)
             
+            # Skip if current node is one of the endpoints (these will be handled separately)
+            if current_node_id in (src_id, dst_id):
+                edge_distances.append((0, edge, src, dst))
+                continue
+                
+            # Try to find distance to source endpoint
+            try:
+                # Use unfiltered graph for distance calculation
+                self.network.graph.clear_filters()
+                
+                _, elist_to_src = shortest_path(
+                    self.network.graph,
+                    current_node,
+                    src,
+                    weights=self.network.delay
+                )
+                src_distance = sum(self.network.delay[e] for e in elist_to_src)
+                
+                # Calculate direct distance (using position if available, otherwise topological)
+                if hasattr(self.network, 'position'):
+                    # Calculate Euclidean distance if positions are available
+                    pos1 = self.network.position[current_node]
+                    pos2 = self.network.position[src]
+                    direct_distance = ((pos1[0] - pos2[0])**2 + (pos1[1] - pos2[1])**2 + (pos1[2] - pos2[2])**2)**0.5
+                else:
+                    # Use topological distance as fallback
+                    direct_distance = src_distance
+                    
+                edge_distances.append((direct_distance, edge, src, dst))
+                
+            except ValueError:
+                # No path to src, try dst
+                try:
+                    _, elist_to_dst = shortest_path(
+                        self.network.graph,
+                        current_node,
+                        dst,
+                        weights=self.network.delay
+                    )
+                    dst_distance = sum(self.network.delay[e] for e in elist_to_dst)
+                    
+                    # Calculate direct distance
+                    if hasattr(self.network, 'position'):
+                        pos1 = self.network.position[current_node]
+                        pos2 = self.network.position[dst]
+                        direct_distance = ((pos1[0] - pos2[0])**2 + (pos1[1] - pos2[1])**2 + (pos1[2] - pos2[2])**2)**0.5
+                    else:
+                        direct_distance = dst_distance
+                        
+                    edge_distances.append((direct_distance, edge, src, dst))
+                    
+                except ValueError:
+                    # No path to either endpoint
+                    continue
+        
+        # Sort by distance and take the closest ones
+        edge_distances.sort(key=lambda x: x[0])
+        nearest_edges = [(edge, src, dst) for _, edge, src, dst in edge_distances[:max_candidates]]
+        
+        # Reapply our filter if needed
+        if hasattr(self, 'edge_filter'):
+            self.network.graph.set_edge_filter(self.edge_filter)
+            
+        return nearest_edges
+
+    def _get_path_candidates(self, current_node: Vertex, 
+                   visited_edges: Set[Tuple[int, int]], 
+                   max_candidates: int) -> List[PathCandidate]:
+        """Find path candidates to spare edges"""
+        candidates = []
+        current_node_id = int(current_node)
+
+        nearest_spare_edges = self._find_nearest_spare_edges(current_node, max_candidates=20)
+        
+        for edge, src, dst in nearest_spare_edges:
+            src_id = int(src)
+            dst_id = int(dst)
+
             # Skip edges that would create a cycle
             edge_tuple = (src_id, dst_id)
             reverse_edge = (dst_id, src_id)
@@ -131,96 +216,134 @@ class PathFinder:
             else:
                 # Try routing to src first, then through the spare edge to dst
                 try:
-                    vlist_to_src, elist_to_src = shortest_path(
-                        self.network.graph,
-                        current_node,
-                        src,
-                        weights=self.network.delay
-                    )
+                    # Create a temporary filter that also excludes visited edges
+                    temp_filter = self.edge_filter.copy()
                     
-                    # Check path validity
-                    if not self._is_valid_satellite_path(vlist_to_src):
-                        continue
+                    # Also exclude any visited edges
+                    for e in self.network.graph.edges():
+                        e_tuple = (int(e.source()), int(e.target()))
+                        e_reverse = (int(e.target()), int(e.source()))
+                        if e_tuple in visited_edges or e_reverse in visited_edges:
+                            temp_filter[e] = False
+                    
+                    # Apply the filter
+                    self.network.graph.set_edge_filter(temp_filter)
+                    
+                    try:
+                        vlist_to_src, elist_to_src = shortest_path(
+                            self.network.graph,
+                            current_node,
+                            src,
+                            weights=self.network.delay
+                        )
                         
-                    # Ensure path doesn't use excluded or already visited edges
-                    src_path_edges = self._create_edge_set(elist_to_src)
-                    if src_path_edges & (self.excluded_edges | visited_edges):
-                        continue
+                        # Check path validity
+                        if not self._is_valid_satellite_path(vlist_to_src):
+                            raise ValueError("Path contains non-satellite nodes")
+                            
+                        # Create edge set for this path
+                        src_path_edges = self._create_edge_set(elist_to_src)
                         
-                    # Calculate path metrics
-                    src_path_delay = sum(self.network.delay[e] for e in elist_to_src)
-                    src_path_dist = sum(self.network.distance[e] for e in elist_to_src)
-                    
-                    # Add the spare edge to complete the path
-                    total_delay = src_path_delay + self.network.delay[edge]
-                    total_dist = src_path_dist + self.network.distance[edge]
-                    
-                    # Build full path including both src and dst of the spare edge
-                    full_vlist = list(vlist_to_src) + [dst]
-                    full_elist = list(elist_to_src) + [edge]
-                    full_path_edges = src_path_edges | {edge_tuple, reverse_edge}
-                    
-                    candidates.append(PathCandidate(
-                        endpoint=dst_id,  # We end at dst of the spare edge
-                        delay=total_delay,
-                        distance=total_dist,
-                        vertex_list=full_vlist,
-                        edge_list=full_elist,
-                        path_edges=full_path_edges
-                    ))
-                    
-                except ValueError:
-                    # No path to src
-                    pass
+                        # Calculate path metrics
+                        src_path_delay = sum(self.network.delay[e] for e in elist_to_src)
+                        src_path_dist = sum(self.network.distance[e] for e in elist_to_src)
+                        
+                        # Add the spare edge to complete the path
+                        total_delay = src_path_delay + self.network.delay[edge]
+                        total_dist = src_path_dist + self.network.distance[edge]
+                        
+                        # Build full path including both src and dst of the spare edge
+                        full_vlist = list(vlist_to_src) + [dst]
+                        full_elist = list(elist_to_src) + [edge]
+                        full_path_edges = src_path_edges | {edge_tuple, reverse_edge}
+                        
+                        candidates.append(PathCandidate(
+                            endpoint=dst_id,  # We end at dst of the spare edge
+                            delay=total_delay,
+                            distance=total_dist,
+                            vertex_list=full_vlist,
+                            edge_list=full_elist,
+                            path_edges=full_path_edges
+                        ))
+                        
+                    except ValueError:
+                        # No path to src or path invalid
+                        pass
+                    finally:
+                        # Clear our temporary filter
+                        self.network.graph.clear_filters()
+                        
+                except Exception as e:
+                    print(f"Error finding path to src: {e}")
+                    # Ensure filter is cleared in case of error
+                    self.network.graph.clear_filters()
                     
                 # Try routing to dst first, then through the spare edge to src
                 try:
-                    vlist_to_dst, elist_to_dst = shortest_path(
-                        self.network.graph,
-                        current_node,
-                        dst,
-                        weights=self.network.delay
-                    )
+                    # Create a temporary filter that also excludes visited edges
+                    temp_filter = self.edge_filter.copy()
                     
-                    # Check path validity
-                    if not self._is_valid_satellite_path(vlist_to_dst):
-                        continue
+                    # Also exclude any visited edges
+                    for e in self.network.graph.edges():
+                        e_tuple = (int(e.source()), int(e.target()))
+                        e_reverse = (int(e.target()), int(e.source()))
+                        if e_tuple in visited_edges or e_reverse in visited_edges:
+                            temp_filter[e] = False
+                    
+                    # Apply the filter
+                    self.network.graph.set_edge_filter(temp_filter)
+                    
+                    try:
+                        vlist_to_dst, elist_to_dst = shortest_path(
+                            self.network.graph,
+                            current_node,
+                            dst,
+                            weights=self.network.delay
+                        )
                         
-                    # Ensure path doesn't use excluded or already visited edges
-                    dst_path_edges = self._create_edge_set(elist_to_dst)
-                    if dst_path_edges & (self.excluded_edges | visited_edges):
-                        continue
+                        # Check path validity
+                        if not self._is_valid_satellite_path(vlist_to_dst):
+                            raise ValueError("Path contains non-satellite nodes")
+                            
+                        # Create edge set for this path
+                        dst_path_edges = self._create_edge_set(elist_to_dst)
                         
-                    # Calculate path metrics
-                    dst_path_delay = sum(self.network.delay[e] for e in elist_to_dst)
-                    dst_path_dist = sum(self.network.distance[e] for e in elist_to_dst)
-                    
-                    # Add the spare edge to complete the path
-                    total_delay = dst_path_delay + self.network.delay[edge]
-                    total_dist = dst_path_dist + self.network.distance[edge]
-                    
-                    # Build full path including both dst and src of the spare edge
-                    full_vlist = list(vlist_to_dst) + [src]
-                    full_elist = list(elist_to_dst) + [edge]
-                    full_path_edges = dst_path_edges | {edge_tuple, reverse_edge}
-                    
-                    candidates.append(PathCandidate(
-                        endpoint=src_id,  # We end at src of the spare edge
-                        delay=total_delay,
-                        distance=total_dist,
-                        vertex_list=full_vlist,
-                        edge_list=full_elist,
-                        path_edges=full_path_edges
-                    ))
-                    
-                except ValueError:
-                    # No path to dst
-                    pass
+                        # Calculate path metrics
+                        dst_path_delay = sum(self.network.delay[e] for e in elist_to_dst)
+                        dst_path_dist = sum(self.network.distance[e] for e in elist_to_dst)
+                        
+                        # Add the spare edge to complete the path
+                        total_delay = dst_path_delay + self.network.delay[edge]
+                        total_dist = dst_path_dist + self.network.distance[edge]
+                        
+                        # Build full path including both dst and src of the spare edge
+                        full_vlist = list(vlist_to_dst) + [src]
+                        full_elist = list(elist_to_dst) + [edge]
+                        full_path_edges = dst_path_edges | {edge_tuple, reverse_edge}
+                        
+                        candidates.append(PathCandidate(
+                            endpoint=src_id,  # We end at src of the spare edge
+                            delay=total_delay,
+                            distance=total_dist,
+                            vertex_list=full_vlist,
+                            edge_list=full_elist,
+                            path_edges=full_path_edges
+                        ))
+                        
+                    except ValueError:
+                        # No path to dst or path invalid
+                        pass
+                    finally:
+                        # Clear our temporary filter
+                        self.network.graph.clear_filters()
+                        
+                except Exception as e:
+                    print(f"Error finding path to dst: {e}")
+                    # Ensure filter is cleared in case of error
+                    self.network.graph.clear_filters()
         
         # Sort candidates by distance to target
-        # print(f"Found {len(candidates)} path candidates to spare edges")
         return sorted(candidates, key=lambda x: self.distances_to_target[x.endpoint])[:max_candidates]
-
 
     def _count_edge_types(self, path: List[int]) -> Tuple[int, int]:
         """Count the number of spare and normal edges in a path"""
@@ -243,8 +366,8 @@ class PathFinder:
         return spare_count, normal_count
 
     def _find_satellite_constrained_path(self, source_v: Vertex, target_v: Vertex, 
-                                   excluded_edges: Set[Tuple[int, int]] = None,
-                                   visited_edges: Set[Tuple[int, int]] = None) -> Optional[Tuple[List[Vertex], List[Edge]]]:
+                               excluded_edges: Set[Tuple[int, int]] = None,
+                               visited_edges: Set[Tuple[int, int]] = None) -> Optional[Tuple[List[Vertex], List[Edge]]]:
         """Find a path between nodes with satellite-only constraint in the middle segment.
         
         Args:
@@ -260,7 +383,7 @@ class PathFinder:
             excluded_edges = set()
         if visited_edges is None:
             visited_edges = set()
-            
+        
         # Handle special case: if source or target is a satellite
         is_source_satellite = self.network.vertex_type[source_v] == 'satellite'
         is_target_satellite = self.network.vertex_type[target_v] == 'satellite'
@@ -314,6 +437,9 @@ class PathFinder:
         best_path = None
         best_delay = float('inf')
         
+        # DEBUG: Count filtered edges
+        excluded_count = 0
+        
         for src_sat in source_satellites:
             for dst_sat in target_satellites:
                 # Skip if same satellite (already handled for ground stations)
@@ -335,152 +461,16 @@ class PathFinder:
                     if excluded_edges or visited_edges:
                         edge_tuple = (int(e.source()), int(e.target()))
                         reverse_tuple = (int(e.target()), int(e.source()))
-                        if ((edge_tuple in excluded_edges or reverse_tuple in excluded_edges) or
-                            (edge_tuple in visited_edges or reverse_tuple in visited_edges)):
-                            isl_filter[e] = False
-                
-                # Set the filters on the graph
-                self.network.graph.set_vertex_filter(satellite_filter)
-                self.network.graph.set_edge_filter(isl_filter)
-                
-                try:
-                    # Find path using the filtered graph
-                    sat_vlist, sat_elist = shortest_path(
-                        self.network.graph,
-                        src_sat,
-                        dst_sat,
-                        weights=self.network.delay
-                    )
-                    
-                    # Calculate satellite path delay
-                    sat_path_delay = sum(self.network.delay[e] for e in sat_elist)
-                    
-                    # Add source and target edges if needed
-                    total_delay = sat_path_delay
-                    complete_vlist = list(sat_vlist)
-                    complete_elist = list(sat_elist)
-                    
-                    if not is_source_satellite:
-                        source_edge = source_edges[int(src_sat)]
-                        total_delay += self.network.delay[source_edge]
-                        complete_vlist.insert(0, source_v)
-                        complete_elist.insert(0, source_edge)
-                    
-                    if not is_target_satellite:
-                        target_edge = target_edges[int(dst_sat)]
-                        total_delay += self.network.delay[target_edge]
-                        complete_vlist.append(target_v)
-                        complete_elist.append(target_edge)
-                    
-                    if total_delay < best_delay:
-                        best_path = (complete_vlist, complete_elist)
-                        best_delay = total_delay
                         
-                except ValueError:
-                    # No path between these satellites
-                    continue
-                finally:
-                    # Always clear the filters regardless of success/failure
-                    self.network.graph.clear_filters()
-        
-        return best_path
-
-    def _find_satellite_constrained_path(self, source_v: Vertex, target_v: Vertex, 
-                                   excluded_edges: Set[Tuple[int, int]] = None,
-                                   visited_edges: Set[Tuple[int, int]] = None) -> Optional[Tuple[List[Vertex], List[Edge]]]:
-        """Find a path between nodes with satellite-only constraint in the middle segment.
-        
-        Args:
-            source_v: Source vertex
-            target_v: Target vertex
-            excluded_edges: Set of edges to exclude from path
-            visited_edges: Set of already visited edges to exclude from path
-            
-        Returns:
-            Tuple of (vertex_list, edge_list) for the path, or None if no path found
-        """
-        if excluded_edges is None:
-            excluded_edges = set()
-        if visited_edges is None:
-            visited_edges = set()
-            
-        # Handle special case: if source or target is a satellite
-        is_source_satellite = self.network.vertex_type[source_v] == 'satellite'
-        is_target_satellite = self.network.vertex_type[target_v] == 'satellite'
-        
-        # Step 1: Get all visible satellites from source (if source is a ground station)
-        source_satellites = []
-        source_edges = {}
-        
-        if not is_source_satellite:
-            for e in source_v.all_edges():
-                other_v = e.target() if e.source() == source_v else e.source()
-                if (self.network.edge_type[e] == 'visibility' and 
-                    self.network.vertex_type[other_v] == 'satellite'):
-                    source_satellites.append(other_v)
-                    source_edges[int(other_v)] = e
-        else:
-            # Source is already a satellite
-            source_satellites = [source_v]
-            source_edges = {int(source_v): None}
-        
-        # Step 2: Get all visible satellites from target (if target is a ground station)
-        target_satellites = []
-        target_edges = {}
-        
-        if not is_target_satellite:
-            for e in target_v.all_edges():
-                other_v = e.target() if e.source() == target_v else e.source()
-                if (self.network.edge_type[e] == 'visibility' and 
-                    self.network.vertex_type[other_v] == 'satellite'):
-                    target_satellites.append(other_v)
-                    target_edges[int(other_v)] = e
-        else:
-            # Target is already a satellite
-            target_satellites = [target_v]
-            target_edges = {int(target_v): None}
-        
-        # Check for direct path through a single satellite
-        if not is_source_satellite and not is_target_satellite:
-            for src_sat in source_satellites:
-                for dst_sat in target_satellites:
-                    # If source and target connect to the same satellite, this is a direct path
-                    if int(src_sat) == int(dst_sat):
-                        source_edge = source_edges[int(src_sat)]
-                        target_edge = target_edges[int(dst_sat)]
-                        total_delay = self.network.delay[source_edge] + self.network.delay[target_edge]
-                        complete_vlist = [source_v, src_sat, target_v]
-                        complete_elist = [source_edge, target_edge]
-                        return complete_vlist, complete_elist
-        
-        # Step 3: For each pair of source-target satellites, find satellite-only path
-        best_path = None
-        best_delay = float('inf')
-        
-        for src_sat in source_satellites:
-            for dst_sat in target_satellites:
-                # Skip if same satellite (already handled for ground stations)
-                if int(src_sat) == int(dst_sat) and not is_source_satellite and not is_target_satellite:
-                    continue
-                    
-                # Create a satellite-only filter
-                satellite_filter = self.network.graph.new_vertex_property("bool")
-                for v in self.network.graph.vertices():
-                    satellite_filter[v] = self.network.vertex_type[v] == 'satellite'
-                
-                # Create an ISL-only filter
-                isl_filter = self.network.graph.new_edge_property("bool")
-                for e in self.network.graph.edges():
-                    # Accept only ISL edges
-                    isl_filter[e] = (self.network.edge_type[e] == 'ISL')
-                    
-                    # Also exclude any specified edges
-                    if excluded_edges or visited_edges:
-                        edge_tuple = (int(e.source()), int(e.target()))
-                        reverse_tuple = (int(e.target()), int(e.source()))
+                        # DEBUG: Check if this edge would be excluded
+                        was_excluded = False
+                        
                         if ((edge_tuple in excluded_edges or reverse_tuple in excluded_edges) or
                             (edge_tuple in visited_edges or reverse_tuple in visited_edges)):
                             isl_filter[e] = False
+                            was_excluded = True
+                            excluded_count += 1
+                
                 
                 # Set the filters on the graph
                 self.network.graph.set_vertex_filter(satellite_filter)
@@ -494,6 +484,19 @@ class PathFinder:
                         dst_sat,
                         weights=self.network.delay
                     )
+                    
+                    # DEBUG: Check if path contains any excluded edges
+                    path_edges = set()
+                    for i in range(len(sat_vlist) - 1):
+                        u = int(sat_vlist[i])
+                        v = int(sat_vlist[i + 1])
+                        path_edges.add((u, v))
+                        path_edges.add((v, u))
+                    
+                    overlap = path_edges.intersection(excluded_edges)
+                    if overlap:
+                        print(f"WARNING: Path contains {len(overlap)} excluded edges!")
+                        print(f"First overlapping edge: {next(iter(overlap))}")
                     
                     # Calculate satellite path delay
                     sat_path_delay = sum(self.network.delay[e] for e in sat_elist)
@@ -541,17 +544,32 @@ class PathFinder:
                         visited_edges: Set[Tuple[int, int]], 
                         excluded_edges: Set[Tuple[int, int]]) -> Optional[Tuple[List[Vertex], List[Edge]]]:
         """Attempt to find a path to the target with satellite-only constraint"""
-        # print(f"Trying to find path from {int(current_node)} to target")
-        
-        path_result = self._find_satellite_constrained_path(
-            current_node, target, excluded_edges, visited_edges)
-        
-        if path_result:
-            # print(f"Found valid constrained path to target with {len(path_result[0])} nodes")
+        try:
+            # Create a temporary filter that combines our main filter with visited edges
+            temp_filter = self.edge_filter.copy()
+            
+            # Also exclude any visited edges
+            for e in self.network.graph.edges():
+                e_tuple = (int(e.source()), int(e.target()))
+                e_reverse = (int(e.target()), int(e.source()))
+                if e_tuple in visited_edges or e_reverse in visited_edges:
+                    temp_filter[e] = False
+            
+            # Apply the combined filter
+            self.network.graph.set_edge_filter(temp_filter)
+            
+            # Find the path with the filter applied
+            path_result = self._find_satellite_constrained_path(
+                current_node, target, excluded_edges, visited_edges)
+            
             return path_result
-        else:
-            # print("No valid constrained path found")
+        
+        except Exception as e:
+            print(f"Error finding path to target: {e}")
             return None
+        finally:
+            # Always clear the temporary filter
+            self.network.graph.clear_filters()
 
     def _find_spare_edges(self) -> List[Tuple[Edge, Vertex, Vertex]]:
         """Find all spare edges in the network (satellite-to-satellite only)"""
@@ -565,11 +583,10 @@ class PathFinder:
                     spare_edges.append((e, src, dst))
         return spare_edges
 
-
     def find_paths_via_spare_edges(self, source: str, target: str, 
-                                 target_weight_factor: float = 1.25,
-                                 max_depth: int = 3,
-                                 max_candidates: int = 5) -> Tuple[List[int], List[str]]:
+                             target_weight_factor: float = 1.25,
+                             max_depth: int = 3,
+                             max_candidates: int = 5) -> Tuple[List[int], List[str]]:
         """Main entry point for finding paths via spare edges"""
         print(f"\nFinding path from GS {source} to GS {target}")
         print(f"Target weight factor: {target_weight_factor}")
@@ -597,8 +614,21 @@ class PathFinder:
                 self.target_delay = shortest_delay * target_weight_factor
                 self.delay_ceiling = self.target_delay * 2.0
 
-                # Get edges to exclude (from shortest path)
+                # Get edges to exclude (from shortest path) - only middle edges as intended
                 self.excluded_edges = self._create_edge_set(elist[1:-1])
+                
+                # Create a filtered graph view once - OPTIMIZATION
+                self.edge_filter = self.network.graph.new_edge_property("bool")
+                for e in self.network.graph.edges():
+                    self.edge_filter[e] = True  # Default to allowing all edges
+                    
+                    # Exclude edges from the excluded set
+                    e_tuple = (int(e.source()), int(e.target()))
+                    e_reverse = (int(e.target()), int(e.source()))
+                    if e_tuple in self.excluded_edges or e_reverse in self.excluded_edges:
+                        self.edge_filter[e] = False
+                
+                # We'll apply this filter when needed in the path finding methods
 
                 # Initialize search
                 self.paths_found = []
@@ -621,8 +651,8 @@ class PathFinder:
                     self.paths_found, 
                     self.target_delay, 
                     source, 
-                    target,  # Pass the target ID
-                    shortest_path_list,  # Pass the shortest path list
+                    target,
+                    shortest_path_list,
                     shortest_delay, 
                     shortest_dist
                 )
@@ -630,6 +660,13 @@ class PathFinder:
             except ValueError as e:
                 print(f"Error finding constrained path: {str(e)}")
                 return [], []
+            finally:
+                # Ensure we clean up the filter if it exists
+                if hasattr(self, 'edge_filter'):
+                    # Clear any applied filters
+                    self.network.graph.clear_filters()
+                    # Delete the filter attribute
+                    delattr(self, 'edge_filter')
                 
         except Exception as e:
             print(f"No path found between {source} and {target}: {str(e)}")

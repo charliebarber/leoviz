@@ -20,17 +20,17 @@ Best Spare Path:
 
 Alternative Paths:
   Path 1:
-    Delay: 0.058629s (+43.8%)
-    Distance: 17576429.52m (+43.8%)
-    Spare edges: 2/9 (22.2%)
-
-  Path 2:
-    Delay: 0.061121s (+49.9%)
-    Distance: 18323730.57m (+49.9%)
+    Delay: 0.061353s (+50.5%)
+    Distance: 18393223.00m (+50.5%)
     Spare edges: 2/11 (18.2%)
 
+  Path 2:
+    Delay: 0.064850s (+59.1%)
+    Distance: 19441554.18m (+59.1%)
+    Spare edges: 3/12 (25.0%)
+
   Path 3:
-    Delay: 0.065191s (+59.9%)
-    Distance: 19543720.88m (+59.9%)
-    Spare edges: 3/10 (30.0%)
+    Delay: 0.070957s (+74.0%)
+    Distance: 21272340.28m (+74.0%)
+    Spare edges: 3/13 (23.1%)
 

@@ -9,12 +9,12 @@ Shortest Path:
 Target delay: 0.008683 seconds
 
 Best Spare Path:
-  Delay: 0.012105 seconds
-  Distance: 3628923.47 meters
-  Delay increase: 74.3%
-  Distance increase: 74.3%
+  Delay: 0.014646 seconds
+  Distance: 4390620.46 meters
+  Delay increase: 110.8%
+  Distance increase: 110.8%
   Total edges: 2
   Spare edges: 1 (50.0%)
   Normal edges: 1 (50.0%)
-  Nodes: 10300 → 350 → 351 → 373
+  Nodes: 10300 → 350 → 351 → 329
 

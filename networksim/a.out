@@ -1,0 +1,1285 @@
+[0/2] Re-checking globbed directories...
+[1/2] Re-running CMake...
+-- Using default output directory /home/charlie/fyp/leoviz/networksim/ns-3.43/build
+-- CCache is enabled.
+-- [33mProceeding without cmake-format[0m
+-- find_external_library: SQLite3 was found.
+-- Could NOT find Boost (missing: Boost_INCLUDE_DIR) 
+-- GSL was found.
+-- [33mdocs: doxygen documentation not enabled due to missing dependencies: doxygen dia[0m
+-- Failed to locate sphinx-build executable (missing: SPHINX_EXECUTABLE) 
+-- [33mdocs: sphinx documentation not enabled due to missing dependencies: Sphinx pdflatex latexmk dia[0m
+-- Processing src/antenna
+-- Standard library Bessel function has been found
+-- Processing src/aodv
+-- Processing src/applications
+-- Processing src/bridge
+-- Processing src/brite
+-- [33mSkipping src/brite[0m
+-- Processing src/buildings
+-- Processing src/click
+-- [33mSkipping src/click[0m
+-- Processing src/config-store
+-- Processing src/core
+-- Boost Units are an optional feature of length.cc.  Ubuntu ships it within the libboost-dev package.  You may need to clean up the CMake cache after installing it to pass this check.
+-- Processing src/csma
+-- Processing src/csma-layout
+-- Processing src/dsdv
+-- Processing src/dsr
+-- Processing src/energy
+-- Processing src/fd-net-device
+-- Checking for module 'libdpdk'
+--   Package 'libdpdk' not found
+-- Processing src/flow-monitor
+-- Processing src/internet
+-- Processing src/internet-apps
+-- Processing src/lr-wpan
+-- Processing src/lte
+-- Processing src/mesh
+-- Processing src/mobility
+-- Processing src/netanim
+-- Processing src/network
+-- Processing src/nix-vector-routing
+-- Processing src/olsr
+-- Processing src/openflow
+-- [33mSkipping src/openflow[0m
+-- Processing src/point-to-point
+-- Processing src/point-to-point-layout
+-- Processing src/propagation
+-- Processing src/sixlowpan
+-- Processing src/spectrum
+-- Processing src/stats
+-- Processing src/tap-bridge
+-- Processing src/topology-read
+-- Processing src/traffic-control
+-- Processing src/uan
+-- Processing src/virtual-net-device
+-- Processing src/wifi
+-- Processing src/wimax
+-- find_external_library: YAMLCPP was found.
+-- ---- Summary of ns-3 settings:
+Build profile                 : default
+Build directory               : /home/charlie/fyp/leoviz/networksim/ns-3.43/build
+Build with runtime asserts    : [32mON[0m
+Build with runtime logging    : [32mON[0m
+Build version embedding       : OFF (not requested)
+BRITE Integration             : [31mOFF (Missing headers: "Brite.h" and missing libraries: "brite")[0m
+DES Metrics event collection  : OFF (not requested)
+DPDK NetDevice                : OFF (not requested)
+Emulation FdNetDevice         : [32mON[0m
+Examples                      : OFF (not requested)
+File descriptor NetDevice     : [32mON[0m
+GNU Scientific Library (GSL)  : [32mON[0m
+GtkConfigStore                : [31mOFF (Harfbuzz is required by GTK3 and was not found)[0m
+LibXml2 support               : [32mON[0m
+MPI Support                   : OFF (not requested)
+ns-3 Click Integration        : [31mOFF (Missing headers: "simclick.h" and missing libraries: "nsclick click")[0m
+ns-3 OpenFlow Integration     : [31mOFF (Missing headers: "openflow.h" and missing libraries: "openflow")[0m
+Netmap emulation FdNetDevice  : [31mOFF (missing dependency)[0m
+PyViz visualizer              : [31mOFF (Python Bindings are disabled)[0m
+Python Bindings               : OFF (not requested)
+SQLite support                : [32mON[0m
+Eigen3 support                : [31mOFF (Eigen was not found)[0m
+Tap Bridge                    : [32mON[0m
+Tap FdNetDevice               : [32mON[0m
+Tests                         : OFF (not requested)
+
+
+Modules configured to be built:
+antenna                   aodv                      applications              
+bridge                    buildings                 config-store              
+core                      csma                      csma-layout               
+dsdv                      dsr                       energy                    
+fd-net-device             flow-monitor              internet                  
+internet-apps             lr-wpan                   lte                       
+mesh                      mobility                  netanim                   
+network                   nix-vector-routing        olsr                      
+point-to-point            point-to-point-layout     propagation               
+sixlowpan                 spectrum                  stats                     
+tap-bridge                topology-read             traffic-control           
+uan                       virtual-net-device        wifi                      
+wimax                     
+
+Modules that cannot be built:
+brite                     click                     mpi                       
+openflow                  test                      visualizer                
+
+
+
+-- Configuring done (0.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/charlie/fyp/leoviz/networksim/ns-3.43/cmake-cache
+[0/4] Re-checking globbed directories...
+[1/6] Building CXX object scratch/satsim/CMakeFiles/scratch_satsim_satsim.dir/yaml-config.cc.o
+[2/6] Building CXX object scratch/satsim/CMakeFiles/scratch_satsim_satsim.dir/simulation-switch.cc.o
+[3/6] Linking CXX executable /home/charlie/fyp/leoviz/networksim/ns-3.43/build/scratch/satsim/ns3.43-satsim-default
+Node: 0, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 0, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.12.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.29.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 0, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.12.1       0.0.0.0         UG    -      -      -   1
+
+Node: 1, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 1, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.0.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.13.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 1, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.0.2        0.0.0.0         UG    -      -      -   1
+
+Node: 2, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 2, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.1.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.2.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 2, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.0.2        10.1.1.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.1.1        255.255.255.255 UH    -      -      -   1
+10.1.2.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.3.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.1.1        255.255.255.255 UH    -      -      -   1
+10.1.3.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.4.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.4.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.5.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.5.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.6.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.6.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.7.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.8.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.9.2        10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.10.2       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.11.2       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.2.2        255.255.255.255 UH    -      -      -   2
+10.1.0.0        10.1.1.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.1.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.1.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.1.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.3.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.3.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.2.2        255.255.255.0   UG    -      -      -   2
+
+Node: 3, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 3, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 3, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 4, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 4, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 4, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 5, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 5, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.0.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.1.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 5, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.0.1        10.1.0.1        255.255.255.255 UH    -      -      -   1
+10.1.1.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.2.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.2.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.3.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.3.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.4.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.4.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.5.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.5.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.6.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.6.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.7.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.8.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.9.2        10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.10.2       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.11.2       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.1.2        255.255.255.255 UH    -      -      -   2
+10.1.0.0        10.1.0.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.0.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.2.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.2.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.3.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.3.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.1.2        255.255.255.0   UG    -      -      -   2
+
+Node: 6, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 6, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.2.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.3.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 6, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.1.2        10.1.2.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.2.1        255.255.255.255 UH    -      -      -   1
+10.1.3.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.4.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.0.2        10.1.2.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.2.1        255.255.255.255 UH    -      -      -   1
+10.1.4.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.5.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.2.1        255.255.255.255 UH    -      -      -   1
+10.1.5.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.6.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.6.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.7.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.8.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.9.2        10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.10.2       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.11.2       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.3.2        255.255.255.255 UH    -      -      -   2
+10.1.1.0        10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.2.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.4.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.3.2        255.255.255.0   UG    -      -      -   2
+
+Node: 7, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 7, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 7, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 8, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 8, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 8, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 9, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 9, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 9, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 10, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 10, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 10, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 11, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 11, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 11, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 12, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 12, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 12, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 13, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 13, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.3.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.4.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 13, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.2.2        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.4.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.5.1        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.1.2        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.5.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.6.1        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.0.2        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.6.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.3.1        255.255.255.255 UH    -      -      -   1
+10.1.7.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.8.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.9.2        10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.10.2       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.11.2       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.4.2        255.255.255.255 UH    -      -      -   2
+10.1.2.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.3.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.5.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.4.2        255.255.255.0   UG    -      -      -   2
+
+Node: 14, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 14, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 14, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 15, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 15, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.4.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.5.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 15, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.3.2        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.5.2        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.6.1        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.2.2        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.6.2        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.1.2        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.7.2        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.0.2        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.8.2        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.4.1        255.255.255.255 UH    -      -      -   1
+10.1.9.2        10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.10.2       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.11.2       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.5.2        255.255.255.255 UH    -      -      -   2
+10.1.3.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.4.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.6.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.5.2        255.255.255.0   UG    -      -      -   2
+
+Node: 16, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 16, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 16, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 17, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 17, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.5.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.6.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 17, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.4.2        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.6.2        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.7.1        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.3.2        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.7.2        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.2.2        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.8.2        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.1.2        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.9.2        10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.0.2        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.10.2       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.5.1        255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.12.2       10.1.6.2        255.255.255.255 UH    -      -      -   2
+10.1.4.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.5.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.7.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.6.2        255.255.255.0   UG    -      -      -   2
+
+Node: 18, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 18, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 18, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 19, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 19, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.6.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.7.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 19, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.5.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.7.2        10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.8.1        10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.4.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.8.2        10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.3.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.9.2        10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.2.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.10.2       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.1.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.0.2        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.7.2        255.255.255.255 UH    -      -      -   2
+10.1.0.1        10.1.6.1        255.255.255.255 UH    -      -      -   1
+10.1.5.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.6.1        255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.8.0        10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.7.2        255.255.255.0   UG    -      -      -   2
+
+Node: 20, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 20, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 20, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 21, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 21, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.7.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.8.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 21, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.6.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.7.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.8.2        10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.9.1        10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.5.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.9.2        10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.4.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.10.2       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.3.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.2.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.8.2        255.255.255.255 UH    -      -      -   2
+10.1.1.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.0.2        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.0.1        10.1.7.1        255.255.255.255 UH    -      -      -   1
+10.1.6.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.7.1        255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.9.0        10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.8.2        255.255.255.0   UG    -      -      -   2
+
+Node: 22, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 22, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 22, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+
+Node: 23, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 23, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.8.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.9.0        0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 23, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.7.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.8.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.9.2        10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.10.1       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.6.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.7.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.10.2       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.5.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.4.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.9.2        255.255.255.255 UH    -      -      -   2
+10.1.3.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.2.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.1.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.0.2        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.0.1        10.1.8.1        255.255.255.255 UH    -      -      -   1
+10.1.7.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.8.1        255.255.255.0   UG    -      -      -   1
+10.1.9.0        10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.10.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.9.2        255.255.255.0   UG    -      -      -   2
+
+Node: 24, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 24, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.9.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.10.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 24, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.8.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.9.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.10.2       10.1.10.2       255.255.255.255 UH    -      -      -   2
+10.1.11.1       10.1.10.2       255.255.255.255 UH    -      -      -   2
+10.1.7.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.8.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.10.2       255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.10.2       255.255.255.255 UH    -      -      -   2
+10.1.6.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.7.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.10.2       255.255.255.255 UH    -      -      -   2
+10.1.5.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.4.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.3.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.2.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.1.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.0.2        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.0.1        10.1.9.1        255.255.255.255 UH    -      -      -   1
+10.1.8.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.9.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.9.1        255.255.255.0   UG    -      -      -   1
+10.1.10.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+10.1.11.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.10.2       255.255.255.0   UG    -      -      -   2
+
+Node: 25, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 25, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.10.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.11.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 25, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.9.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.10.1       10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.11.2       10.1.11.2       255.255.255.255 UH    -      -      -   2
+10.1.12.1       10.1.11.2       255.255.255.255 UH    -      -      -   2
+10.1.8.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.9.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.11.2       255.255.255.255 UH    -      -      -   2
+10.1.7.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.8.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.6.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.7.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.5.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.4.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.3.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.2.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.1.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.0.2        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.0.1        10.1.10.1       255.255.255.255 UH    -      -      -   1
+10.1.9.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.10.0       10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.9.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.10.1       255.255.255.0   UG    -      -      -   1
+10.1.11.0       10.1.11.2       255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.11.2       255.255.255.0   UG    -      -      -   2
+10.1.12.0       10.1.11.2       255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.11.2       255.255.255.0   UG    -      -      -   2
+
+Node: 26, Time: +0s, Local time: +0s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 26, Time: +0s, Local time: +0s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.11.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.12.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 26, Time: +0s, Local time: +0s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.1.10.2       10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.11.1       10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.12.2       10.1.12.2       255.255.255.255 UH    -      -      -   2
+10.1.9.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.10.1       10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.8.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.9.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.7.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.8.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.6.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.7.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.5.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.6.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.4.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.5.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.3.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.4.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.2.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.3.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.1.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.2.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.0.2        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.1.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.0.1        10.1.11.1       255.255.255.255 UH    -      -      -   1
+10.1.10.0       10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.11.0       10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.9.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.10.0       10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.9.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.8.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.7.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.6.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.5.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.4.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.3.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.2.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.1.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.0.0        10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.13.0       10.1.11.1       255.255.255.0   UG    -      -      -   1
+10.1.12.0       10.1.12.2       255.255.255.0   UG    -      -      -   2
+10.1.29.0       10.1.12.2       255.255.255.0   UG    -      -      -   2
+
+Node: 0, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 0, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.12.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.29.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 0, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.29.1       0.0.0.0         UG    -      -      -   2
+
+Node: 1, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 1, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.0.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.13.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 1, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.0.2        0.0.0.0         UG    -      -      -   1
+
+Node: 2, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 2, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.1.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 2, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 3, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 3, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.16.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 3, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 4, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 4, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.15.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 4, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 5, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 5, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.0.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.14.0       0.0.0.0         255.255.255.0   U     0      -      -   4
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 5, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.0.1        0.0.0.0         UG    -      -      -   1
+
+Node: 6, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 6, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.2.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.20.0       0.0.0.0         255.255.255.0   U     0      -      -   4
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 6, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 7, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 7, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.21.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 7, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 8, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 8, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.22.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 8, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 9, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 9, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.23.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 9, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 10, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 10, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.17.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 10, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 11, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 11, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.18.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 11, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 12, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 12, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.19.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 12, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 13, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 13, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.3.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 13, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 14, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 14, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.24.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 14, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 15, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 15, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.4.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 15, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 16, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 16, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.25.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 16, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 17, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 17, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.5.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 17, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 18, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 18, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.26.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 18, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 19, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 19, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.6.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 19, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 20, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 20, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.27.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 20, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 21, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 21, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.7.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 21, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 22, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 22, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.28.0       0.0.0.0         255.255.255.0   U     0      -      -   2
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 22, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 23, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 23, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.8.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 23, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 24, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 24, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.9.0        0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 24, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 25, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 25, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.10.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 25, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+
+Node: 26, Time: +10s, Local time: +10s, Ipv4ListRouting table
+  Priority: 0 Protocol: ns3::Ipv4StaticRouting
+Node: 26, Time: +10s, Local time: +10s, Ipv4StaticRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+127.0.0.0       0.0.0.0         255.0.0.0       U     0      -      -   0
+10.1.11.0       0.0.0.0         255.255.255.0   U     0      -      -   1
+10.1.29.0       0.0.0.0         255.255.255.0   U     0      -      -   4
+
+  Priority: -10 Protocol: ns3::Ipv4GlobalRouting
+Node: 26, Time: +10s, Local time: +10s, Ipv4GlobalRouting table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         10.1.29.2       0.0.0.0         UG    -      -      -   4
+
