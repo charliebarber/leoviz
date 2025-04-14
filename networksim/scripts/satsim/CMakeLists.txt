@@ -5,7 +5,7 @@ find_external_library(DEPENDENCY_NAME YAMLCPP
 build_exec(
     EXECNAME satsim
     SOURCE_FILES 
-        simulation.cc
+        simulation-switch.cc
         yaml-config.cc
     HEADER_FILES
         yaml-config.h
