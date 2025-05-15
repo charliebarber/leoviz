@@ -1,0 +1,36 @@
+Path Statistics: 409 to 777
+=============================================
+
+Shortest Path:
+  Delay: 0.095964 seconds
+  Distance: 28769318.85 meters
+  Nodes: 409 → 408 → 407 → 429 → 451 → 473 → 495 → 517 → 539 → 561 → 583 → 605 → 627 → 649 → 671 → 693 → 715 → 737 → 759 → 781 → 780 → 779 → 778 → 777
+
+Target delay: 0.191928 seconds
+
+Best Spare Path:
+  Delay: 0.147308 seconds
+  Distance: 44161707.55 meters
+  Delay increase: 53.5%
+  Distance increase: 53.5%
+  Total edges: 36
+  Spare edges: 32 (88.9%)
+  Normal edges: 4 (11.1%)
+  Nodes: 409 → 408 → 386 → 387 → 409 → 387 → 365 → 364 → 342 → 343 → 321 → 320 → 319 → 341 → 363 → 385 → 407 → 406 → 428 → 450 → 472 → 494 → 516 → 538 → 560 → 582 → 604 → 626 → 648 → 670 → 692 → 714 → 736 → 758 → 757 → 756 → 755 → 777
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.147120s (+53.3%)
+    Distance: 44105538.80m (+53.3%)
+    Spare edges: 33/36 (91.7%)
+
+  Path 2:
+    Delay: 0.142885s (+48.9%)
+    Distance: 42835806.36m (+48.9%)
+    Spare edges: 30/34 (88.2%)
+
+  Path 3:
+    Delay: 0.142806s (+48.8%)
+    Distance: 42812096.53m (+48.8%)
+    Spare edges: 30/34 (88.2%)
+

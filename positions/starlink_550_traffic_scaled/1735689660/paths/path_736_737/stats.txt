@@ -1,0 +1,20 @@
+Path Statistics: 736 to 737
+=============================================
+
+Shortest Path:
+  Delay: 0.006534 seconds
+  Distance: 1958747.65 meters
+  Nodes: 736 → 737
+
+Target delay: 0.013067 seconds
+
+Best Spare Path:
+  Delay: 0.017248 seconds
+  Distance: 5170858.54 meters
+  Delay increase: 164.0%
+  Distance increase: 164.0%
+  Total edges: 4
+  Spare edges: 3 (75.0%)
+  Normal edges: 1 (25.0%)
+  Nodes: 736 → 737 → 759 → 760 → 738 → 737
+

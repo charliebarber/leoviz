@@ -1,0 +1,36 @@
+Path Statistics: 439 to 530
+=============================================
+
+Shortest Path:
+  Delay: 0.034791 seconds
+  Distance: 10430170.91 meters
+  Nodes: 439 → 418 → 440 → 462 → 484 → 506 → 528 → 529 → 530
+
+Target delay: 0.069583 seconds
+
+Best Spare Path:
+  Delay: 0.068103 seconds
+  Distance: 20416743.37 meters
+  Delay increase: 95.7%
+  Distance increase: 95.7%
+  Total edges: 15
+  Spare edges: 5 (33.3%)
+  Normal edges: 10 (66.7%)
+  Nodes: 439 → 418 → 396 → 417 → 439 → 461 → 483 → 505 → 504 → 482 → 483 → 462 → 463 → 485 → 507 → 508 → 530
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.072784s (+109.2%)
+    Distance: 21819979.81m (+109.2%)
+    Spare edges: 6/15 (40.0%)
+
+  Path 2:
+    Delay: 0.072784s (+109.2%)
+    Distance: 21819979.81m (+109.2%)
+    Spare edges: 6/15 (40.0%)
+
+  Path 3:
+    Delay: 0.072826s (+109.3%)
+    Distance: 21832635.86m (+109.3%)
+    Spare edges: 6/17 (35.3%)
+

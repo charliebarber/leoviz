@@ -1,0 +1,36 @@
+Path Statistics: 442 to 803
+=============================================
+
+Shortest Path:
+  Delay: 0.111311 seconds
+  Distance: 33370096.79 meters
+  Nodes: 442 → 443 → 444 → 445 → 446 → 447 → 448 → 449 → 450 → 451 → 473 → 495 → 517 → 539 → 561 → 583 → 605 → 627 → 649 → 671 → 693 → 715 → 737 → 759 → 781 → 803
+
+Target delay: 0.222621 seconds
+
+Best Spare Path:
+  Delay: 0.154764 seconds
+  Distance: 46396995.93 meters
+  Delay increase: 39.0%
+  Distance increase: 39.0%
+  Total edges: 34
+  Spare edges: 29 (85.3%)
+  Normal edges: 5 (14.7%)
+  Nodes: 442 → 443 → 465 → 466 → 467 → 466 → 444 → 422 → 421 → 399 → 400 → 401 → 402 → 403 → 404 → 405 → 406 → 428 → 450 → 472 → 494 → 516 → 538 → 560 → 582 → 604 → 626 → 648 → 670 → 692 → 714 → 736 → 758 → 780 → 802 → 803
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.146055s (+31.2%)
+    Distance: 43786258.52m (+31.2%)
+    Spare edges: 32/34 (94.1%)
+
+  Path 2:
+    Delay: 0.141692s (+27.3%)
+    Distance: 42478119.18m (+27.3%)
+    Spare edges: 29/32 (90.6%)
+
+  Path 3:
+    Delay: 0.132936s (+19.4%)
+    Distance: 39853284.85m (+19.4%)
+    Spare edges: 31/32 (96.9%)
+

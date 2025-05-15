@@ -1,0 +1,36 @@
+Path Statistics: 360 to 661
+=============================================
+
+Shortest Path:
+  Delay: 0.092358 seconds
+  Distance: 27688115.93 meters
+  Nodes: 360 → 359 → 358 → 357 → 356 → 355 → 354 → 353 → 375 → 397 → 419 → 441 → 463 → 485 → 507 → 529 → 551 → 573 → 595 → 617 → 639 → 661
+
+Target delay: 0.184715 seconds
+
+Best Spare Path:
+  Delay: 0.119915 seconds
+  Distance: 35949500.67 meters
+  Delay increase: 29.8%
+  Distance increase: 29.8%
+  Total edges: 28
+  Spare edges: 11 (39.3%)
+  Normal edges: 17 (60.7%)
+  Nodes: 360 → 359 → 337 → 336 → 358 → 380 → 379 → 357 → 335 → 336 → 335 → 334 → 333 → 332 → 354 → 376 → 398 → 420 → 442 → 464 → 486 → 508 → 530 → 552 → 574 → 596 → 618 → 640 → 662 → 661
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.115621s (+25.2%)
+    Distance: 34662233.25m (+25.2%)
+    Spare edges: 12/26 (46.2%)
+
+  Path 2:
+    Delay: 0.115458s (+25.0%)
+    Distance: 34613428.11m (+25.0%)
+    Spare edges: 7/28 (25.0%)
+
+  Path 3:
+    Delay: 0.110857s (+20.0%)
+    Distance: 33234077.13m (+20.0%)
+    Spare edges: 9/26 (34.6%)
+

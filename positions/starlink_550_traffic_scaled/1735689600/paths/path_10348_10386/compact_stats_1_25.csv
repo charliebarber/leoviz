@@ -1,0 +1,2 @@
+source,target,shortest_path_delay,shortest_path_dist,target_delay,spare_path_found,spare_path_delay,spare_path_dist,spare_edges_count,normal_edges_count,duration_s,error
+10348,10386,0.07603367112470946,22794321.15724027,0.09504208890588683,True,0.09590215184842733,28750741.830129273,13,6,6.375727250997443,

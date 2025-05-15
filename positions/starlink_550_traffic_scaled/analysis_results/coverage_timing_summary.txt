@@ -1,0 +1,15 @@
+Spare Capacity Calculation Timing Summary
+=========================================
+
+Data sourced from: positions/starlink_550_traffic_scaled
+Number of timestamps analyzed: 110
+
+Timing Statistics (seconds):
+count    110.000000
+mean       4.251084
+std        0.167415
+min        3.893791
+25%        4.148548
+50%        4.236300
+75%        4.343418
+max        5.052438

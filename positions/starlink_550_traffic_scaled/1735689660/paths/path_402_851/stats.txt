@@ -1,0 +1,36 @@
+Path Statistics: 402 to 851
+=============================================
+
+Shortest Path:
+  Delay: 0.124267 seconds
+  Distance: 37254197.60 meters
+  Nodes: 402 → 403 → 404 → 405 → 406 → 407 → 429 → 451 → 473 → 495 → 517 → 539 → 561 → 583 → 605 → 627 → 649 → 671 → 693 → 715 → 737 → 759 → 781 → 803 → 825 → 847 → 848 → 849 → 850 → 851
+
+Target delay: 0.248533 seconds
+
+Best Spare Path:
+  Delay: 0.176318 seconds
+  Distance: 52858718.53 meters
+  Delay increase: 41.9%
+  Distance increase: 41.9%
+  Total edges: 40
+  Spare edges: 7 (17.5%)
+  Normal edges: 33 (82.5%)
+  Nodes: 402 → 403 → 381 → 380 → 402 → 401 → 400 → 378 → 356 → 355 → 354 → 353 → 352 → 374 → 396 → 418 → 440 → 462 → 484 → 506 → 528 → 550 → 572 → 594 → 616 → 638 → 660 → 682 → 704 → 726 → 748 → 770 → 792 → 814 → 836 → 857 → 856 → 855 → 854 → 853 → 852 → 851
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.173205s (+39.4%)
+    Distance: 51925629.17m (+39.4%)
+    Spare edges: 36/40 (90.0%)
+
+  Path 2:
+    Delay: 0.173205s (+39.4%)
+    Distance: 51925629.17m (+39.4%)
+    Spare edges: 36/40 (90.0%)
+
+  Path 3:
+    Delay: 0.171948s (+38.4%)
+    Distance: 51548759.01m (+38.4%)
+    Spare edges: 7/38 (18.4%)
+

@@ -1,0 +1,36 @@
+Path Statistics: 717 to 757
+=============================================
+
+Shortest Path:
+  Delay: 0.032682 seconds
+  Distance: 9797772.13 meters
+  Nodes: 717 → 716 → 715 → 737 → 759 → 758 → 757
+
+Target delay: 0.065364 seconds
+
+Best Spare Path:
+  Delay: 0.052848 seconds
+  Distance: 15843559.68 meters
+  Delay increase: 61.7%
+  Distance increase: 61.7%
+  Total edges: 11
+  Spare edges: 8 (72.7%)
+  Normal edges: 3 (27.3%)
+  Nodes: 717 → 716 → 694 → 693 → 692 → 714 → 736 → 735 → 713 → 712 → 734 → 735 → 757
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.052584s (+60.9%)
+    Distance: 15764323.43m (+60.9%)
+    Spare edges: 9/11 (81.8%)
+
+  Path 2:
+    Delay: 0.043578s (+33.3%)
+    Distance: 13064428.88m (+33.3%)
+    Spare edges: 7/9 (77.8%)
+
+  Path 3:
+    Delay: 0.041787s (+27.9%)
+    Distance: 12527418.84m (+27.9%)
+    Spare edges: 4/6 (66.7%)
+

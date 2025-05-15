@@ -1,0 +1,43 @@
+Checking visibility between 1000 ground stations and 1584 satellites...
+
+--- Profiling Results ---
+         2998543 function calls (2995299 primitive calls) in 0.832 seconds
+
+   Ordered by: cumulative time
+   List reduced from 368 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.001    0.001    0.587    0.587 /home/charlie/fyp/leoviz/skyfield/satellite_network.py:162(update_visibility_edges)
+        1    0.291    0.291    0.584    0.584 /home/charlie/fyp/leoviz/skyfield/satellite_network.py:115(find_visible_satellites)
+   534780    0.151    0.000    0.151    0.000 /usr/lib64/python3.13/site-packages/graph_tool/__init__.py:946(__getitem__)
+        1    0.006    0.006    0.136    0.136 /home/charlie/fyp/leoviz/skyfield/tle_parser.py:61(get_position_snapshot)
+        1    0.001    0.001    0.071    0.071 /home/charlie/fyp/leoviz/skyfield/tle_parser.py:46(create_satellites)
+     1584    0.001    0.000    0.068    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/sgp4lib.py:89(__init__)
+     1584    0.001    0.000    0.063    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/vectorlib.py:74(at)
+     1584    0.005    0.000    0.058    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/sgp4lib.py:204(_at)
+     1584    0.001    0.000    0.051    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/positionlib.py:846(subpoint)
+     1584    0.005    0.000    0.049    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/toposlib.py:227(geographic_position_of)
+     1584    0.003    0.000    0.045    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/sgp4/model.py:53(twoline2rv)
+     1584    0.009    0.000    0.042    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/sgp4/io.py:101(twoline2rv)
+     3168    0.028    0.000    0.036    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/sgp4/propagation.py:1691(sgp4)
+     1584    0.002    0.000    0.032    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/sgp4lib.py:169(_position_and_velocity_TEME_km)
+   380800    0.030    0.000    0.030    0.000 {built-in method math.sin}
+   383968    0.028    0.000    0.028    0.000 {built-in method math.cos}
+     1584    0.007    0.000    0.026    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/sgp4/propagation.py:1289(sgp4init)
+     1584    0.012    0.000    0.026    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/toposlib.py:260(_compute_latitude)
+   360568    0.024    0.000    0.024    0.000 {built-in method math.sqrt}
+     1584    0.001    0.000    0.023    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/sgp4/model.py:103(sgp4)
+   349704    0.023    0.000    0.023    0.000 {built-in method math.radians}
+        1    0.000    0.000    0.022    0.022 /home/charlie/fyp/leoviz/skyfield/satellite_network.py:23(__init__)
+        1    0.003    0.003    0.021    0.021 /home/charlie/fyp/leoviz/skyfield/satellite_network.py:79(_load_isls)
+     1584    0.001    0.000    0.020    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/timelib.py:160(utc)
+     1585    0.006    0.000    0.018    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/timelib.py:183(_utc)
+   177908    0.017    0.000    0.017    0.000 {built-in method math.atan2}
+     1584    0.002    0.000    0.015    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/toposlib.py:71(__init__)
+   174740    0.015    0.000    0.015    0.000 {built-in method math.asin}
+     1584    0.001    0.000    0.013    0.000 /home/charlie/fyp/leoviz/skyfield/dev/lib64/python3.13/site-packages/skyfield/positionlib.py:435(frame_xyz)
+     9504    0.012    0.000    0.012    0.000 {built-in method builtins.round}
+
+
+
+Profiling stats saved to: ../positions/starlink_550_traffic_scaled/1735689600/profile_1735689600.prof

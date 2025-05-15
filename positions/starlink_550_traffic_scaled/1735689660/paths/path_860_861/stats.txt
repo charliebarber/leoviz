@@ -1,0 +1,26 @@
+Path Statistics: 860 to 861
+=============================================
+
+Shortest Path:
+  Delay: 0.006565 seconds
+  Distance: 1968195.86 meters
+  Nodes: 860 → 861
+
+Target delay: 0.013130 seconds
+
+Best Spare Path:
+  Delay: 0.018114 seconds
+  Distance: 5430575.58 meters
+  Delay increase: 175.9%
+  Distance increase: 175.9%
+  Total edges: 4
+  Spare edges: 4 (100.0%)
+  Normal edges: 0 (0.0%)
+  Nodes: 860 → 861 → 883 → 884 → 862 → 861
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.022518s (+243.0%)
+    Distance: 6750869.81m (+243.0%)
+    Spare edges: 4/4 (100.0%)
+

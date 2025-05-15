@@ -1,0 +1,21 @@
+\begin{table}[htbp]
+\centering
+\caption{Spare Path Delay Performance Summary for City Pairs across 110 Timestamps}
+\label{tab:city_pair_delay_summary}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{@{} llrrrrrrrrr @{}}
+\toprule
+Source & Destination & \multicolumn{3}{c}{Avg Delay Delta (ms)} & \multicolumn{3}{c}{Std Dev Delay Delta (ms)} & \multicolumn{3}{c}{Within 5% Target Rate (%)} \\
+\cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11}
+ &  & 1.25 & 1.5 & 2.0 & 1.25 & 1.5 & 2.0 & 1.25 & 1.5 & 2.0 \\
+\midrule
+10025 & 10035 & -0.0005 & -0.0001 & -0.0203 & 0.0023 & 0.0040 & 0.0099 & 83.6\% & 94.5\% & 10.0\% \\
+10028 & 10010 & 0.0004 & -0.0002 & -0.0007 & 0.0004 & 0.0007 & 0.0031 & 100.0\% & 96.4\% & 26.4\% \\
+10064 & 10028 & 0.0005 & -0.0001 & -0.0091 & 0.0012 & 0.0010 & 0.0058 & 94.4\% & 98.1\% & 20.4\% \\
+10179 & 10001 & 0.0000 & 0.0001 & -0.0164 & 0.0030 & 0.0020 & 0.0067 & 89.3\% & 98.1\% & 6.8\% \\
+10300 & 10065 & 0.0024 & 0.0020 & 0.0019 & 0.0032 & 0.0039 & 0.0029 & 43.4\% & 3.2\% & 25.2\% \\
+10883 & 10255 & 0.0081 & 0.0003 & -0.0052 & 0.0090 & 0.0046 & 0.0098 & 22.4\% & 83.5\% & 70.6\% \\
+\bottomrule
+\end{tabular}
+}
+\end{table}

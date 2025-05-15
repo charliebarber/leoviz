@@ -1,0 +1,36 @@
+Path Statistics: 335 to 442
+=============================================
+
+Shortest Path:
+  Delay: 0.035626 seconds
+  Distance: 10680337.70 meters
+  Nodes: 335 → 334 → 333 → 332 → 354 → 376 → 398 → 420 → 442
+
+Target delay: 0.071252 seconds
+
+Best Spare Path:
+  Delay: 0.066789 seconds
+  Distance: 20022733.07 meters
+  Delay increase: 87.5%
+  Distance increase: 87.5%
+  Total edges: 15
+  Spare edges: 4 (26.7%)
+  Normal edges: 11 (73.3%)
+  Nodes: 335 → 334 → 312 → 313 → 335 → 313 → 291 → 290 → 289 → 311 → 333 → 355 → 377 → 399 → 421 → 443 → 442
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.065698s (+84.4%)
+    Distance: 19695797.76m (+84.4%)
+    Spare edges: 6/13 (46.2%)
+
+  Path 2:
+    Delay: 0.065694s (+84.4%)
+    Distance: 19694444.96m (+84.4%)
+    Spare edges: 6/13 (46.2%)
+
+  Path 3:
+    Delay: 0.065689s (+84.4%)
+    Distance: 19692955.53m (+84.4%)
+    Spare edges: 6/13 (46.2%)
+

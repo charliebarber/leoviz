@@ -1,0 +1,36 @@
+Path Statistics: 887 to 943
+=============================================
+
+Shortest Path:
+  Delay: 0.072170 seconds
+  Distance: 21636035.68 meters
+  Nodes: 887 → 886 → 885 → 884 → 883 → 882 → 881 → 880 → 902 → 924 → 945 → 944 → 943
+
+Target delay: 0.144340 seconds
+
+Best Spare Path:
+  Delay: 0.098702 seconds
+  Distance: 29590138.63 meters
+  Delay increase: 36.8%
+  Distance increase: 36.8%
+  Total edges: 19
+  Spare edges: 12 (63.2%)
+  Normal edges: 7 (36.8%)
+  Nodes: 887 → 886 → 908 → 907 → 885 → 863 → 862 → 884 → 906 → 928 → 929 → 928 → 927 → 926 → 925 → 903 → 902 → 923 → 922 → 921 → 943
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.098467s (+36.4%)
+    Distance: 29519605.64m (+36.4%)
+    Spare edges: 11/19 (57.9%)
+
+  Path 2:
+    Delay: 0.085304s (+18.2%)
+    Distance: 25573477.47m (+18.2%)
+    Spare edges: 9/17 (52.9%)
+
+  Path 3:
+    Delay: 0.085304s (+18.2%)
+    Distance: 25573477.47m (+18.2%)
+    Spare edges: 9/17 (52.9%)
+

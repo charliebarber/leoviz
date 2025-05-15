@@ -24,14 +24,14 @@ void SetupTCPConfig()
     Config::SetDefault("ns3::TcpSocket::SndBufSize", UintegerValue(1073741824));
     Config::SetDefault("ns3::TcpSocket::RcvBufSize", UintegerValue(1073741824));
     // Initial congestion window
-    Config::SetDefault("ns3::TcpSocket::InitialCwnd", UintegerValue(1));
+    Config::SetDefault("ns3::TcpSocket::InitialCwnd", UintegerValue(10));
     // Set delayed ack count
     Config::SetDefault("ns3::TcpSocket::DelAckTimeout", TimeValue(Time("1ms")));
     Config::SetDefault("ns3::TcpSocket::DelAckCount", UintegerValue(1));
     // Set segment size of packet
     Config::SetDefault("ns3::TcpSocket::SegmentSize", UintegerValue(1024));
     // Enable/disable SACKs (disabled)
-    Config::SetDefault("ns3::TcpSocketBase::Sack", BooleanValue(false));
+    Config::SetDefault("ns3::TcpSocketBase::Sack", BooleanValue(true));
     Config::SetDefault("ns3::TcpSocketBase::MinRto", TimeValue(Seconds(1.0)));
 }
 
@@ -50,8 +50,8 @@ void run(YAML::Node shortestConfig, YAML::Node spareConfig, double switchPathsTi
       // "ns3::TcpL4Protocol::RecoveryType",
       // TypeIdValue(TypeId::LookupByName("ns3::TcpClassicRecovery")));
   SetupTCPConfig();
-  Config::SetDefault("ns3::DropTailQueue<Packet>::MaxSize",
-                       StringValue("10p"));
+  // Config::SetDefault("ns3::DropTailQueue<Packet>::MaxSize",
+                      //  StringValue("10p"));
 
   // Read nodes from file and store in above data structures
   auto shortestConfigNodes = shortestConfig["topology"]["nodes"];
@@ -230,17 +230,19 @@ void run(YAML::Node shortestConfig, YAML::Node spareConfig, double switchPathsTi
   Ipv4GlobalRoutingHelper::PopulateRoutingTables();
   uint16_t port = 50000;
   // Install TCP sender on source node
-  OnOffHelper onOffHelper("ns3::TcpSocketFactory",
+  BulkSendHelper bulkSendHelper("ns3::TcpSocketFactory",
                             InetSocketAddress(dstAddress, port));
-  onOffHelper.SetAttribute("MaxBytes", UintegerValue(1000000));
+  bulkSendHelper.SetAttribute("MaxBytes", UintegerValue(1000000000));
   // sendHelper.SetAttribute("SendSize", UintegerValue(1024));
-  auto tcpSender = onOffHelper.Install(srcNode);
+  auto tcpSender = bulkSendHelper.Install(srcNode);
 
   // Install packet sink on destination node, receiving on all interfaces
   // (0.0.0.0)
   Address sinkLocalAddress(InetSocketAddress(Ipv4Address::GetAny(), port));
   PacketSinkHelper sinkHelper("ns3::TcpSocketFactory", sinkLocalAddress);
   ApplicationContainer sinkApp = sinkHelper.Install(dstNode);
+
+  Ptr<OutputStreamWrapper> routingStream = Create<OutputStreamWrapper>(&std::cout);
 
   // Add downing of interface at scheduled time
   Simulator::Schedule(Seconds(switchPathsTime), [shortestPathInterface_0, shortestPathInterface_1, sparePathInterface_0, sparePathInterface_1](){
@@ -250,6 +252,9 @@ void run(YAML::Node shortestConfig, YAML::Node spareConfig, double switchPathsTi
     sparePathInterface_1.first->SetUp(sparePathInterface_1.second);
     Ipv4GlobalRoutingHelper::RecomputeRoutingTables();
   });
+
+  // Ipv4GlobalRoutingHelper::PrintRoutingTableAllAt(Seconds(0), routingStream);
+  // Ipv4GlobalRoutingHelper::PrintRoutingTableAllAt(Seconds(switchPathsTime + 1.0), routingStream);
 
   // Start/End TCP sender and sink at the same time
   sinkApp.Start(Seconds(0.0));
@@ -274,7 +279,18 @@ int main(int argc, char* argv[]) {
   cmd.AddValue("output-dir", "Output directory", outputDir);
   cmd.Parse(argc, argv);
 
-  LogComponentEnableAll(LOG_LEVEL_INFO);
+  
+  // LogComponentEnableAll(LOG_LEVEL_ERROR);
+  // LogComponentEnableAll(LOG_LEVEL_INFO);
+  LogComponentDisableAll(LOG_LEVEL_ALL);
+  // ns3::LogComponentEnable("TcpLinuxReno", ns3::LOG_LEVEL_ALL);
+  // ns3::LogComponentEnable("TcpLinuxReno", ns3::LOG_PREFIX_TIME);
+  // ns3::LogComponentEnable("TcpSocketBase", ns3::LOG_LEVEL_DEBUG);
+  // ns3::LogComponentEnable("TcpSocketBase", ns3::LOG_PREFIX_TIME);
+  // ns3::LogComponentEnable("TcpL4Protocol", ns3::LOG_LEVEL_DEBUG);
+  // ns3::LogComponentEnable("TcpL4Protocol", ns3::LOG_PREFIX_TIME);
+  // ns3::LogComponentEnable("TcpTxBuffer", ns3::LOG_LEVEL_INFO);
+  // ns3::LogComponentEnable("TcpTxBuffer", ns3::LOG_PREFIX_TIME);
 
   try {
     auto shortestConfig = ReadYamlConfig(shortestConfigFile);

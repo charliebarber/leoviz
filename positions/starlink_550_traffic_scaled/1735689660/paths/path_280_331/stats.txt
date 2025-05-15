@@ -1,0 +1,36 @@
+Path Statistics: 280 to 331
+=============================================
+
+Shortest Path:
+  Delay: 0.056961 seconds
+  Distance: 17076473.81 meters
+  Nodes: 280 → 281 → 282 → 283 → 284 → 285 → 264 → 286 → 308 → 330 → 331
+
+Target delay: 0.113922 seconds
+
+Best Spare Path:
+  Delay: 0.068737 seconds
+  Distance: 20606877.80 meters
+  Delay increase: 20.7%
+  Distance increase: 20.7%
+  Total edges: 15
+  Spare edges: 9 (60.0%)
+  Normal edges: 6 (40.0%)
+  Nodes: 280 → 281 → 259 → 260 → 261 → 239 → 217 → 218 → 219 → 198 → 220 → 242 → 264 → 265 → 287 → 309 → 331
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.068735s (+20.7%)
+    Distance: 20606134.43m (+20.7%)
+    Spare edges: 9/13 (69.2%)
+
+  Path 2:
+    Delay: 0.065113s (+14.3%)
+    Distance: 19520386.09m (+14.3%)
+    Spare edges: 9/13 (69.2%)
+
+  Path 3:
+    Delay: 0.064281s (+12.9%)
+    Distance: 19271019.49m (+12.9%)
+    Spare edges: 8/13 (61.5%)
+

@@ -6,31 +6,31 @@ Shortest Path:
   Distance: 12211224.10 meters
   Nodes: 10064 → 657 → 656 → 655 → 654 → 653 → 675 → 674 → 10028
 
-Target delay: 0.050915 seconds
+Target delay: 0.081465 seconds
 
 Best Spare Path:
-  Delay: 0.057211 seconds
-  Distance: 17151403.13 meters
-  Delay increase: 40.5%
-  Distance increase: 40.5%
-  Total edges: 11
-  Spare edges: 2 (18.2%)
-  Normal edges: 9 (81.8%)
-  Nodes: 10064 → 657 → 658 → 680 → 679 → 678 → 677 → 676 → 654 → 632 → 631 → 630 → 10028
+  Delay: 0.080482 seconds
+  Distance: 24127763.18 meters
+  Delay increase: 97.6%
+  Distance increase: 97.6%
+  Total edges: 15
+  Spare edges: 4 (26.7%)
+  Normal edges: 11 (73.3%)
+  Nodes: 10064 → 657 → 679 → 680 → 702 → 703 → 681 → 659 → 658 → 657 → 635 → 634 → 633 → 632 → 631 → 630 → 10028
 
 Alternative Paths:
   Path 1:
-    Delay: 0.046855s (+15.0%)
-    Distance: 14046822.47m (+15.0%)
-    Spare edges: 1/9 (11.1%)
+    Delay: 0.078403s (+92.5%)
+    Distance: 23504730.03m (+92.5%)
+    Spare edges: 4/15 (26.7%)
 
   Path 2:
-    Delay: 0.057850s (+42.0%)
-    Distance: 17343047.36m (+42.0%)
-    Spare edges: 2/11 (18.2%)
+    Delay: 0.074275s (+82.3%)
+    Distance: 22267122.23m (+82.3%)
+    Spare edges: 3/15 (20.0%)
 
   Path 3:
-    Delay: 0.065576s (+61.0%)
-    Distance: 19659091.08m (+61.0%)
-    Spare edges: 2/12 (16.7%)
+    Delay: 0.074253s (+82.3%)
+    Distance: 22260515.88m (+82.3%)
+    Spare edges: 3/15 (20.0%)
 

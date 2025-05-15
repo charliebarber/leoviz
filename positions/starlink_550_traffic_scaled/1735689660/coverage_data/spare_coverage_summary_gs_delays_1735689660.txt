@@ -1,0 +1,24 @@
+Spare Capacity Coverage Summary
+===============================
+
+Total Ground Stations Analyzed: 1000
+Reachable Stations: 1000
+Unreachable Stations: 0
+
+Reachable Stations Delay Statistics (ms):
+count    1000.000000
+mean        2.338992
+std         1.047164
+min         1.698104
+25%         1.875972
+50%         2.063384
+75%         2.356395
+max         9.814969
+
+Best Covered Stations (Minimum Delay):
+  name gs_id  delay_ms
+Kaduna 10467  1.698104
+
+Worst Covered Stations (Maximum Delay):
+    name gs_id  delay_ms
+Helsinki 10401  9.814969

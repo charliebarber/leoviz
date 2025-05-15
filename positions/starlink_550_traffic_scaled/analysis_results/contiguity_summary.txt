@@ -1,0 +1,59 @@
+Spare Area Contiguity Summary
+=============================
+
+Data sourced from: positions/starlink_550_traffic_scaled
+Number of timestamps analyzed: 110
+
+Average Per-Timestamp Spare Component Size (Edges) Statistics:
+avg_num_components    1261.527273
+avg_median_size          1.031818
+avg_max_size          1879.972727
+
+Structural Summary Statistics (Across Timestamps):
+                                  Mean  Std. Dev.
+Number of Components            1261.5       10.2
+Largest Component Size (Edges)  1880.0       31.2
+Median Component Size (Edges)      1.0        0.2
+Smallest Component Size (Edges)    1.0        0.0
+
+Overall Contiguity Metrics Statistics (per Timestamp):
+
+--- num_spare_components ---
+count     110.000000
+mean     1261.527273
+std        10.180670
+min      1236.000000
+25%      1254.250000
+50%      1261.500000
+75%      1270.000000
+max      1286.000000
+
+--- largest_component_fraction ---
+count    110.000000
+mean       0.959678
+std        0.008574
+min        0.939846
+25%        0.954581
+50%        0.959477
+75%        0.966418
+max        0.979747
+
+--- fragmentation_ratio ---
+count    110.000000
+mean       0.644114
+std        0.011138
+min        0.620482
+25%        0.635674
+50%        0.644076
+75%        0.651280
+max        0.673127
+
+--- global_clustering_coefficient ---
+count    110.0
+mean       0.0
+std        0.0
+min        0.0
+25%        0.0
+50%        0.0
+75%        0.0
+max        0.0

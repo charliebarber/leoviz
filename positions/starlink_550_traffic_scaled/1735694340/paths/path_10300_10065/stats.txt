@@ -6,7 +6,7 @@ Shortest Path:
   Distance: 1993578.23 meters
   Nodes: 10300 → 442 → 10065
 
-Target delay: 0.008312 seconds
+Target delay: 0.013300 seconds
 
 Best Spare Path:
   Delay: 0.008625 seconds
@@ -28,4 +28,9 @@ Alternative Paths:
     Delay: 0.007809s (+17.4%)
     Distance: 2341087.96m (+17.4%)
     Spare edges: 1/1 (100.0%)
+
+  Path 3:
+    Delay: 0.020095s (+202.2%)
+    Distance: 6024390.60m (+202.2%)
+    Spare edges: 3/5 (60.0%)
 

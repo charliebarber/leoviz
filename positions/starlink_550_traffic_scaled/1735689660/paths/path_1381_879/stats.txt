@@ -1,0 +1,36 @@
+Path Statistics: 1381 to 879
+=============================================
+
+Shortest Path:
+  Delay: 0.101063 seconds
+  Distance: 30297871.98 meters
+  Nodes: 1381 → 1382 → 1383 → 1384 → 1385 → 1363 → 1341 → 1319 → 1297 → 1275 → 1253 → 1231 → 1209 → 1187 → 1165 → 1143 → 1121 → 1099 → 1077 → 1055 → 1033 → 1011 → 989 → 967 → 945 → 923 → 901 → 879
+
+Target delay: 0.202126 seconds
+
+Best Spare Path:
+  Delay: 0.137421 seconds
+  Distance: 41197918.58 meters
+  Delay increase: 36.0%
+  Distance increase: 36.0%
+  Total edges: 34
+  Spare edges: 15 (44.1%)
+  Normal edges: 19 (55.9%)
+  Nodes: 1381 → 1382 → 1404 → 1426 → 1425 → 1424 → 1425 → 1403 → 1404 → 1405 → 1406 → 1384 → 1362 → 1340 → 1318 → 1296 → 1274 → 1252 → 1230 → 1208 → 1186 → 1164 → 1142 → 1120 → 1098 → 1076 → 1054 → 1032 → 1010 → 988 → 966 → 944 → 922 → 900 → 878 → 879
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.133196s (+31.8%)
+    Distance: 39931026.71m (+31.8%)
+    Spare edges: 15/34 (44.1%)
+
+  Path 2:
+    Delay: 0.124259s (+23.0%)
+    Distance: 37251763.85m (+23.0%)
+    Spare edges: 13/32 (40.6%)
+
+  Path 3:
+    Delay: 0.124259s (+23.0%)
+    Distance: 37251763.85m (+23.0%)
+    Spare edges: 13/32 (40.6%)
+

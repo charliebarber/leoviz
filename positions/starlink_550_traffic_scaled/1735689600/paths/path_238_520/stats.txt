@@ -1,0 +1,36 @@
+Path Statistics: 238 to 520
+=============================================
+
+Shortest Path:
+  Delay: 0.072933 seconds
+  Distance: 21864699.88 meters
+  Nodes: 238 → 237 → 236 → 235 → 234 → 256 → 278 → 300 → 322 → 344 → 366 → 388 → 410 → 432 → 454 → 476 → 498 → 520
+
+Target delay: 0.109399 seconds
+
+Best Spare Path:
+  Delay: 0.106328 seconds
+  Distance: 31876207.52 meters
+  Delay increase: 45.8%
+  Distance increase: 45.8%
+  Total edges: 22
+  Spare edges: 22 (100.0%)
+  Normal edges: 0 (0.0%)
+  Nodes: 238 → 237 → 238 → 239 → 261 → 260 → 282 → 304 → 326 → 327 → 326 → 325 → 324 → 323 → 322 → 344 → 366 → 388 → 410 → 432 → 454 → 476 → 498 → 520
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.102233s (+40.2%)
+    Distance: 30648714.75m (+40.2%)
+    Spare edges: 22/22 (100.0%)
+
+  Path 2:
+    Delay: 0.105642s (+44.8%)
+    Distance: 31670563.02m (+44.8%)
+    Spare edges: 20/22 (90.9%)
+
+  Path 3:
+    Delay: 0.093288s (+27.9%)
+    Distance: 27967179.86m (+27.9%)
+    Spare edges: 20/20 (100.0%)
+

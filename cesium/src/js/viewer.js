@@ -8,7 +8,7 @@ import "cesium/Build/Cesium/Widgets/widgets.css";
 
 // CesiumJS has a default access token built in but it's not meant for active use.
 // please set your own access token can be found at: https://cesium.com/ion/tokens.
-// Ion.defaultAccessToken = "YOUR TOKEN HERE";
+// Ion.defaultAccessToken = "";
 
 
 export const setupViewer = () => {

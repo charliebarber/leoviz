@@ -1,0 +1,36 @@
+Path Statistics: 549 to 671
+=============================================
+
+Shortest Path:
+  Delay: 0.085207 seconds
+  Distance: 25544268.81 meters
+  Nodes: 549 → 548 → 547 → 546 → 545 → 544 → 543 → 542 → 541 → 540 → 539 → 561 → 583 → 605 → 627 → 649 → 671
+
+Target delay: 0.170413 seconds
+
+Best Spare Path:
+  Delay: 0.102279 seconds
+  Distance: 30662588.93 meters
+  Delay increase: 20.0%
+  Distance increase: 20.0%
+  Total edges: 21
+  Spare edges: 14 (66.7%)
+  Normal edges: 7 (33.3%)
+  Nodes: 549 → 548 → 526 → 525 → 524 → 546 → 524 → 523 → 522 → 523 → 545 → 567 → 566 → 565 → 564 → 563 → 562 → 584 → 606 → 628 → 650 → 672 → 671
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.102033s (+19.7%)
+    Distance: 30588617.90m (+19.7%)
+    Spare edges: 19/21 (90.5%)
+
+  Path 2:
+    Delay: 0.097906s (+14.9%)
+    Distance: 29351441.37m (+14.9%)
+    Spare edges: 17/21 (81.0%)
+
+  Path 3:
+    Delay: 0.097826s (+14.8%)
+    Distance: 29327583.02m (+14.8%)
+    Spare edges: 19/21 (90.5%)
+

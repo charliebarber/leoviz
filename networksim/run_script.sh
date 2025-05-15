@@ -27,7 +27,7 @@ fi
 
 # Run the script with any additional arguments
 cd ns-3.43
-./ns3 run "${NAME}" $@
+NS_LOG="" ./ns3 run "${NAME}" $@
 
 # Clean up based on type
 cd ..  # Go back to parent directory

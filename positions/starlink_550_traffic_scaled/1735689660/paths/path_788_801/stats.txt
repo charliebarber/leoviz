@@ -1,0 +1,36 @@
+Path Statistics: 788 to 801
+=============================================
+
+Shortest Path:
+  Delay: 0.061087 seconds
+  Distance: 18313324.14 meters
+  Nodes: 788 → 787 → 786 → 785 → 784 → 783 → 782 → 781 → 803 → 802 → 801
+
+Target delay: 0.122173 seconds
+
+Best Spare Path:
+  Delay: 0.083118 seconds
+  Distance: 24918057.09 meters
+  Delay increase: 36.1%
+  Distance increase: 36.1%
+  Total edges: 15
+  Spare edges: 9 (60.0%)
+  Normal edges: 6 (40.0%)
+  Nodes: 788 → 787 → 765 → 764 → 786 → 808 → 830 → 808 → 807 → 806 → 805 → 804 → 803 → 825 → 824 → 823 → 801
+
+Alternative Paths:
+  Path 1:
+    Delay: 0.083046s (+35.9%)
+    Distance: 24896431.11m (+35.9%)
+    Spare edges: 8/17 (47.1%)
+
+  Path 2:
+    Delay: 0.083040s (+35.9%)
+    Distance: 24894662.54m (+35.9%)
+    Spare edges: 7/17 (41.2%)
+
+  Path 3:
+    Delay: 0.082502s (+35.1%)
+    Distance: 24733337.10m (+35.1%)
+    Spare edges: 7/17 (41.2%)
+
